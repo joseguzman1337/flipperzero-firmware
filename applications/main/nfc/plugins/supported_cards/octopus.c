@@ -3,7 +3,7 @@
 #include "nfc_supported_card_plugin.h"
 #include <flipper_application.h>
 #include <nfc/protocols/felica/felica.h>
-#include <bit_lib.h>
+#include <lib/toolbox/bit_buffer.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

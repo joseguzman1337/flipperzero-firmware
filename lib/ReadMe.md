@@ -37,7 +37,7 @@
 - `stm32wb_cmsis`       - STM32WB series CMSIS headers, extends CMSIS Core
 - `stm32wb_copro`       - STM32WB Copro library: contains WPAN and radio co-processor firmware
 - `stm32wb_hal`         - STM32WB HAL library, extends STM32WB CMSIS and provides HAL
-- `storage_util`        - Storage and path helpers 
+- `storage_util`        - Storage and path helpers
 - `subghz`              - Subghz library, used by SubGhz application
 - `u8g2`                - u8g2 graphics library, used by GUI subsystem
 - `update_util`         - update utilities library, used by updater

@@ -25,10 +25,7 @@ bool octopus_parse(const NfcDevice* device, FuriString* parsed_data) {
     for(uint16_t i = 0; i < simple_array_get_count(felica_data->public_blocks); i++) {
         FelicaPublicBlock* public_block = simple_array_get(felica_data->public_blocks, i);
         if(public_block->service_code == SERVICE_CODE_OCTOPUS_IN_LE) {
-            uint32_t unsigned_balance = ((uint32_t)public_block->block.data[0] << 24) +
-                                        ((uint32_t)public_block->block.data[1] << 16) +
-                                        ((uint32_t)public_block->block.data[2] << 8) +
-                                        (uint32_t)public_block->block.data[3];
+            uint32_t unsigned_balance = bit_buffer_read_be_u32(public_block->block.data);
 
             int64_t older_balance_dimes = (int64_t)unsigned_balance - 350; // pre-2017, in dimes
             int64_t newer_balance_dimes = (int64_t)unsigned_balance - 500; // post-2017, in dimes

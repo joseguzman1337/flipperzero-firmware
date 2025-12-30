@@ -303,7 +303,7 @@ void nfc_logger_stop(NfcLogger* instance) {
         path_append(str, furi_string_get_cstr(instance->filename));
         furi_string_cat_str(str, ".bin");
 
-        FS_Error status = storage_common_copy(
+        FS_Error status = storage_common_rename(
             instance->storage, furi_string_get_cstr(temp_file_path), furi_string_get_cstr(str));
         ///TODO: Maybe rename with storage_common_rename(instance->storage) would be better?
 

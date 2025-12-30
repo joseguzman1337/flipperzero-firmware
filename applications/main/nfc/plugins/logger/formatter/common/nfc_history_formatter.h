@@ -11,7 +11,7 @@
 extern "C" {
 #endif
 
-void nfc_histroy_format_annotation(
+void nfc_history_format_annotation(
     const NfcFormatter* instance,
     const NfcPacket* request,
     const NfcHistory* history,

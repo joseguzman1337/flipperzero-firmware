@@ -166,7 +166,7 @@ bool nfc_transaction_read(Stream* stream, NfcTransaction** transaction_ptr) {
     furi_assert(transaction_ptr);
 
     bool result = false;
-    NfcTransaction* transaction = malloc(sizeof(NfcTransaction));
+    NfcTransaction* transaction = calloc(1, sizeof(NfcTransaction));
     do {
         size_t bytes_read =
             stream_read(stream, (uint8_t*)transaction, sizeof(NfcTransactionHeader));

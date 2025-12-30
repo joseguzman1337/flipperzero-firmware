@@ -47,35 +47,22 @@ bool octopus_parse(const NfcDevice* device, FuriString* parsed_data) {
             uint32_t newer_dollars = (uint32_t)(newer_abs_dimes / 10);
             uint8_t newer_dimes = (uint8_t)(newer_abs_dimes % 10);
 
-            furi_string_printf(parsed_data, "\e#Octopus Card\n");
-
-            furi_string_cat_str(
-                parsed_data, "::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n");
-
-            furi_string_cat_printf(
-                parsed_data, "If this card was issued \nafter 2017 October 1st:\n");
-            furi_string_cat_printf(
+            furi_string_printf(
                 parsed_data,
-                "Balance: %sHK$ %ld.%01d0\n",
+                "\e#Octopus Card\n"
+                "::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n"
+                "If this card was issued \nafter 2017 October 1st:\n"
+                "Balance: %sHK$ %lu.%01u0\n"
+                "::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n"
+                "If this card was issued \nbefore 2017 October 1st\n or is a tourist card:\n"
+                "Balance: %sHK$ %lu.%01u0\n"
+                "::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::",
                 newer_is_negative ? "-" : "",
                 newer_dollars,
-                newer_dimes);
-
-            furi_string_cat_str(
-                parsed_data, "::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n");
-
-            furi_string_cat_printf(
-                parsed_data,
-                "If this card was issued \nbefore 2017 October 1st\n or is a tourist card:\n");
-            furi_string_cat_printf(
-                parsed_data,
-                "Balance: %sHK$ %ld.%01d0\n",
+                newer_dimes,
                 older_is_negative ? "-" : "",
                 older_dollars,
                 older_dimes);
-
-            furi_string_cat_str(
-                parsed_data, "::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::");
 
             parsed = true;
             break; // Octopus only has one public block

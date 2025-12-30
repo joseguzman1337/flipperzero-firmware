@@ -1,9 +1,9 @@
 #include "../test.h" // IWYU pragma: keep
 
 #include <compress/compress.h>
-#include <md5_calc.h>
-#include <tar/tar_archive.h>
-#include <dir_walk.h>
+#include <storage_util/md5_calc.h>
+#include <compress/tar/tar_archive.h>
+#include <storage_util/dir_walk.h>
 
 #include <furi.h>
 #include <furi_hal.h>

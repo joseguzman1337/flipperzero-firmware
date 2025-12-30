@@ -171,7 +171,7 @@ void table_printf_row_array(Table* table, FuriString* output, FuriString** data,
     FuriString* format = furi_string_alloc();
     FuriString* split_buffer = furi_string_alloc();
 
-    size_t* split_indexes = malloc(sizeof(size_t) * table->column_count);
+    size_t* split_indexes = calloc(table->column_count, sizeof(size_t));
 
     uint8_t lines_per_row = 1;
     for(uint8_t line = 0; line < lines_per_row; line++) {

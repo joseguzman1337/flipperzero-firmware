@@ -33,10 +33,8 @@ bool octopus_parse(const NfcDevice* device, FuriString* parsed_data) {
             bool older_is_negative = older_balance_dimes < 0;
             bool newer_is_negative = newer_balance_dimes < 0;
 
-            uint64_t older_abs_dimes =
-                (uint64_t)(older_is_negative ? -older_balance_dimes : older_balance_dimes);
-            uint64_t newer_abs_dimes =
-                (uint64_t)(newer_is_negative ? -newer_balance_dimes : newer_balance_dimes);
+            uint64_t older_abs_dimes = llabs(older_balance_dimes);
+            uint64_t newer_abs_dimes = llabs(newer_balance_dimes);
 
             uint32_t older_dollars = (uint32_t)(older_abs_dimes / 10);
             uint8_t older_dimes = (uint8_t)(older_abs_dimes % 10);

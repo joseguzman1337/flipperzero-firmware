@@ -3,7 +3,7 @@
 #include <furi_hal.h>
 
 typedef enum {
-    AvrIspTpiSwSpeed1Mhz = 0,
+    AvrIspTpiSwSpeed1Mhz = 1,
     AvrIspTpiSwSpeed400Khz = 1,
     AvrIspTpiSwSpeed250Khz = 2,
     AvrIspTpiSwSpeed125Khz = 4,

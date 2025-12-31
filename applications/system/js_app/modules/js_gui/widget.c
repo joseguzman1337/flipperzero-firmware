@@ -10,6 +10,11 @@ typedef struct {
 
 #define QUEUE_LEN 2
 
+typedef struct {
+    GuiButtonType key;
+    InputType type;
+} JsWidgetButtonEvent;
+
 /**
  * @brief Parses position (X and Y) from an element declaration object
  */
@@ -101,8 +106,11 @@ static bool element_get_text(struct mjs* mjs, mjs_val_t element, mjs_val_t* text
  * @brief Widget button element callback
  */
 static void js_widget_button_callback(GuiButtonType result, InputType type, JsWidgetCtx* context) {
-    UNUSED(type);
-    furi_check(furi_message_queue_put(context->queue, &result, 0) == FuriStatusOk);
+    JsWidgetButtonEvent event = {
+        .key = result,
+        .type = type,
+    };
+    furi_check(furi_message_queue_put(context->queue, &event, 0) == FuriStatusOk);
 }
 
 #define DESTRUCTURE_OR_RETURN(mjs, child_obj, part, ...) \
@@ -202,7 +210,7 @@ static bool js_widget_add_child(
         const Icon* icon = mjs_get_ptr(mjs, icon_data_in);
         widget_add_icon_element(widget, x, y, icon);
 
-    } else if(strcmp(element_type, "frame") == 0) {
+    } else if(strcmp(element_type, "rect") == 0) {
         int32_t x, y, w, h;
         DESTRUCTURE_OR_RETURN(mjs, child_obj, position, &x, &y);
         DESTRUCTURE_OR_RETURN(mjs, child_obj, size, &w, &h);
@@ -211,7 +219,43 @@ static bool js_widget_add_child(
             JS_ERROR_AND_RETURN_VAL(
                 mjs, MJS_BAD_ARGS_ERROR, false, "failed to fetch element radius");
         int32_t radius = mjs_get_int32(mjs, radius_in);
-        widget_add_frame_element(widget, x, y, w, h, radius);
+        mjs_val_t fill_in = mjs_get(mjs, child_obj, "fill", ~0);
+        if(!mjs_is_boolean(fill_in))
+            JS_ERROR_AND_RETURN_VAL(
+                mjs, MJS_BAD_ARGS_ERROR, false, "failed to fetch element fill");
+        int32_t fill = mjs_get_bool(mjs, fill_in);
+        widget_add_rect_element(widget, x, y, w, h, radius, fill);
+
+    } else if(strcmp(element_type, "circle") == 0) {
+        int32_t x, y;
+        DESTRUCTURE_OR_RETURN(mjs, child_obj, position, &x, &y);
+        mjs_val_t radius_in = mjs_get(mjs, child_obj, "radius", ~0);
+        if(!mjs_is_number(radius_in))
+            JS_ERROR_AND_RETURN_VAL(
+                mjs, MJS_BAD_ARGS_ERROR, false, "failed to fetch element radius");
+        int32_t radius = mjs_get_int32(mjs, radius_in);
+        mjs_val_t fill_in = mjs_get(mjs, child_obj, "fill", ~0);
+        if(!mjs_is_boolean(fill_in))
+            JS_ERROR_AND_RETURN_VAL(
+                mjs, MJS_BAD_ARGS_ERROR, false, "failed to fetch element fill");
+        int32_t fill = mjs_get_bool(mjs, fill_in);
+        widget_add_circle_element(widget, x, y, radius, fill);
+
+    } else if(strcmp(element_type, "line") == 0) {
+        int32_t x1, y1, x2, y2;
+        mjs_val_t x1_in = mjs_get(mjs, child_obj, "x1", ~0);
+        mjs_val_t y1_in = mjs_get(mjs, child_obj, "y1", ~0);
+        mjs_val_t x2_in = mjs_get(mjs, child_obj, "x2", ~0);
+        mjs_val_t y2_in = mjs_get(mjs, child_obj, "y2", ~0);
+        if(!mjs_is_number(x1_in) || !mjs_is_number(y1_in) || !mjs_is_number(x2_in) ||
+           !mjs_is_number(y2_in))
+            JS_ERROR_AND_RETURN_VAL(
+                mjs, MJS_BAD_ARGS_ERROR, false, "failed to fetch element positions");
+        x1 = mjs_get_int32(mjs, x1_in);
+        y1 = mjs_get_int32(mjs, y1_in);
+        x2 = mjs_get_int32(mjs, x2_in);
+        y2 = mjs_get_int32(mjs, y2_in);
+        widget_add_line_element(widget, x1, y1, x2, y2);
     }
 
     return true;
@@ -227,25 +271,44 @@ static mjs_val_t js_widget_button_event_transformer(
     FuriMessageQueue* queue,
     JsWidgetCtx* context) {
     UNUSED(context);
-    GuiButtonType btn_type;
-    furi_check(furi_message_queue_get(queue, &btn_type, 0) == FuriStatusOk);
-    const char* btn_name;
-    if(btn_type == GuiButtonTypeLeft) {
-        btn_name = "left";
-    } else if(btn_type == GuiButtonTypeCenter) {
-        btn_name = "center";
-    } else if(btn_type == GuiButtonTypeRight) {
-        btn_name = "right";
+    JsWidgetButtonEvent event;
+    furi_check(furi_message_queue_get(queue, &event, 0) == FuriStatusOk);
+    const char* event_key;
+    if(event.key == GuiButtonTypeLeft) {
+        event_key = "left";
+    } else if(event.key == GuiButtonTypeCenter) {
+        event_key = "center";
+    } else if(event.key == GuiButtonTypeRight) {
+        event_key = "right";
     } else {
         furi_crash();
     }
-    return mjs_mk_string(mjs, btn_name, ~0, false);
+    const char* event_type;
+    if(event.type == InputTypePress) {
+        event_type = "press";
+    } else if(event.type == InputTypeRelease) {
+        event_type = "release";
+    } else if(event.type == InputTypeShort) {
+        event_type = "short";
+    } else if(event.type == InputTypeLong) {
+        event_type = "long";
+    } else if(event.type == InputTypeRepeat) {
+        event_type = "repeat";
+    } else {
+        furi_crash();
+    }
+    mjs_val_t obj = mjs_mk_object(mjs);
+    JS_ASSIGN_MULTI(mjs, obj) {
+        JS_FIELD("key", mjs_mk_string(mjs, event_key, ~0, true));
+        JS_FIELD("type", mjs_mk_string(mjs, event_type, ~0, true));
+    }
+    return obj;
 }
 
 static void* js_widget_custom_make(struct mjs* mjs, Widget* widget, mjs_val_t view_obj) {
     UNUSED(widget);
     JsWidgetCtx* context = malloc(sizeof(JsWidgetCtx));
-    context->queue = furi_message_queue_alloc(QUEUE_LEN, sizeof(GuiButtonType));
+    context->queue = furi_message_queue_alloc(QUEUE_LEN, sizeof(JsWidgetButtonEvent));
     context->contract = (JsEventLoopContract){
         .magic = JsForeignMagic_JsEventLoopContract,
         .object_type = JsEventLoopObjectTypeQueue,

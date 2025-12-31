@@ -15,6 +15,9 @@
  * Example:
  * ./fbt --extra-define=DIGITAL_SIGNAL_DEBUG_OUTPUT_PIN=gpio_ext_pb3
  */
+#ifdef DIGITAL_SIGNAL_DEBUG_OUTPUT_PIN
+#include <furi_hal.h>
+#endif
 
 #define TAG "DigitalSequence"
 
@@ -22,7 +25,7 @@
 #define DIGITAL_SEQUENCE_TIMER_MAX 0xFFFFFFFFUL
 
 /* Time to wait in loops before returning */
-#define DIGITAL_SEQUENCE_LOCK_WAIT_MS 10UL
+#define DIGITAL_SEQUENCE_LOCK_WAIT_MS    10UL
 #define DIGITAL_SEQUENCE_LOCK_WAIT_TICKS (DIGITAL_SEQUENCE_LOCK_WAIT_MS * 1000 * 64)
 
 #define DIGITAL_SEQUENCE_GPIO_BUFFER_SIZE 2

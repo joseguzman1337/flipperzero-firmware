@@ -18,7 +18,7 @@ struct BtTestParam {
     void* context;
 };
 
-ARRAY_DEF(BtTestParamArray, BtTestParam, M_POD_OPLIST);
+ARRAY_DEF(BtTestParamArray, BtTestParam, M_POD_OPLIST); //-V658
 
 struct BtTest {
     View* view;
@@ -39,7 +39,7 @@ typedef struct {
 } BtTestModel;
 
 #define BT_TEST_START_MESSAGE "Ok - Start"
-#define BT_TEST_STOP_MESSAGE "Ok - Stop"
+#define BT_TEST_STOP_MESSAGE  "Ok - Stop"
 
 static void bt_test_process_up(BtTest* bt_test);
 static void bt_test_process_down(BtTest* bt_test);

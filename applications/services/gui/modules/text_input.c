@@ -18,6 +18,7 @@ typedef struct {
     const char* header;
     char* text_buffer;
     size_t text_buffer_size;
+    size_t minimum_length;
     bool clear_default_text;
 
     TextInputCallback callback;
@@ -36,7 +37,7 @@ static const uint8_t keyboard_origin_x = 1;
 static const uint8_t keyboard_origin_y = 29;
 static const uint8_t keyboard_row_count = 3;
 
-#define ENTER_KEY '\r'
+#define ENTER_KEY     '\r'
 #define BACKSPACE_KEY '\b'
 
 static const TextInputKey keyboard_keys_row_1[] = {
@@ -132,14 +133,14 @@ static char get_selected_char(TextInputModel* model) {
 }
 
 static bool char_is_lowercase(char letter) {
-    return (letter >= 0x61 && letter <= 0x7A);
+    return letter >= 0x61 && letter <= 0x7A;
 }
 
 static char char_to_uppercase(const char letter) {
     if(letter == '_') {
         return 0x20;
     } else if(islower(letter)) {
-        return (letter - 0x20);
+        return letter - 0x20;
     } else {
         return letter;
     }
@@ -321,7 +322,7 @@ static void text_input_handle_ok(TextInput* text_input, TextInputModel* model, b
                model->text_buffer, model->validator_text, model->validator_callback_context))) {
             model->validator_message_visible = true;
             furi_timer_start(text_input->timer, furi_kernel_get_tick_frequency() * 4);
-        } else if(model->callback != 0 && text_length > 0) {
+        } else if(model->callback != 0 && text_length >= model->minimum_length) {
             model->callback(model->callback_context);
         }
     } else if(selected == BACKSPACE_KEY) {
@@ -487,6 +488,7 @@ void text_input_reset(TextInput* text_input) {
             model->header = "";
             model->selected_row = 0;
             model->selected_column = 0;
+            model->minimum_length = 1;
             model->clear_default_text = false;
             model->text_buffer = NULL;
             model->text_buffer_size = 0;
@@ -528,6 +530,14 @@ void text_input_set_result_callback(
                 model->selected_column = 8;
             }
         },
+        true);
+}
+
+void text_input_set_minimum_length(TextInput* text_input, size_t minimum_length) {
+    with_view_model(
+        text_input->view,
+        TextInputModel * model,
+        { model->minimum_length = minimum_length; },
         true);
 }
 

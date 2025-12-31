@@ -14,7 +14,7 @@
 
 #define TAG "NfcSupportedCards"
 
-#define NFC_SUPPORTED_CARDS_PLUGINS_PATH APP_DATA_PATH("plugins")
+#define NFC_SUPPORTED_CARDS_PLUGINS_PATH  APP_DATA_PATH("plugins")
 #define NFC_SUPPORTED_CARDS_PLUGIN_SUFFIX "_parser.fal"
 
 typedef enum {
@@ -29,7 +29,7 @@ typedef struct {
     NfcSupportedCardsPluginFeature feature;
 } NfcSupportedCardsPluginCache;
 
-ARRAY_DEF(NfcSupportedCardsPluginCache, NfcSupportedCardsPluginCache, M_POD_OPLIST);
+ARRAY_DEF(NfcSupportedCardsPluginCache, NfcSupportedCardsPluginCache, M_POD_OPLIST); //-V658
 
 typedef enum {
     NfcSupportedCardsLoadStateIdle,

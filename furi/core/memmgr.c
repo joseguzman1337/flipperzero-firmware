@@ -1,6 +1,7 @@
 #include "memmgr.h"
 #include <string.h>
 #include <furi_hal_memory.h>
+#include <FreeRTOS.h>
 
 extern void* pvPortMalloc(size_t xSize);
 extern void* pvPortAllocAligned(size_t xSize, size_t xAlignment);
@@ -46,7 +47,7 @@ size_t memmgr_get_free_heap(void) {
 }
 
 size_t memmgr_get_total_heap(void) {
-    return xPortGetTotalHeapSize();
+    return configTOTAL_HEAP_SIZE;
 }
 
 size_t memmgr_get_minimum_free_heap(void) {
@@ -86,4 +87,22 @@ size_t memmgr_aux_pool_get_free(void) {
 
 size_t memmgr_pool_get_max_block(void) {
     return furi_hal_memory_max_pool_block();
+}
+
+void* aligned_malloc(size_t size, size_t alignment) {
+    void* p1; // original block
+    void** p2; // aligned block
+    int offset = alignment - 1 + sizeof(void*);
+    if((p1 = (void*)malloc(size + offset)) == NULL) {
+        return NULL;
+    }
+    p2 = (void**)(((size_t)(p1) + offset) & ~(alignment - 1));
+    p2[-1] = p1;
+    return p2;
+}
+
+void aligned_free(void* p) {
+    if(p) {
+        free(((void**)p)[-1]);
+    }
 }

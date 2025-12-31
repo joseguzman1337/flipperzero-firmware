@@ -57,19 +57,17 @@ Pause script execution by a defined time.
 
 ### Modifier keys
 
-Can be combined with a special key command or a single character.
-| Command        | Notes      |
-| -------------- | ---------- |
-| CONTROL / CTRL |            |
-| SHIFT          |            |
-| ALT            |            |
-| WINDOWS / GUI  |            |
-| CTRL-ALT       | CTRL+ALT   |
-| CTRL-SHIFT     | CTRL+SHIFT |
-| ALT-SHIFT      | ALT+SHIFT  |
-| ALT-GUI        | ALT+WIN    |
-| GUI-SHIFT      | WIN+SHIFT  |
-| GUI-CTRL       | WIN+CTRL   |
+The following modifier keys are recognized:
+| Command | Notes        |
+| ------- | ------------ |
+| CTRL    |              |
+| CONTROL | Same as CTRL |
+| SHIFT   |              |
+| ALT     |              |
+| GUI     |              |
+| WINDOWS | Same as GUI  |
+
+You can chain multiple modifier keys together using hyphens (`-`) or spaces.
 
 ## Key hold and release
 
@@ -79,20 +77,13 @@ Up to 5 keys can be hold simultaneously.
 | HOLD    | Special key or single character | Press and hold key until RELEASE command |
 | RELEASE | Special key or single character | Release key                              |
 
-## Wait for button press
+## String
 
-Will wait indefinitely for a button to be pressed
-| Command               | Parameters   | Notes                                                                 |
-| --------------------- | ------------ | --------------------------------------------------------------------- |
-| WAIT_FOR_BUTTON_PRESS | None         | Will wait for the user to press a button to continue script execution |
-
-
-### String
-
-| Command  | Parameters  | Notes                                      |
-| -------  | ----------- | -----------------                          |
-| STRING   | Text string | Print text string                          |
-| STRINGLN | Text string | Print text string and press enter after it |
+| Command          | Parameters  | Notes                                      |
+| ---------------- | ----------- | -----------------                          |
+| STRING           | Text string | Print text string                          |
+| STRINGLN         | Text string | Print text string and press enter after it |
+| STRING_FROM_FILE | File path   | Print text contained in a file (up to 253 chars) |
 
 ## String delay
 
@@ -126,7 +117,54 @@ Send [SysRq command](https://en.wikipedia.org/wiki/Magic_SysRq_key)
 | ------- | ---------------- | ----- |
 | SYSRQ   | Single character |       |
 
-### USB device ID
+## Media keys
+
+Some Media/Consumer Control keys can be pressed with "MEDIA" command
+
+| Command | Parameters                | Notes |
+| ------- | ------------------------- | ----- |
+| MEDIA   | Media key, see list below |       |
+
+| Key name          | Notes                         |
+| ----------------- | ----------------------------- |
+| POWER             |                               |
+| REBOOT            |                               |
+| SLEEP             |                               |
+| LOGOFF            |                               |
+| EXIT              |                               |
+| HOME              |                               |
+| BACK              |                               |
+| FORWARD           |                               |
+| REFRESH           |                               |
+| SNAPSHOT          | Take photo in a camera app    |
+| PLAY              |                               |
+| PAUSE             |                               |
+| PLAY_PAUSE        |                               |
+| NEXT_TRACK        |                               |
+| PREV_TRACK        |                               |
+| STOP              |                               |
+| EJECT             |                               |
+| MUTE              |                               |
+| VOLUME_UP         |                               |
+| VOLUME_DOWN       |                               |
+| FN                | Fn/Globe key on Mac keyboard  |
+| BRIGHT_UP         | Increase display brightness   |
+| BRIGHT_DOWN       | Decrease display brightness   |
+
+## Fn/Globe key commands (Mac/iPad)
+
+| Command | Parameters                      | Notes |
+| ------- | ------------------------------- | ----- |
+| GLOBE   | Special key or single character |       |
+
+## Wait for button press
+
+Will wait indefinitely for a button to be pressed
+| Command               | Parameters   | Notes                                                                 |
+| --------------------- | ------------ | --------------------------------------------------------------------- |
+| WAIT_FOR_BUTTON_PRESS | None         | Will wait for the user to press a button to continue script execution |
+
+## USB device ID
 
 You can set the custom ID of the Flipper USB HID device. ID command should be in the **first line** of script, it is executed before script run.
 
@@ -138,3 +176,18 @@ Example:
 `ID 1234:abcd Flipper Devices:Flipper Zero`
 
 VID and PID are hex codes and are mandatory. Manufacturer and Product are text strings and are optional.
+
+## Mouse Commands
+
+Mouse movement and click commands. Mouse click commands support HOLD functionality. 
+
+| Command       | Parameters                     | Notes                            |
+| ------------- | -------------------------------| -------------------------------- |
+|  LEFTCLICK    | None                           |                                  |
+|  LEFT_CLICK   | None                           | functionally same as LEFTCLICK   |
+|  RIGHTCLICK   | None                           |                                  |
+|  RIGHT_CLICK  | None                           | functionally same as RIGHTCLICK  |
+|  MOUSEMOVE    | x y: int move mount/direction  |                                  |
+|  MOUSE_MOVE   | x y: int move mount/direction  | functionally same as MOUSEMOVE   |
+|  MOUSESCROLL  | delta: int scroll distance     |                                  |
+|  MOUSE_SCROLL | delta: int scroll distance     | functionally same as MOUSESCROLL |

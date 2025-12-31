@@ -1,0 +1,49 @@
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+
+name: Kubesec
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    # The branches below must be a subset of the branches above
+    branches: [ master ]
+  schedule:
+    - cron: '40 11 * * 3'
+
+permissions:
+  contents: read
+
+jobs:
+  lint:
+    name: Kubesec
+    runs-on: ubuntu-24.04
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+    steps:
+      - name: Harden Runner
+        uses: step-security/harden-runner@v2.10.2
+        with:
+          egress-policy: audit
+
+      - name: Checkout code
+        uses: actions/checkout@v4.2.2
+
+      - name: Run kubesec scanner
+        uses: controlplaneio/kubesec-action@43d0ddff5ffee89a6bb9f29b64cd865411137b14
+        with:
+          input: file.yaml # specify configuration file to scan here
+          format: template
+          template: template/sarif.tpl
+          output: kubesec-results.sarif
+          exit-code: "0"
+
+      - name: Upload Kubesec scan results to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@f1f6e5f6af878fb37288ce1c627459e94dbf7d01 # v3.30.1
+        with:
+          sarif_file: kubesec-results.sarif

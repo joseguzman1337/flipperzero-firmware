@@ -1,0 +1,3828 @@
+{
+    "version": "1.145.2",
+    "results": [
+        {
+            "check_id": "yaml.github-actions.security.pull-request-target-code-checkout.pull-request-target-code-checkout",
+            "path": ".github/workflows/auto_merge.yml",
+            "start": {
+                "line": 32,
+                "col": 9,
+                "offset": 614
+            },
+            "end": {
+                "line": 36,
+                "col": 57,
+                "offset": 799
+            },
+            "extra": {
+                "message": "This GitHub Actions workflow file uses `pull_request_target` and checks out code from the incoming pull request. When using `pull_request_target`, the Action runs in the context of the target repository, which includes access to all repository secrets. Normally, this is safe because the Action only runs code from the target repository, not the incoming PR. However, by checking out the incoming PR code, you're now using the incoming code for the rest of the action. You may be inadvertently executing arbitrary code from the incoming PR with access to repository secrets, which would let an attacker steal repository secrets. This normally happens by running build scripts (e.g., `npm build` and `make`) or dependency installation scripts (e.g., `python setup.py install`). Audit your workflow file to make sure no code from the incoming PR is executed. Please see https://securitylab.github.com/research/github-actions-preventing-pwn-requests/ for additional mitigations.",
+                "metadata": {
+                    "category": "security",
+                    "owasp": [
+                        "A01:2021 - Broken Access Control"
+                    ],
+                    "cwe": [
+                        "CWE-913: Improper Control of Dynamically-Managed Code Resources"
+                    ],
+                    "references": [
+                        "https://securitylab.github.com/research/github-actions-preventing-pwn-requests/",
+                        "https://github.com/justinsteven/advisories/blob/master/2021_github_actions_checkspelling_token_leak_via_advice_symlink.md"
+                    ],
+                    "technology": [
+                        "github-actions"
+                    ],
+                    "subcategory": [
+                        "audit"
+                    ],
+                    "likelihood": "LOW",
+                    "impact": "MEDIUM",
+                    "confidence": "LOW",
+                    "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+                    "vulnerability_class": [
+                        "Code Injection"
+                    ],
+                    "source": "https://semgrep.dev/r/yaml.github-actions.security.pull-request-target-code-checkout.pull-request-target-code-checkout",
+                    "shortlink": "https://sg.run/jkdn"
+                },
+                "severity": "WARNING",
+                "fingerprint": "requires login",
+                "lines": "requires login",
+                "validation_state": "NO_VALIDATOR",
+                "engine_kind": "OSS"
+            }
+        },
+        {
+            "check_id": "yaml.github-actions.security.run-shell-injection.run-shell-injection",
+            "path": ".github/workflows/auto_merge.yml",
+            "start": {
+                "line": 39,
+                "col": 9,
+                "offset": 871
+            },
+            "end": {
+                "line": 45,
+                "col": 2,
+                "offset": 1217
+            },
+            "extra": {
+                "message": "Using variable interpolation `${{...}}` with `github` context data in a `run:` step could allow an attacker to inject their own code into the runner. This would allow them to steal secrets and code. `github` context data can have arbitrary user input and should be treated as untrusted. Instead, use an intermediate environment variable with `env:` to store the data and use the environment variable in the `run:` script. Be sure to use double-quotes the environment variable, like this: \"$ENVVAR\".",
+                "metadata": {
+                    "category": "security",
+                    "cwe": [
+                        "CWE-78: Improper Neutralization of Special Elements used in an OS Command ('OS Command Injection')"
+                    ],
+                    "owasp": [
+                        "A01:2017 - Injection",
+                        "A03:2021 - Injection"
+                    ],
+                    "references": [
+                        "https://docs.github.com/en/actions/learn-github-actions/security-hardening-for-github-actions#understanding-the-risk-of-script-injections",
+                        "https://securitylab.github.com/research/github-actions-untrusted-input/"
+                    ],
+                    "technology": [
+                        "github-actions"
+                    ],
+                    "cwe2022-top25": true,
+                    "cwe2021-top25": true,
+                    "subcategory": [
+                        "vuln"
+                    ],
+                    "likelihood": "HIGH",
+                    "impact": "HIGH",
+                    "confidence": "HIGH",
+                    "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+                    "vulnerability_class": [
+                        "Command Injection"
+                    ],
+                    "source": "https://semgrep.dev/r/yaml.github-actions.security.run-shell-injection.run-shell-injection",
+                    "shortlink": "https://sg.run/pkzk"
+                },
+                "severity": "ERROR",
+                "fingerprint": "requires login",
+                "lines": "requires login",
+                "validation_state": "NO_VALIDATOR",
+                "engine_kind": "OSS"
+            }
+        },
+        {
+            "check_id": "generic.secrets.security.detected-sonarqube-docs-api-key.detected-sonarqube-docs-api-key",
+            "path": ".github/workflows/build.yml",
+            "start": {
+                "line": 28,
+                "col": 15,
+                "offset": 719
+            },
+            "end": {
+                "line": 28,
+                "col": 92,
+                "offset": 796
+            },
+            "extra": {
+                "message": "SonarQube Docs API Key detected",
+                "metadata": {
+                    "cwe": [
+                        "CWE-798: Use of Hard-coded Credentials"
+                    ],
+                    "source-rule-url": "https://github.com/grab/secret-scanner/blob/master/scanner/signatures/pattern.go",
+                    "category": "security",
+                    "technology": [
+                        "secrets",
+                        "sonarqube"
+                    ],
+                    "confidence": "LOW",
+                    "owasp": [
+                        "A07:2021 - Identification and Authentication Failures"
+                    ],
+                    "references": [
+                        "https://owasp.org/Top10/A07_2021-Identification_and_Authentication_Failures"
+                    ],
+                    "cwe2022-top25": true,
+                    "cwe2021-top25": true,
+                    "subcategory": [
+                        "audit"
+                    ],
+                    "likelihood": "LOW",
+                    "impact": "MEDIUM",
+                    "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+                    "vulnerability_class": [
+                        "Hard-coded Secrets"
+                    ],
+                    "source": "https://semgrep.dev/r/generic.secrets.security.detected-sonarqube-docs-api-key.detected-sonarqube-docs-api-key",
+                    "shortlink": "https://sg.run/x10P"
+                },
+                "severity": "ERROR",
+                "fingerprint": "requires login",
+                "lines": "requires login",
+                "validation_state": "NO_VALIDATOR",
+                "engine_kind": "OSS"
+            }
+        },
+        {
+            "check_id": "yaml.github-actions.security.run-shell-injection.run-shell-injection",
+            "path": ".github/workflows/enforce-branch-sequence.yml",
+            "start": {
+                "line": 88,
+                "col": 9,
+                "offset": 2237
+            },
+            "end": {
+                "line": 111,
+                "col": 2,
+                "offset": 3622
+            },
+            "extra": {
+                "message": "Using variable interpolation `${{...}}` with `github` context data in a `run:` step could allow an attacker to inject their own code into the runner. This would allow them to steal secrets and code. `github` context data can have arbitrary user input and should be treated as untrusted. Instead, use an intermediate environment variable with `env:` to store the data and use the environment variable in the `run:` script. Be sure to use double-quotes the environment variable, like this: \"$ENVVAR\".",
+                "metadata": {
+                    "category": "security",
+                    "cwe": [
+                        "CWE-78: Improper Neutralization of Special Elements used in an OS Command ('OS Command Injection')"
+                    ],
+                    "owasp": [
+                        "A01:2017 - Injection",
+                        "A03:2021 - Injection"
+                    ],
+                    "references": [
+                        "https://docs.github.com/en/actions/learn-github-actions/security-hardening-for-github-actions#understanding-the-risk-of-script-injections",
+                        "https://securitylab.github.com/research/github-actions-untrusted-input/"
+                    ],
+                    "technology": [
+                        "github-actions"
+                    ],
+                    "cwe2022-top25": true,
+                    "cwe2021-top25": true,
+                    "subcategory": [
+                        "vuln"
+                    ],
+                    "likelihood": "HIGH",
+                    "impact": "HIGH",
+                    "confidence": "HIGH",
+                    "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+                    "vulnerability_class": [
+                        "Command Injection"
+                    ],
+                    "source": "https://semgrep.dev/r/yaml.github-actions.security.run-shell-injection.run-shell-injection",
+                    "shortlink": "https://sg.run/pkzk"
+                },
+                "severity": "ERROR",
+                "fingerprint": "requires login",
+                "lines": "requires login",
+                "validation_state": "NO_VALIDATOR",
+                "engine_kind": "OSS"
+            }
+        },
+        {
+            "check_id": "yaml.github-actions.security.run-shell-injection.run-shell-injection",
+            "path": ".github/workflows/enforce-branch-sequence.yml",
+            "start": {
+                "line": 193,
+                "col": 9,
+                "offset": 6985
+            },
+            "end": {
+                "line": 215,
+                "col": 14,
+                "offset": 8369
+            },
+            "extra": {
+                "message": "Using variable interpolation `${{...}}` with `github` context data in a `run:` step could allow an attacker to inject their own code into the runner. This would allow them to steal secrets and code. `github` context data can have arbitrary user input and should be treated as untrusted. Instead, use an intermediate environment variable with `env:` to store the data and use the environment variable in the `run:` script. Be sure to use double-quotes the environment variable, like this: \"$ENVVAR\".",
+                "metadata": {
+                    "category": "security",
+                    "cwe": [
+                        "CWE-78: Improper Neutralization of Special Elements used in an OS Command ('OS Command Injection')"
+                    ],
+                    "owasp": [
+                        "A01:2017 - Injection",
+                        "A03:2021 - Injection"
+                    ],
+                    "references": [
+                        "https://docs.github.com/en/actions/learn-github-actions/security-hardening-for-github-actions#understanding-the-risk-of-script-injections",
+                        "https://securitylab.github.com/research/github-actions-untrusted-input/"
+                    ],
+                    "technology": [
+                        "github-actions"
+                    ],
+                    "cwe2022-top25": true,
+                    "cwe2021-top25": true,
+                    "subcategory": [
+                        "vuln"
+                    ],
+                    "likelihood": "HIGH",
+                    "impact": "HIGH",
+                    "confidence": "HIGH",
+                    "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+                    "vulnerability_class": [
+                        "Command Injection"
+                    ],
+                    "source": "https://semgrep.dev/r/yaml.github-actions.security.run-shell-injection.run-shell-injection",
+                    "shortlink": "https://sg.run/pkzk"
+                },
+                "severity": "ERROR",
+                "fingerprint": "requires login",
+                "lines": "requires login",
+                "validation_state": "NO_VALIDATOR",
+                "engine_kind": "OSS"
+            }
+        },
+        {
+            "check_id": "generic.secrets.security.detected-snyk-api-key.detected-snyk-api-key",
+            "path": ".secrets",
+            "start": {
+                "line": 1,
+                "col": 1,
+                "offset": 0
+            },
+            "end": {
+                "line": 2,
+                "col": 1,
+                "offset": 48
+            },
+            "extra": {
+                "message": "Snyk API Key detected",
+                "metadata": {
+                    "cwe": [
+                        "CWE-798: Use of Hard-coded Credentials"
+                    ],
+                    "category": "security",
+                    "technology": [
+                        "secrets",
+                        "snyk"
+                    ],
+                    "confidence": "LOW",
+                    "owasp": [
+                        "A07:2021 - Identification and Authentication Failures"
+                    ],
+                    "references": [
+                        "https://owasp.org/Top10/A07_2021-Identification_and_Authentication_Failures"
+                    ],
+                    "cwe2022-top25": true,
+                    "cwe2021-top25": true,
+                    "subcategory": [
+                        "audit"
+                    ],
+                    "likelihood": "LOW",
+                    "impact": "MEDIUM",
+                    "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+                    "vulnerability_class": [
+                        "Hard-coded Secrets"
+                    ],
+                    "source": "https://semgrep.dev/r/generic.secrets.security.detected-snyk-api-key.detected-snyk-api-key",
+                    "shortlink": "https://sg.run/lxO9"
+                },
+                "severity": "ERROR",
+                "fingerprint": "requires login",
+                "lines": "requires login",
+                "validation_state": "NO_VALIDATOR",
+                "engine_kind": "OSS"
+            }
+        },
+        {
+            "check_id": "generic.secrets.security.detected-github-token.detected-github-token",
+            "path": ".secrets",
+            "start": {
+                "line": 2,
+                "col": 1,
+                "offset": 48
+            },
+            "end": {
+                "line": 2,
+                "col": 54,
+                "offset": 101
+            },
+            "extra": {
+                "message": "GitHub Token detected",
+                "metadata": {
+                    "cwe": [
+                        "CWE-798: Use of Hard-coded Credentials"
+                    ],
+                    "source-rule-url": "https://github.blog/changelog/2021-03-04-authentication-token-format-updates/",
+                    "category": "security",
+                    "technology": [
+                        "secrets",
+                        "github"
+                    ],
+                    "confidence": "LOW",
+                    "owasp": [
+                        "A07:2021 - Identification and Authentication Failures"
+                    ],
+                    "references": [
+                        "https://owasp.org/Top10/A07_2021-Identification_and_Authentication_Failures"
+                    ],
+                    "cwe2022-top25": true,
+                    "cwe2021-top25": true,
+                    "subcategory": [
+                        "audit"
+                    ],
+                    "likelihood": "LOW",
+                    "impact": "MEDIUM",
+                    "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+                    "vulnerability_class": [
+                        "Hard-coded Secrets"
+                    ],
+                    "source": "https://semgrep.dev/r/generic.secrets.security.detected-github-token.detected-github-token",
+                    "shortlink": "https://sg.run/PpOv"
+                },
+                "severity": "ERROR",
+                "fingerprint": "requires login",
+                "lines": "requires login",
+                "validation_state": "NO_VALIDATOR",
+                "engine_kind": "OSS"
+            }
+        },
+        {
+            "check_id": "generic.secrets.security.detected-sonarqube-docs-api-key.detected-sonarqube-docs-api-key",
+            "path": ".secrets",
+            "start": {
+                "line": 3,
+                "col": 1,
+                "offset": 102
+            },
+            "end": {
+                "line": 3,
+                "col": 53,
+                "offset": 154
+            },
+            "extra": {
+                "message": "SonarQube Docs API Key detected",
+                "metadata": {
+                    "cwe": [
+                        "CWE-798: Use of Hard-coded Credentials"
+                    ],
+                    "source-rule-url": "https://github.com/grab/secret-scanner/blob/master/scanner/signatures/pattern.go",
+                    "category": "security",
+                    "technology": [
+                        "secrets",
+                        "sonarqube"
+                    ],
+                    "confidence": "LOW",
+                    "owasp": [
+                        "A07:2021 - Identification and Authentication Failures"
+                    ],
+                    "references": [
+                        "https://owasp.org/Top10/A07_2021-Identification_and_Authentication_Failures"
+                    ],
+                    "cwe2022-top25": true,
+                    "cwe2021-top25": true,
+                    "subcategory": [
+                        "audit"
+                    ],
+                    "likelihood": "LOW",
+                    "impact": "MEDIUM",
+                    "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+                    "vulnerability_class": [
+                        "Hard-coded Secrets"
+                    ],
+                    "source": "https://semgrep.dev/r/generic.secrets.security.detected-sonarqube-docs-api-key.detected-sonarqube-docs-api-key",
+                    "shortlink": "https://sg.run/x10P"
+                },
+                "severity": "ERROR",
+                "fingerprint": "requires login",
+                "lines": "requires login",
+                "validation_state": "NO_VALIDATOR",
+                "engine_kind": "OSS"
+            }
+        },
+        {
+            "check_id": "generic.secrets.security.detected-jwt-token.detected-jwt-token",
+            "path": "docs/api_keys.md",
+            "start": {
+                "line": 45,
+                "col": 1,
+                "offset": 652
+            },
+            "end": {
+                "line": 45,
+                "col": 738,
+                "offset": 1389
+            },
+            "extra": {
+                "message": "JWT token detected",
+                "metadata": {
+                    "source-rule-url": "https://github.com/Yelp/detect-secrets/blob/master/detect_secrets/plugins/jwt.py",
+                    "category": "security",
+                    "technology": [
+                        "secrets",
+                        "jwt"
+                    ],
+                    "confidence": "LOW",
+                    "references": [
+                        "https://semgrep.dev/blog/2020/hardcoded-secrets-unverified-tokens-and-other-common-jwt-mistakes/"
+                    ],
+                    "cwe": [
+                        "CWE-321: Use of Hard-coded Cryptographic Key"
+                    ],
+                    "owasp": [
+                        "A02:2021 - Cryptographic Failures"
+                    ],
+                    "subcategory": [
+                        "audit"
+                    ],
+                    "likelihood": "LOW",
+                    "impact": "MEDIUM",
+                    "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+                    "vulnerability_class": [
+                        "Cryptographic Issues"
+                    ],
+                    "source": "https://semgrep.dev/r/generic.secrets.security.detected-jwt-token.detected-jwt-token",
+                    "shortlink": "https://sg.run/05N5"
+                },
+                "severity": "ERROR",
+                "fingerprint": "requires login",
+                "lines": "requires login",
+                "validation_state": "NO_VALIDATOR",
+                "engine_kind": "OSS"
+            }
+        },
+        {
+            "check_id": "generic.secrets.security.google-maps-apikeyleak.google-maps-apikeyleak",
+            "path": "docs/api_keys.md",
+            "start": {
+                "line": 88,
+                "col": 1,
+                "offset": 2457
+            },
+            "end": {
+                "line": 88,
+                "col": 40,
+                "offset": 2496
+            },
+            "extra": {
+                "message": "Detects potential Google Maps API keys in code",
+                "metadata": {
+                    "description": "Detects potential Google Maps API keys in code",
+                    "severity": "MEDIUM",
+                    "category": "security",
+                    "confidence": "MEDIUM",
+                    "impact": "HIGH",
+                    "likelihood": "MEDIUM",
+                    "subcategory": [
+                        "audit"
+                    ],
+                    "owasp": [
+                        "A3:2017 Sensitive Data Exposure"
+                    ],
+                    "references": [
+                        "https://ozguralp.medium.com/unauthorized-google-maps-api-key-usage-cases-and-why-you-need-to-care-1ccb28bf21e"
+                    ],
+                    "cwe": [
+                        "CWE-538: Insertion of Sensitive Information into Externally-Accessible File or Directory"
+                    ],
+                    "technology": [
+                        "Google Maps"
+                    ],
+                    "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+                    "vulnerability_class": [
+                        "Mishandled Sensitive Information"
+                    ],
+                    "source": "https://semgrep.dev/r/generic.secrets.security.google-maps-apikeyleak.google-maps-apikeyleak",
+                    "shortlink": "https://sg.run/DL5d"
+                },
+                "severity": "WARNING",
+                "fingerprint": "requires login",
+                "lines": "requires login",
+                "validation_state": "NO_VALIDATOR",
+                "engine_kind": "OSS"
+            }
+        },
+        {
+            "check_id": "generic.secrets.security.detected-jwt-token.detected-jwt-token",
+            "path": "docs/api_keys.md",
+            "start": {
+                "line": 134,
+                "col": 24,
+                "offset": 2993
+            },
+            "end": {
+                "line": 134,
+                "col": 192,
+                "offset": 3161
+            },
+            "extra": {
+                "message": "JWT token detected",
+                "metadata": {
+                    "source-rule-url": "https://github.com/Yelp/detect-secrets/blob/master/detect_secrets/plugins/jwt.py",
+                    "category": "security",
+                    "technology": [
+                        "secrets",
+                        "jwt"
+                    ],
+                    "confidence": "LOW",
+                    "references": [
+                        "https://semgrep.dev/blog/2020/hardcoded-secrets-unverified-tokens-and-other-common-jwt-mistakes/"
+                    ],
+                    "cwe": [
+                        "CWE-321: Use of Hard-coded Cryptographic Key"
+                    ],
+                    "owasp": [
+                        "A02:2021 - Cryptographic Failures"
+                    ],
+                    "subcategory": [
+                        "audit"
+                    ],
+                    "likelihood": "LOW",
+                    "impact": "MEDIUM",
+                    "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+                    "vulnerability_class": [
+                        "Cryptographic Issues"
+                    ],
+                    "source": "https://semgrep.dev/r/generic.secrets.security.detected-jwt-token.detected-jwt-token",
+                    "shortlink": "https://sg.run/05N5"
+                },
+                "severity": "ERROR",
+                "fingerprint": "requires login",
+                "lines": "requires login",
+                "validation_state": "NO_VALIDATOR",
+                "engine_kind": "OSS"
+            }
+        },
+        {
+            "check_id": "generic.secrets.security.detected-generic-secret.detected-generic-secret",
+            "path": "docs/api_keys.md",
+            "start": {
+                "line": 217,
+                "col": 9,
+                "offset": 4792
+            },
+            "end": {
+                "line": 217,
+                "col": 62,
+                "offset": 4845
+            },
+            "extra": {
+                "message": "Generic Secret detected",
+                "metadata": {
+                    "cwe": [
+                        "CWE-798: Use of Hard-coded Credentials"
+                    ],
+                    "source-rule-url": "https://github.com/dxa4481/truffleHogRegexes/blob/master/truffleHogRegexes/regexes.json",
+                    "category": "security",
+                    "technology": [
+                        "secrets"
+                    ],
+                    "confidence": "LOW",
+                    "owasp": [
+                        "A07:2021 - Identification and Authentication Failures"
+                    ],
+                    "references": [
+                        "https://owasp.org/Top10/A07_2021-Identification_and_Authentication_Failures"
+                    ],
+                    "cwe2022-top25": true,
+                    "cwe2021-top25": true,
+                    "subcategory": [
+                        "audit"
+                    ],
+                    "likelihood": "LOW",
+                    "impact": "MEDIUM",
+                    "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+                    "vulnerability_class": [
+                        "Hard-coded Secrets"
+                    ],
+                    "source": "https://semgrep.dev/r/generic.secrets.security.detected-generic-secret.detected-generic-secret",
+                    "shortlink": "https://sg.run/l2o5"
+                },
+                "severity": "ERROR",
+                "fingerprint": "requires login",
+                "lines": "requires login",
+                "validation_state": "NO_VALIDATOR",
+                "engine_kind": "OSS"
+            }
+        },
+        {
+            "check_id": "generic.secrets.security.detected-generic-api-key.detected-generic-api-key",
+            "path": "docs/api_keys.md",
+            "start": {
+                "line": 220,
+                "col": 50,
+                "offset": 4980
+            },
+            "end": {
+                "line": 222,
+                "col": 50,
+                "offset": 5037
+            },
+            "extra": {
+                "message": "Generic API Key detected",
+                "metadata": {
+                    "source-rule-url": "https://github.com/dxa4481/truffleHogRegexes/blob/master/truffleHogRegexes/regexes.json",
+                    "category": "security",
+                    "technology": [
+                        "secrets"
+                    ],
+                    "confidence": "LOW",
+                    "references": [
+                        "https://github.com/dxa4481/truffleHogRegexes/blob/master/truffleHogRegexes/regexes.json"
+                    ],
+                    "owasp": [
+                        "A07:2021 - Identification and Authentication Failures"
+                    ],
+                    "cwe": [
+                        "CWE-798: Use of Hard-coded Credentials"
+                    ],
+                    "cwe2022-top25": true,
+                    "cwe2021-top25": true,
+                    "subcategory": [
+                        "audit"
+                    ],
+                    "likelihood": "LOW",
+                    "impact": "MEDIUM",
+                    "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+                    "vulnerability_class": [
+                        "Hard-coded Secrets"
+                    ],
+                    "source": "https://semgrep.dev/r/generic.secrets.security.detected-generic-api-key.detected-generic-api-key",
+                    "shortlink": "https://sg.run/qxj8"
+                },
+                "severity": "ERROR",
+                "fingerprint": "requires login",
+                "lines": "requires login",
+                "validation_state": "NO_VALIDATOR",
+                "engine_kind": "OSS"
+            }
+        },
+        {
+            "check_id": "generic.secrets.security.detected-generic-secret.detected-generic-secret",
+            "path": "docs/api_keys.md",
+            "start": {
+                "line": 236,
+                "col": 5,
+                "offset": 5308
+            },
+            "end": {
+                "line": 236,
+                "col": 60,
+                "offset": 5363
+            },
+            "extra": {
+                "message": "Generic Secret detected",
+                "metadata": {
+                    "cwe": [
+                        "CWE-798: Use of Hard-coded Credentials"
+                    ],
+                    "source-rule-url": "https://github.com/dxa4481/truffleHogRegexes/blob/master/truffleHogRegexes/regexes.json",
+                    "category": "security",
+                    "technology": [
+                        "secrets"
+                    ],
+                    "confidence": "LOW",
+                    "owasp": [
+                        "A07:2021 - Identification and Authentication Failures"
+                    ],
+                    "references": [
+                        "https://owasp.org/Top10/A07_2021-Identification_and_Authentication_Failures"
+                    ],
+                    "cwe2022-top25": true,
+                    "cwe2021-top25": true,
+                    "subcategory": [
+                        "audit"
+                    ],
+                    "likelihood": "LOW",
+                    "impact": "MEDIUM",
+                    "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+                    "vulnerability_class": [
+                        "Hard-coded Secrets"
+                    ],
+                    "source": "https://semgrep.dev/r/generic.secrets.security.detected-generic-secret.detected-generic-secret",
+                    "shortlink": "https://sg.run/l2o5"
+                },
+                "severity": "ERROR",
+                "fingerprint": "requires login",
+                "lines": "requires login",
+                "validation_state": "NO_VALIDATOR",
+                "engine_kind": "OSS"
+            }
+        },
+        {
+            "check_id": "generic.secrets.security.detected-generic-secret.detected-generic-secret",
+            "path": "docs/api_keys.md",
+            "start": {
+                "line": 268,
+                "col": 5,
+                "offset": 6118
+            },
+            "end": {
+                "line": 268,
+                "col": 45,
+                "offset": 6158
+            },
+            "extra": {
+                "message": "Generic Secret detected",
+                "metadata": {
+                    "cwe": [
+                        "CWE-798: Use of Hard-coded Credentials"
+                    ],
+                    "source-rule-url": "https://github.com/dxa4481/truffleHogRegexes/blob/master/truffleHogRegexes/regexes.json",
+                    "category": "security",
+                    "technology": [
+                        "secrets"
+                    ],
+                    "confidence": "LOW",
+                    "owasp": [
+                        "A07:2021 - Identification and Authentication Failures"
+                    ],
+                    "references": [
+                        "https://owasp.org/Top10/A07_2021-Identification_and_Authentication_Failures"
+                    ],
+                    "cwe2022-top25": true,
+                    "cwe2021-top25": true,
+                    "subcategory": [
+                        "audit"
+                    ],
+                    "likelihood": "LOW",
+                    "impact": "MEDIUM",
+                    "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+                    "vulnerability_class": [
+                        "Hard-coded Secrets"
+                    ],
+                    "source": "https://semgrep.dev/r/generic.secrets.security.detected-generic-secret.detected-generic-secret",
+                    "shortlink": "https://sg.run/l2o5"
+                },
+                "severity": "ERROR",
+                "fingerprint": "requires login",
+                "lines": "requires login",
+                "validation_state": "NO_VALIDATOR",
+                "engine_kind": "OSS"
+            }
+        },
+        {
+            "check_id": "generic.secrets.security.detected-snyk-api-key.detected-snyk-api-key",
+            "path": "mcp.json",
+            "start": {
+                "line": 47,
+                "col": 14,
+                "offset": 1078
+            },
+            "end": {
+                "line": 47,
+                "col": 65,
+                "offset": 1129
+            },
+            "extra": {
+                "message": "Snyk API Key detected",
+                "metadata": {
+                    "cwe": [
+                        "CWE-798: Use of Hard-coded Credentials"
+                    ],
+                    "category": "security",
+                    "technology": [
+                        "secrets",
+                        "snyk"
+                    ],
+                    "confidence": "LOW",
+                    "owasp": [
+                        "A07:2021 - Identification and Authentication Failures"
+                    ],
+                    "references": [
+                        "https://owasp.org/Top10/A07_2021-Identification_and_Authentication_Failures"
+                    ],
+                    "cwe2022-top25": true,
+                    "cwe2021-top25": true,
+                    "subcategory": [
+                        "audit"
+                    ],
+                    "likelihood": "LOW",
+                    "impact": "MEDIUM",
+                    "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+                    "vulnerability_class": [
+                        "Hard-coded Secrets"
+                    ],
+                    "source": "https://semgrep.dev/r/generic.secrets.security.detected-snyk-api-key.detected-snyk-api-key",
+                    "shortlink": "https://sg.run/lxO9"
+                },
+                "severity": "ERROR",
+                "fingerprint": "requires login",
+                "lines": "requires login",
+                "validation_state": "NO_VALIDATOR",
+                "engine_kind": "OSS"
+            }
+        },
+        {
+            "check_id": "python.lang.security.audit.subprocess-shell-true.subprocess-shell-true",
+            "path": "scripts/smartsync.py",
+            "start": {
+                "line": 77,
+                "col": 19,
+                "offset": 2068
+            },
+            "end": {
+                "line": 77,
+                "col": 23,
+                "offset": 2072
+            },
+            "extra": {
+                "message": "Found 'subprocess' function 'run' with 'shell=True'. This is dangerous because this call will spawn the command using a shell process. Doing so propagates current shell settings and variables, which makes it much easier for a malicious actor to execute commands. Use 'shell=False' instead.",
+                "fix": "False",
+                "metadata": {
+                    "source-rule-url": "https://bandit.readthedocs.io/en/latest/plugins/b602_subprocess_popen_with_shell_equals_true.html",
+                    "owasp": [
+                        "A01:2017 - Injection",
+                        "A03:2021 - Injection"
+                    ],
+                    "cwe": [
+                        "CWE-78: Improper Neutralization of Special Elements used in an OS Command ('OS Command Injection')"
+                    ],
+                    "references": [
+                        "https://stackoverflow.com/questions/3172470/actual-meaning-of-shell-true-in-subprocess",
+                        "https://docs.python.org/3/library/subprocess.html"
+                    ],
+                    "category": "security",
+                    "technology": [
+                        "python"
+                    ],
+                    "cwe2022-top25": true,
+                    "cwe2021-top25": true,
+                    "subcategory": [
+                        "secure default"
+                    ],
+                    "likelihood": "HIGH",
+                    "impact": "LOW",
+                    "confidence": "MEDIUM",
+                    "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+                    "vulnerability_class": [
+                        "Command Injection"
+                    ],
+                    "source": "https://semgrep.dev/r/python.lang.security.audit.subprocess-shell-true.subprocess-shell-true",
+                    "shortlink": "https://sg.run/J92w"
+                },
+                "severity": "ERROR",
+                "fingerprint": "requires login",
+                "lines": "requires login",
+                "validation_state": "NO_VALIDATOR",
+                "engine_kind": "OSS"
+            }
+        },
+        {
+            "check_id": "python.lang.security.audit.subprocess-shell-true.subprocess-shell-true",
+            "path": "scripts/smartsync.py",
+            "start": {
+                "line": 95,
+                "col": 27,
+                "offset": 2733
+            },
+            "end": {
+                "line": 95,
+                "col": 31,
+                "offset": 2737
+            },
+            "extra": {
+                "message": "Found 'subprocess' function 'run' with 'shell=True'. This is dangerous because this call will spawn the command using a shell process. Doing so propagates current shell settings and variables, which makes it much easier for a malicious actor to execute commands. Use 'shell=False' instead.",
+                "fix": "False",
+                "metadata": {
+                    "source-rule-url": "https://bandit.readthedocs.io/en/latest/plugins/b602_subprocess_popen_with_shell_equals_true.html",
+                    "owasp": [
+                        "A01:2017 - Injection",
+                        "A03:2021 - Injection"
+                    ],
+                    "cwe": [
+                        "CWE-78: Improper Neutralization of Special Elements used in an OS Command ('OS Command Injection')"
+                    ],
+                    "references": [
+                        "https://stackoverflow.com/questions/3172470/actual-meaning-of-shell-true-in-subprocess",
+                        "https://docs.python.org/3/library/subprocess.html"
+                    ],
+                    "category": "security",
+                    "technology": [
+                        "python"
+                    ],
+                    "cwe2022-top25": true,
+                    "cwe2021-top25": true,
+                    "subcategory": [
+                        "secure default"
+                    ],
+                    "likelihood": "HIGH",
+                    "impact": "LOW",
+                    "confidence": "MEDIUM",
+                    "license": "Semgrep Rules License v1.0. For more details, visit semgrep.dev/legal/rules-license",
+                    "vulnerability_class": [
+                        "Command Injection"
+                    ],
+                    "source": "https://semgrep.dev/r/python.lang.security.audit.subprocess-shell-true.subprocess-shell-true",
+                    "shortlink": "https://sg.run/J92w"
+                },
+                "severity": "ERROR",
+                "fingerprint": "requires login",
+                "lines": "requires login",
+                "validation_state": "NO_VALIDATOR",
+                "engine_kind": "OSS"
+            }
+        }
+    ],
+    "errors": [
+        {
+            "code": 2,
+            "level": "warn",
+            "type": "Internal matching error",
+            "rule_id": "yaml.github-actions.security.curl-eval.curl-eval",
+            "message": "Internal matching error when running yaml.github-actions.security.curl-eval.curl-eval on .github/workflows/enforce-branch-sequence.yml:\n An error occurred while invoking the Semgrep engine. Please help us fix this by creating an issue at https://github.com/semgrep/semgrep\n\nrule yaml.github-actions.security.curl-eval.curl-eval: metavariable-pattern failed when parsing $SHELL's content as Bash: # Get the PR's base and head branches\nbase_branch=$(echo \"${{ github.event.pull_request.base.ref }}\" | awk '{print $NF}')\nhead_branch=$(echo \"${{ github.event.pull_request.head.ref }}\" | awk '{print $NF}')\n\n# Get the PR creator's username\npr_creator=$(echo \"${{ github.event.pull_request.user.login }}\" | awk '{print $NF}')\n\n# Determine the PR sequence\nif [[ \"$base_branch\" == \"dev\" ]]; then\n  echo \"@\"$pr_creator\" R`RJ PR sequence:  $head_branch -> dev\"\n  echo \"D]UQyP This is a valid sequence.\"\nelif [[ \"$base_branch\" == \"staging\" && \"$head_branch\" == \"dev\" ]]; then\n  echo \"@\"$pr_creator\" R`RJ PR sequence: dev -> staging\"\n  echo \"D]UQyP This is a valid sequence.\"\nelif [[ \"$base_branch\" == \"master\" && \"$head_branch\" == \"staging\" ]]; then\n  echo \"@\"$pr_creator\" R`RJ PR sequence: staging -> master\"\n  echo \"D]UQyP This is a valid sequence.\"\nelse\n  echo \"@\"$pr_creator\" D^M Invalid PR sequence:  $head_branch -> $base_branch\"\n  echo \"Please follow the correct sequence: dev -> staging -> master\"\n  echo \"To fix this, you can either:\\n\\n1. **Rebase your branch** onto the correct target branch before creating the PR.\\n2. **Update your PR** to target the correct branch.\"\nfi\n",
+            "path": ".github/workflows/enforce-branch-sequence.yml"
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": [
+                "PartialParsing",
+                [
+                    {
+                        "path": ".github/workflows/01-direct-push-master.sh",
+                        "start": {
+                            "line": 11,
+                            "col": 17,
+                            "offset": 0
+                        },
+                        "end": {
+                            "line": 11,
+                            "col": 39,
+                            "offset": 22
+                        }
+                    }
+                ]
+            ],
+            "message": "Syntax error at line .github/workflows/01-direct-push-master.sh:11:\n `{ secrets.GITHUB_TOKEN` was unexpected",
+            "path": ".github/workflows/01-direct-push-master.sh",
+            "spans": [
+                {
+                    "file": ".github/workflows/01-direct-push-master.sh",
+                    "start": {
+                        "line": 11,
+                        "col": 17,
+                        "offset": 0
+                    },
+                    "end": {
+                        "line": 11,
+                        "col": 39,
+                        "offset": 22
+                    }
+                }
+            ]
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": [
+                "PartialParsing",
+                [
+                    {
+                        "path": ".github/workflows/02-direct-push-staging.sh",
+                        "start": {
+                            "line": 8,
+                            "col": 17,
+                            "offset": 0
+                        },
+                        "end": {
+                            "line": 8,
+                            "col": 39,
+                            "offset": 22
+                        }
+                    }
+                ]
+            ],
+            "message": "Syntax error at line .github/workflows/02-direct-push-staging.sh:8:\n `{ secrets.GITHUB_TOKEN` was unexpected",
+            "path": ".github/workflows/02-direct-push-staging.sh",
+            "spans": [
+                {
+                    "file": ".github/workflows/02-direct-push-staging.sh",
+                    "start": {
+                        "line": 8,
+                        "col": 17,
+                        "offset": 0
+                    },
+                    "end": {
+                        "line": 8,
+                        "col": 39,
+                        "offset": 22
+                    }
+                }
+            ]
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": [
+                "PartialParsing",
+                [
+                    {
+                        "path": ".github/workflows/03-direct-push-aws-dev.sh",
+                        "start": {
+                            "line": 9,
+                            "col": 17,
+                            "offset": 0
+                        },
+                        "end": {
+                            "line": 9,
+                            "col": 39,
+                            "offset": 22
+                        }
+                    }
+                ]
+            ],
+            "message": "Syntax error at line .github/workflows/03-direct-push-aws-dev.sh:9:\n `{ secrets.GITHUB_TOKEN` was unexpected",
+            "path": ".github/workflows/03-direct-push-aws-dev.sh",
+            "spans": [
+                {
+                    "file": ".github/workflows/03-direct-push-aws-dev.sh",
+                    "start": {
+                        "line": 9,
+                        "col": 17,
+                        "offset": 0
+                    },
+                    "end": {
+                        "line": 9,
+                        "col": 39,
+                        "offset": 22
+                    }
+                }
+            ]
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": [
+                "PartialParsing",
+                [
+                    {
+                        "path": ".github/workflows/04-pr-any-to-aws-dev.sh",
+                        "start": {
+                            "line": 11,
+                            "col": 17,
+                            "offset": 0
+                        },
+                        "end": {
+                            "line": 11,
+                            "col": 39,
+                            "offset": 22
+                        }
+                    }
+                ]
+            ],
+            "message": "Syntax error at line .github/workflows/04-pr-any-to-aws-dev.sh:11:\n `{ secrets.GITHUB_TOKEN` was unexpected",
+            "path": ".github/workflows/04-pr-any-to-aws-dev.sh",
+            "spans": [
+                {
+                    "file": ".github/workflows/04-pr-any-to-aws-dev.sh",
+                    "start": {
+                        "line": 11,
+                        "col": 17,
+                        "offset": 0
+                    },
+                    "end": {
+                        "line": 11,
+                        "col": 39,
+                        "offset": 22
+                    }
+                }
+            ]
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": [
+                "PartialParsing",
+                [
+                    {
+                        "path": ".github/workflows/05-pr-aws-dev-to-staging.sh",
+                        "start": {
+                            "line": 6,
+                            "col": 17,
+                            "offset": 0
+                        },
+                        "end": {
+                            "line": 6,
+                            "col": 39,
+                            "offset": 22
+                        }
+                    }
+                ]
+            ],
+            "message": "Syntax error at line .github/workflows/05-pr-aws-dev-to-staging.sh:6:\n `{ secrets.GITHUB_TOKEN` was unexpected",
+            "path": ".github/workflows/05-pr-aws-dev-to-staging.sh",
+            "spans": [
+                {
+                    "file": ".github/workflows/05-pr-aws-dev-to-staging.sh",
+                    "start": {
+                        "line": 6,
+                        "col": 17,
+                        "offset": 0
+                    },
+                    "end": {
+                        "line": 6,
+                        "col": 39,
+                        "offset": 22
+                    }
+                }
+            ]
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": [
+                "PartialParsing",
+                [
+                    {
+                        "path": ".github/workflows/06-pr-staging-to-master.sh",
+                        "start": {
+                            "line": 10,
+                            "col": 17,
+                            "offset": 0
+                        },
+                        "end": {
+                            "line": 10,
+                            "col": 39,
+                            "offset": 22
+                        }
+                    }
+                ]
+            ],
+            "message": "Syntax error at line .github/workflows/06-pr-staging-to-master.sh:10:\n `{ secrets.GITHUB_TOKEN` was unexpected",
+            "path": ".github/workflows/06-pr-staging-to-master.sh",
+            "spans": [
+                {
+                    "file": ".github/workflows/06-pr-staging-to-master.sh",
+                    "start": {
+                        "line": 10,
+                        "col": 17,
+                        "offset": 0
+                    },
+                    "end": {
+                        "line": 10,
+                        "col": 39,
+                        "offset": 22
+                    }
+                }
+            ]
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": [
+                "PartialParsing",
+                [
+                    {
+                        "path": ".github/workflows/07-pr-creation-joseguzman1337.sh",
+                        "start": {
+                            "line": 13,
+                            "col": 17,
+                            "offset": 0
+                        },
+                        "end": {
+                            "line": 13,
+                            "col": 39,
+                            "offset": 22
+                        }
+                    },
+                    {
+                        "path": ".github/workflows/07-pr-creation-joseguzman1337.sh",
+                        "start": {
+                            "line": 14,
+                            "col": 22,
+                            "offset": 0
+                        },
+                        "end": {
+                            "line": 14,
+                            "col": 41,
+                            "offset": 19
+                        }
+                    }
+                ]
+            ],
+            "message": "Syntax error at line .github/workflows/07-pr-creation-joseguzman1337.sh:13:\n `{ secrets.GITHUB_TOKEN` was unexpected",
+            "path": ".github/workflows/07-pr-creation-joseguzman1337.sh",
+            "spans": [
+                {
+                    "file": ".github/workflows/07-pr-creation-joseguzman1337.sh",
+                    "start": {
+                        "line": 13,
+                        "col": 17,
+                        "offset": 0
+                    },
+                    "end": {
+                        "line": 13,
+                        "col": 39,
+                        "offset": 22
+                    }
+                },
+                {
+                    "file": ".github/workflows/07-pr-creation-joseguzman1337.sh",
+                    "start": {
+                        "line": 14,
+                        "col": 22,
+                        "offset": 0
+                    },
+                    "end": {
+                        "line": 14,
+                        "col": 41,
+                        "offset": 19
+                    }
+                }
+            ]
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": [
+                "PartialParsing",
+                [
+                    {
+                        "path": ".github/workflows/08-pr-creation-ctllaw.sh",
+                        "start": {
+                            "line": 13,
+                            "col": 17,
+                            "offset": 0
+                        },
+                        "end": {
+                            "line": 13,
+                            "col": 39,
+                            "offset": 22
+                        }
+                    },
+                    {
+                        "path": ".github/workflows/08-pr-creation-ctllaw.sh",
+                        "start": {
+                            "line": 16,
+                            "col": 22,
+                            "offset": 0
+                        },
+                        "end": {
+                            "line": 16,
+                            "col": 41,
+                            "offset": 19
+                        }
+                    }
+                ]
+            ],
+            "message": "Syntax error at line .github/workflows/08-pr-creation-ctllaw.sh:13:\n `{ secrets.GITHUB_TOKEN` was unexpected",
+            "path": ".github/workflows/08-pr-creation-ctllaw.sh",
+            "spans": [
+                {
+                    "file": ".github/workflows/08-pr-creation-ctllaw.sh",
+                    "start": {
+                        "line": 13,
+                        "col": 17,
+                        "offset": 0
+                    },
+                    "end": {
+                        "line": 13,
+                        "col": 39,
+                        "offset": 22
+                    }
+                },
+                {
+                    "file": ".github/workflows/08-pr-creation-ctllaw.sh",
+                    "start": {
+                        "line": 16,
+                        "col": 22,
+                        "offset": 0
+                    },
+                    "end": {
+                        "line": 16,
+                        "col": 41,
+                        "offset": 19
+                    }
+                }
+            ]
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": [
+                "PartialParsing",
+                [
+                    {
+                        "path": ".github/workflows/09-add-invalid-reviewer.sh",
+                        "start": {
+                            "line": 10,
+                            "col": 17,
+                            "offset": 0
+                        },
+                        "end": {
+                            "line": 10,
+                            "col": 39,
+                            "offset": 22
+                        }
+                    }
+                ]
+            ],
+            "message": "Syntax error at line .github/workflows/09-add-invalid-reviewer.sh:10:\n `{ secrets.GITHUB_TOKEN` was unexpected",
+            "path": ".github/workflows/09-add-invalid-reviewer.sh",
+            "spans": [
+                {
+                    "file": ".github/workflows/09-add-invalid-reviewer.sh",
+                    "start": {
+                        "line": 10,
+                        "col": 17,
+                        "offset": 0
+                    },
+                    "end": {
+                        "line": 10,
+                        "col": 39,
+                        "offset": 22
+                    }
+                }
+            ]
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": [
+                "PartialParsing",
+                [
+                    {
+                        "path": ".github/workflows/10-approval-merge-permissions.sh",
+                        "start": {
+                            "line": 12,
+                            "col": 17,
+                            "offset": 0
+                        },
+                        "end": {
+                            "line": 12,
+                            "col": 39,
+                            "offset": 22
+                        }
+                    },
+                    {
+                        "path": ".github/workflows/10-approval-merge-permissions.sh",
+                        "start": {
+                            "line": 15,
+                            "col": 22,
+                            "offset": 0
+                        },
+                        "end": {
+                            "line": 15,
+                            "col": 41,
+                            "offset": 19
+                        }
+                    }
+                ]
+            ],
+            "message": "Syntax error at line .github/workflows/10-approval-merge-permissions.sh:12:\n `{ secrets.GITHUB_TOKEN` was unexpected",
+            "path": ".github/workflows/10-approval-merge-permissions.sh",
+            "spans": [
+                {
+                    "file": ".github/workflows/10-approval-merge-permissions.sh",
+                    "start": {
+                        "line": 12,
+                        "col": 17,
+                        "offset": 0
+                    },
+                    "end": {
+                        "line": 12,
+                        "col": 39,
+                        "offset": 22
+                    }
+                },
+                {
+                    "file": ".github/workflows/10-approval-merge-permissions.sh",
+                    "start": {
+                        "line": 15,
+                        "col": 22,
+                        "offset": 0
+                    },
+                    "end": {
+                        "line": 15,
+                        "col": 41,
+                        "offset": 19
+                    }
+                }
+            ]
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": [
+                "PartialParsing",
+                [
+                    {
+                        "path": ".github/workflows/add-reviewer.sh",
+                        "start": {
+                            "line": 7,
+                            "col": 17,
+                            "offset": 0
+                        },
+                        "end": {
+                            "line": 7,
+                            "col": 39,
+                            "offset": 22
+                        }
+                    }
+                ]
+            ],
+            "message": "Syntax error at line .github/workflows/add-reviewer.sh:7:\n `{ secrets.GITHUB_TOKEN` was unexpected",
+            "path": ".github/workflows/add-reviewer.sh",
+            "spans": [
+                {
+                    "file": ".github/workflows/add-reviewer.sh",
+                    "start": {
+                        "line": 7,
+                        "col": 17,
+                        "offset": 0
+                    },
+                    "end": {
+                        "line": 7,
+                        "col": 39,
+                        "offset": 22
+                    }
+                }
+            ]
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": [
+                "PartialParsing",
+                [
+                    {
+                        "path": ".github/workflows/approve-and-merge-pr.sh",
+                        "start": {
+                            "line": 7,
+                            "col": 17,
+                            "offset": 0
+                        },
+                        "end": {
+                            "line": 7,
+                            "col": 39,
+                            "offset": 22
+                        }
+                    }
+                ]
+            ],
+            "message": "Syntax error at line .github/workflows/approve-and-merge-pr.sh:7:\n `{ secrets.GITHUB_TOKEN` was unexpected",
+            "path": ".github/workflows/approve-and-merge-pr.sh",
+            "spans": [
+                {
+                    "file": ".github/workflows/approve-and-merge-pr.sh",
+                    "start": {
+                        "line": 7,
+                        "col": 17,
+                        "offset": 0
+                    },
+                    "end": {
+                        "line": 7,
+                        "col": 39,
+                        "offset": 22
+                    }
+                }
+            ]
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": [
+                "PartialParsing",
+                [
+                    {
+                        "path": ".github/workflows/block-github-changes.yml",
+                        "start": {
+                            "line": 66,
+                            "col": 46,
+                            "offset": 1434
+                        },
+                        "end": {
+                            "line": 66,
+                            "col": 49,
+                            "offset": 1437
+                        }
+                    }
+                ]
+            ],
+            "message": "Syntax error at line .github/workflows/block-github-changes.yml:66:\n When parsing a snippet as Bash for metavariable-pattern in rule 'yaml.github-actions.security.curl-eval.curl-eval', `${{` was unexpected",
+            "path": ".github/workflows/block-github-changes.yml",
+            "spans": [
+                {
+                    "file": ".github/workflows/block-github-changes.yml",
+                    "start": {
+                        "line": 66,
+                        "col": 46,
+                        "offset": 1434
+                    },
+                    "end": {
+                        "line": 66,
+                        "col": 49,
+                        "offset": 1437
+                    }
+                }
+            ]
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": [
+                "PartialParsing",
+                [
+                    {
+                        "path": ".github/workflows/check-reviewers.sh",
+                        "start": {
+                            "line": 7,
+                            "col": 17,
+                            "offset": 0
+                        },
+                        "end": {
+                            "line": 7,
+                            "col": 39,
+                            "offset": 22
+                        }
+                    }
+                ]
+            ],
+            "message": "Syntax error at line .github/workflows/check-reviewers.sh:7:\n `{ secrets.GITHUB_TOKEN` was unexpected",
+            "path": ".github/workflows/check-reviewers.sh",
+            "spans": [
+                {
+                    "file": ".github/workflows/check-reviewers.sh",
+                    "start": {
+                        "line": 7,
+                        "col": 17,
+                        "offset": 0
+                    },
+                    "end": {
+                        "line": 7,
+                        "col": 39,
+                        "offset": 22
+                    }
+                }
+            ]
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": [
+                "PartialParsing",
+                [
+                    {
+                        "path": ".github/workflows/common_functions.sh",
+                        "start": {
+                            "line": 4,
+                            "col": 17,
+                            "offset": 0
+                        },
+                        "end": {
+                            "line": 4,
+                            "col": 39,
+                            "offset": 22
+                        }
+                    }
+                ]
+            ],
+            "message": "Syntax error at line .github/workflows/common_functions.sh:4:\n `{ secrets.GITHUB_TOKEN` was unexpected",
+            "path": ".github/workflows/common_functions.sh",
+            "spans": [
+                {
+                    "file": ".github/workflows/common_functions.sh",
+                    "start": {
+                        "line": 4,
+                        "col": 17,
+                        "offset": 0
+                    },
+                    "end": {
+                        "line": 4,
+                        "col": 39,
+                        "offset": 22
+                    }
+                }
+            ]
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": [
+                "PartialParsing",
+                [
+                    {
+                        "path": ".github/workflows/create-and-merge-pr.sh",
+                        "start": {
+                            "line": 7,
+                            "col": 17,
+                            "offset": 0
+                        },
+                        "end": {
+                            "line": 7,
+                            "col": 39,
+                            "offset": 22
+                        }
+                    }
+                ]
+            ],
+            "message": "Syntax error at line .github/workflows/create-and-merge-pr.sh:7:\n `{ secrets.GITHUB_TOKEN` was unexpected",
+            "path": ".github/workflows/create-and-merge-pr.sh",
+            "spans": [
+                {
+                    "file": ".github/workflows/create-and-merge-pr.sh",
+                    "start": {
+                        "line": 7,
+                        "col": 17,
+                        "offset": 0
+                    },
+                    "end": {
+                        "line": 7,
+                        "col": 39,
+                        "offset": 22
+                    }
+                }
+            ]
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": [
+                "PartialParsing",
+                [
+                    {
+                        "path": ".github/workflows/create-pr.sh",
+                        "start": {
+                            "line": 8,
+                            "col": 17,
+                            "offset": 0
+                        },
+                        "end": {
+                            "line": 8,
+                            "col": 39,
+                            "offset": 22
+                        }
+                    }
+                ]
+            ],
+            "message": "Syntax error at line .github/workflows/create-pr.sh:8:\n `{ secrets.GITHUB_TOKEN` was unexpected",
+            "path": ".github/workflows/create-pr.sh",
+            "spans": [
+                {
+                    "file": ".github/workflows/create-pr.sh",
+                    "start": {
+                        "line": 8,
+                        "col": 17,
+                        "offset": 0
+                    },
+                    "end": {
+                        "line": 8,
+                        "col": 39,
+                        "offset": 22
+                    }
+                }
+            ]
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": [
+                "PartialParsing",
+                [
+                    {
+                        "path": ".github/workflows/detekt.yml",
+                        "start": {
+                            "line": 91,
+                            "col": 9,
+                            "offset": 3137
+                        },
+                        "end": {
+                            "line": 91,
+                            "col": 12,
+                            "offset": 3140
+                        }
+                    }
+                ]
+            ],
+            "message": "Syntax error at line .github/workflows/detekt.yml:91:\n When parsing a snippet as Bash for metavariable-pattern in rule 'yaml.github-actions.security.curl-eval.curl-eval', `${{` was unexpected",
+            "path": ".github/workflows/detekt.yml",
+            "spans": [
+                {
+                    "file": ".github/workflows/detekt.yml",
+                    "start": {
+                        "line": 91,
+                        "col": 9,
+                        "offset": 3137
+                    },
+                    "end": {
+                        "line": 91,
+                        "col": 12,
+                        "offset": 3140
+                    }
+                }
+            ]
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": [
+                "PartialParsing",
+                [
+                    {
+                        "path": ".github/workflows/detekt.yml",
+                        "start": {
+                            "line": 102,
+                            "col": 69,
+                            "offset": 3535
+                        },
+                        "end": {
+                            "line": 102,
+                            "col": 72,
+                            "offset": 3538
+                        }
+                    }
+                ]
+            ],
+            "message": "Syntax error at line .github/workflows/detekt.yml:102:\n When parsing a snippet as Bash for metavariable-pattern in rule 'yaml.github-actions.security.curl-eval.curl-eval', `${{` was unexpected",
+            "path": ".github/workflows/detekt.yml",
+            "spans": [
+                {
+                    "file": ".github/workflows/detekt.yml",
+                    "start": {
+                        "line": 102,
+                        "col": 69,
+                        "offset": 3535
+                    },
+                    "end": {
+                        "line": 102,
+                        "col": 72,
+                        "offset": 3538
+                    }
+                }
+            ]
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": [
+                "PartialParsing",
+                [
+                    {
+                        "path": ".github/workflows/detekt.yml",
+                        "start": {
+                            "line": 114,
+                            "col": 5,
+                            "offset": 3989
+                        },
+                        "end": {
+                            "line": 114,
+                            "col": 8,
+                            "offset": 3992
+                        }
+                    },
+                    {
+                        "path": ".github/workflows/detekt.yml",
+                        "start": {
+                            "line": 115,
+                            "col": 6,
+                            "offset": 3989
+                        },
+                        "end": {
+                            "line": 115,
+                            "col": 26,
+                            "offset": 4009
+                        }
+                    }
+                ]
+            ],
+            "message": "Syntax error at line .github/workflows/detekt.yml:114:\n When parsing a snippet as Bash for metavariable-pattern in rule 'yaml.github-actions.security.curl-eval.curl-eval', `${{` was unexpected",
+            "path": ".github/workflows/detekt.yml",
+            "spans": [
+                {
+                    "file": ".github/workflows/detekt.yml",
+                    "start": {
+                        "line": 114,
+                        "col": 5,
+                        "offset": 3989
+                    },
+                    "end": {
+                        "line": 114,
+                        "col": 8,
+                        "offset": 3992
+                    }
+                },
+                {
+                    "file": ".github/workflows/detekt.yml",
+                    "start": {
+                        "line": 115,
+                        "col": 6,
+                        "offset": 3989
+                    },
+                    "end": {
+                        "line": 115,
+                        "col": 26,
+                        "offset": 4009
+                    }
+                }
+            ]
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": [
+                "PartialParsing",
+                [
+                    {
+                        "path": ".github/workflows/enforce-branch-sequence.yml",
+                        "start": {
+                            "line": 123,
+                            "col": 18,
+                            "offset": 3941
+                        },
+                        "end": {
+                            "line": 123,
+                            "col": 54,
+                            "offset": 3977
+                        }
+                    }
+                ]
+            ],
+            "message": "Syntax error at line .github/workflows/enforce-branch-sequence.yml:123:\n When parsing a snippet as Bash for metavariable-pattern in rule 'yaml.github-actions.security.curl-eval.curl-eval', `{ github.event.pull_request.base.ref` was unexpected",
+            "path": ".github/workflows/enforce-branch-sequence.yml",
+            "spans": [
+                {
+                    "file": ".github/workflows/enforce-branch-sequence.yml",
+                    "start": {
+                        "line": 123,
+                        "col": 18,
+                        "offset": 3941
+                    },
+                    "end": {
+                        "line": 123,
+                        "col": 54,
+                        "offset": 3977
+                    }
+                }
+            ]
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": [
+                "PartialParsing",
+                [
+                    {
+                        "path": ".github/workflows/scripts/01-direct-push-master.sh",
+                        "start": {
+                            "line": 11,
+                            "col": 17,
+                            "offset": 0
+                        },
+                        "end": {
+                            "line": 11,
+                            "col": 39,
+                            "offset": 22
+                        }
+                    }
+                ]
+            ],
+            "message": "Syntax error at line .github/workflows/scripts/01-direct-push-master.sh:11:\n `{ secrets.GITHUB_TOKEN` was unexpected",
+            "path": ".github/workflows/scripts/01-direct-push-master.sh",
+            "spans": [
+                {
+                    "file": ".github/workflows/scripts/01-direct-push-master.sh",
+                    "start": {
+                        "line": 11,
+                        "col": 17,
+                        "offset": 0
+                    },
+                    "end": {
+                        "line": 11,
+                        "col": 39,
+                        "offset": 22
+                    }
+                }
+            ]
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": [
+                "PartialParsing",
+                [
+                    {
+                        "path": ".github/workflows/scripts/02-direct-push-staging.sh",
+                        "start": {
+                            "line": 8,
+                            "col": 17,
+                            "offset": 0
+                        },
+                        "end": {
+                            "line": 8,
+                            "col": 39,
+                            "offset": 22
+                        }
+                    }
+                ]
+            ],
+            "message": "Syntax error at line .github/workflows/scripts/02-direct-push-staging.sh:8:\n `{ secrets.GITHUB_TOKEN` was unexpected",
+            "path": ".github/workflows/scripts/02-direct-push-staging.sh",
+            "spans": [
+                {
+                    "file": ".github/workflows/scripts/02-direct-push-staging.sh",
+                    "start": {
+                        "line": 8,
+                        "col": 17,
+                        "offset": 0
+                    },
+                    "end": {
+                        "line": 8,
+                        "col": 39,
+                        "offset": 22
+                    }
+                }
+            ]
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": [
+                "PartialParsing",
+                [
+                    {
+                        "path": ".github/workflows/scripts/03-direct-push-aws-dev.sh",
+                        "start": {
+                            "line": 9,
+                            "col": 17,
+                            "offset": 0
+                        },
+                        "end": {
+                            "line": 9,
+                            "col": 39,
+                            "offset": 22
+                        }
+                    }
+                ]
+            ],
+            "message": "Syntax error at line .github/workflows/scripts/03-direct-push-aws-dev.sh:9:\n `{ secrets.GITHUB_TOKEN` was unexpected",
+            "path": ".github/workflows/scripts/03-direct-push-aws-dev.sh",
+            "spans": [
+                {
+                    "file": ".github/workflows/scripts/03-direct-push-aws-dev.sh",
+                    "start": {
+                        "line": 9,
+                        "col": 17,
+                        "offset": 0
+                    },
+                    "end": {
+                        "line": 9,
+                        "col": 39,
+                        "offset": 22
+                    }
+                }
+            ]
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": [
+                "PartialParsing",
+                [
+                    {
+                        "path": ".github/workflows/scripts/04-pr-any-to-aws-dev.sh",
+                        "start": {
+                            "line": 11,
+                            "col": 17,
+                            "offset": 0
+                        },
+                        "end": {
+                            "line": 11,
+                            "col": 39,
+                            "offset": 22
+                        }
+                    }
+                ]
+            ],
+            "message": "Syntax error at line .github/workflows/scripts/04-pr-any-to-aws-dev.sh:11:\n `{ secrets.GITHUB_TOKEN` was unexpected",
+            "path": ".github/workflows/scripts/04-pr-any-to-aws-dev.sh",
+            "spans": [
+                {
+                    "file": ".github/workflows/scripts/04-pr-any-to-aws-dev.sh",
+                    "start": {
+                        "line": 11,
+                        "col": 17,
+                        "offset": 0
+                    },
+                    "end": {
+                        "line": 11,
+                        "col": 39,
+                        "offset": 22
+                    }
+                }
+            ]
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": [
+                "PartialParsing",
+                [
+                    {
+                        "path": ".github/workflows/scripts/05-pr-aws-dev-to-staging.sh",
+                        "start": {
+                            "line": 6,
+                            "col": 17,
+                            "offset": 0
+                        },
+                        "end": {
+                            "line": 6,
+                            "col": 39,
+                            "offset": 22
+                        }
+                    }
+                ]
+            ],
+            "message": "Syntax error at line .github/workflows/scripts/05-pr-aws-dev-to-staging.sh:6:\n `{ secrets.GITHUB_TOKEN` was unexpected",
+            "path": ".github/workflows/scripts/05-pr-aws-dev-to-staging.sh",
+            "spans": [
+                {
+                    "file": ".github/workflows/scripts/05-pr-aws-dev-to-staging.sh",
+                    "start": {
+                        "line": 6,
+                        "col": 17,
+                        "offset": 0
+                    },
+                    "end": {
+                        "line": 6,
+                        "col": 39,
+                        "offset": 22
+                    }
+                }
+            ]
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": [
+                "PartialParsing",
+                [
+                    {
+                        "path": ".github/workflows/scripts/06-pr-staging-to-master.sh",
+                        "start": {
+                            "line": 10,
+                            "col": 17,
+                            "offset": 0
+                        },
+                        "end": {
+                            "line": 10,
+                            "col": 39,
+                            "offset": 22
+                        }
+                    }
+                ]
+            ],
+            "message": "Syntax error at line .github/workflows/scripts/06-pr-staging-to-master.sh:10:\n `{ secrets.GITHUB_TOKEN` was unexpected",
+            "path": ".github/workflows/scripts/06-pr-staging-to-master.sh",
+            "spans": [
+                {
+                    "file": ".github/workflows/scripts/06-pr-staging-to-master.sh",
+                    "start": {
+                        "line": 10,
+                        "col": 17,
+                        "offset": 0
+                    },
+                    "end": {
+                        "line": 10,
+                        "col": 39,
+                        "offset": 22
+                    }
+                }
+            ]
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": [
+                "PartialParsing",
+                [
+                    {
+                        "path": ".github/workflows/scripts/07-pr-creation-joseguzman1337.sh",
+                        "start": {
+                            "line": 13,
+                            "col": 17,
+                            "offset": 0
+                        },
+                        "end": {
+                            "line": 13,
+                            "col": 39,
+                            "offset": 22
+                        }
+                    },
+                    {
+                        "path": ".github/workflows/scripts/07-pr-creation-joseguzman1337.sh",
+                        "start": {
+                            "line": 14,
+                            "col": 22,
+                            "offset": 0
+                        },
+                        "end": {
+                            "line": 14,
+                            "col": 41,
+                            "offset": 19
+                        }
+                    }
+                ]
+            ],
+            "message": "Syntax error at line .github/workflows/scripts/07-pr-creation-joseguzman1337.sh:13:\n `{ secrets.GITHUB_TOKEN` was unexpected",
+            "path": ".github/workflows/scripts/07-pr-creation-joseguzman1337.sh",
+            "spans": [
+                {
+                    "file": ".github/workflows/scripts/07-pr-creation-joseguzman1337.sh",
+                    "start": {
+                        "line": 13,
+                        "col": 17,
+                        "offset": 0
+                    },
+                    "end": {
+                        "line": 13,
+                        "col": 39,
+                        "offset": 22
+                    }
+                },
+                {
+                    "file": ".github/workflows/scripts/07-pr-creation-joseguzman1337.sh",
+                    "start": {
+                        "line": 14,
+                        "col": 22,
+                        "offset": 0
+                    },
+                    "end": {
+                        "line": 14,
+                        "col": 41,
+                        "offset": 19
+                    }
+                }
+            ]
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": [
+                "PartialParsing",
+                [
+                    {
+                        "path": ".github/workflows/scripts/08-pr-creation-ctllaw.sh",
+                        "start": {
+                            "line": 13,
+                            "col": 17,
+                            "offset": 0
+                        },
+                        "end": {
+                            "line": 13,
+                            "col": 39,
+                            "offset": 22
+                        }
+                    },
+                    {
+                        "path": ".github/workflows/scripts/08-pr-creation-ctllaw.sh",
+                        "start": {
+                            "line": 16,
+                            "col": 22,
+                            "offset": 0
+                        },
+                        "end": {
+                            "line": 16,
+                            "col": 41,
+                            "offset": 19
+                        }
+                    }
+                ]
+            ],
+            "message": "Syntax error at line .github/workflows/scripts/08-pr-creation-ctllaw.sh:13:\n `{ secrets.GITHUB_TOKEN` was unexpected",
+            "path": ".github/workflows/scripts/08-pr-creation-ctllaw.sh",
+            "spans": [
+                {
+                    "file": ".github/workflows/scripts/08-pr-creation-ctllaw.sh",
+                    "start": {
+                        "line": 13,
+                        "col": 17,
+                        "offset": 0
+                    },
+                    "end": {
+                        "line": 13,
+                        "col": 39,
+                        "offset": 22
+                    }
+                },
+                {
+                    "file": ".github/workflows/scripts/08-pr-creation-ctllaw.sh",
+                    "start": {
+                        "line": 16,
+                        "col": 22,
+                        "offset": 0
+                    },
+                    "end": {
+                        "line": 16,
+                        "col": 41,
+                        "offset": 19
+                    }
+                }
+            ]
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": [
+                "PartialParsing",
+                [
+                    {
+                        "path": ".github/workflows/scripts/09-add-invalid-reviewer.sh",
+                        "start": {
+                            "line": 10,
+                            "col": 17,
+                            "offset": 0
+                        },
+                        "end": {
+                            "line": 10,
+                            "col": 39,
+                            "offset": 22
+                        }
+                    }
+                ]
+            ],
+            "message": "Syntax error at line .github/workflows/scripts/09-add-invalid-reviewer.sh:10:\n `{ secrets.GITHUB_TOKEN` was unexpected",
+            "path": ".github/workflows/scripts/09-add-invalid-reviewer.sh",
+            "spans": [
+                {
+                    "file": ".github/workflows/scripts/09-add-invalid-reviewer.sh",
+                    "start": {
+                        "line": 10,
+                        "col": 17,
+                        "offset": 0
+                    },
+                    "end": {
+                        "line": 10,
+                        "col": 39,
+                        "offset": 22
+                    }
+                }
+            ]
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": [
+                "PartialParsing",
+                [
+                    {
+                        "path": ".github/workflows/scripts/10-approval-merge-permissions.sh",
+                        "start": {
+                            "line": 12,
+                            "col": 17,
+                            "offset": 0
+                        },
+                        "end": {
+                            "line": 12,
+                            "col": 39,
+                            "offset": 22
+                        }
+                    },
+                    {
+                        "path": ".github/workflows/scripts/10-approval-merge-permissions.sh",
+                        "start": {
+                            "line": 15,
+                            "col": 22,
+                            "offset": 0
+                        },
+                        "end": {
+                            "line": 15,
+                            "col": 41,
+                            "offset": 19
+                        }
+                    }
+                ]
+            ],
+            "message": "Syntax error at line .github/workflows/scripts/10-approval-merge-permissions.sh:12:\n `{ secrets.GITHUB_TOKEN` was unexpected",
+            "path": ".github/workflows/scripts/10-approval-merge-permissions.sh",
+            "spans": [
+                {
+                    "file": ".github/workflows/scripts/10-approval-merge-permissions.sh",
+                    "start": {
+                        "line": 12,
+                        "col": 17,
+                        "offset": 0
+                    },
+                    "end": {
+                        "line": 12,
+                        "col": 39,
+                        "offset": 22
+                    }
+                },
+                {
+                    "file": ".github/workflows/scripts/10-approval-merge-permissions.sh",
+                    "start": {
+                        "line": 15,
+                        "col": 22,
+                        "offset": 0
+                    },
+                    "end": {
+                        "line": 15,
+                        "col": 41,
+                        "offset": 19
+                    }
+                }
+            ]
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": [
+                "PartialParsing",
+                [
+                    {
+                        "path": ".github/workflows/scripts/add-reviewer.sh",
+                        "start": {
+                            "line": 7,
+                            "col": 17,
+                            "offset": 0
+                        },
+                        "end": {
+                            "line": 7,
+                            "col": 39,
+                            "offset": 22
+                        }
+                    }
+                ]
+            ],
+            "message": "Syntax error at line .github/workflows/scripts/add-reviewer.sh:7:\n `{ secrets.GITHUB_TOKEN` was unexpected",
+            "path": ".github/workflows/scripts/add-reviewer.sh",
+            "spans": [
+                {
+                    "file": ".github/workflows/scripts/add-reviewer.sh",
+                    "start": {
+                        "line": 7,
+                        "col": 17,
+                        "offset": 0
+                    },
+                    "end": {
+                        "line": 7,
+                        "col": 39,
+                        "offset": 22
+                    }
+                }
+            ]
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": [
+                "PartialParsing",
+                [
+                    {
+                        "path": ".github/workflows/scripts/approve-and-merge-pr.sh",
+                        "start": {
+                            "line": 7,
+                            "col": 17,
+                            "offset": 0
+                        },
+                        "end": {
+                            "line": 7,
+                            "col": 39,
+                            "offset": 22
+                        }
+                    }
+                ]
+            ],
+            "message": "Syntax error at line .github/workflows/scripts/approve-and-merge-pr.sh:7:\n `{ secrets.GITHUB_TOKEN` was unexpected",
+            "path": ".github/workflows/scripts/approve-and-merge-pr.sh",
+            "spans": [
+                {
+                    "file": ".github/workflows/scripts/approve-and-merge-pr.sh",
+                    "start": {
+                        "line": 7,
+                        "col": 17,
+                        "offset": 0
+                    },
+                    "end": {
+                        "line": 7,
+                        "col": 39,
+                        "offset": 22
+                    }
+                }
+            ]
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": [
+                "PartialParsing",
+                [
+                    {
+                        "path": ".github/workflows/scripts/check-reviewers.sh",
+                        "start": {
+                            "line": 7,
+                            "col": 17,
+                            "offset": 0
+                        },
+                        "end": {
+                            "line": 7,
+                            "col": 39,
+                            "offset": 22
+                        }
+                    }
+                ]
+            ],
+            "message": "Syntax error at line .github/workflows/scripts/check-reviewers.sh:7:\n `{ secrets.GITHUB_TOKEN` was unexpected",
+            "path": ".github/workflows/scripts/check-reviewers.sh",
+            "spans": [
+                {
+                    "file": ".github/workflows/scripts/check-reviewers.sh",
+                    "start": {
+                        "line": 7,
+                        "col": 17,
+                        "offset": 0
+                    },
+                    "end": {
+                        "line": 7,
+                        "col": 39,
+                        "offset": 22
+                    }
+                }
+            ]
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": [
+                "PartialParsing",
+                [
+                    {
+                        "path": ".github/workflows/scripts/common_functions.sh",
+                        "start": {
+                            "line": 4,
+                            "col": 17,
+                            "offset": 0
+                        },
+                        "end": {
+                            "line": 4,
+                            "col": 39,
+                            "offset": 22
+                        }
+                    }
+                ]
+            ],
+            "message": "Syntax error at line .github/workflows/scripts/common_functions.sh:4:\n `{ secrets.GITHUB_TOKEN` was unexpected",
+            "path": ".github/workflows/scripts/common_functions.sh",
+            "spans": [
+                {
+                    "file": ".github/workflows/scripts/common_functions.sh",
+                    "start": {
+                        "line": 4,
+                        "col": 17,
+                        "offset": 0
+                    },
+                    "end": {
+                        "line": 4,
+                        "col": 39,
+                        "offset": 22
+                    }
+                }
+            ]
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": [
+                "PartialParsing",
+                [
+                    {
+                        "path": ".github/workflows/scripts/create-and-merge-pr.sh",
+                        "start": {
+                            "line": 7,
+                            "col": 17,
+                            "offset": 0
+                        },
+                        "end": {
+                            "line": 7,
+                            "col": 39,
+                            "offset": 22
+                        }
+                    }
+                ]
+            ],
+            "message": "Syntax error at line .github/workflows/scripts/create-and-merge-pr.sh:7:\n `{ secrets.GITHUB_TOKEN` was unexpected",
+            "path": ".github/workflows/scripts/create-and-merge-pr.sh",
+            "spans": [
+                {
+                    "file": ".github/workflows/scripts/create-and-merge-pr.sh",
+                    "start": {
+                        "line": 7,
+                        "col": 17,
+                        "offset": 0
+                    },
+                    "end": {
+                        "line": 7,
+                        "col": 39,
+                        "offset": 22
+                    }
+                }
+            ]
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": [
+                "PartialParsing",
+                [
+                    {
+                        "path": ".github/workflows/scripts/create-pr.sh",
+                        "start": {
+                            "line": 8,
+                            "col": 17,
+                            "offset": 0
+                        },
+                        "end": {
+                            "line": 8,
+                            "col": 39,
+                            "offset": 22
+                        }
+                    }
+                ]
+            ],
+            "message": "Syntax error at line .github/workflows/scripts/create-pr.sh:8:\n `{ secrets.GITHUB_TOKEN` was unexpected",
+            "path": ".github/workflows/scripts/create-pr.sh",
+            "spans": [
+                {
+                    "file": ".github/workflows/scripts/create-pr.sh",
+                    "start": {
+                        "line": 8,
+                        "col": 17,
+                        "offset": 0
+                    },
+                    "end": {
+                        "line": 8,
+                        "col": 39,
+                        "offset": 22
+                    }
+                }
+            ]
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": [
+                "PartialParsing",
+                [
+                    {
+                        "path": ".github/workflows/snyk-infrastructure.yml",
+                        "start": {
+                            "line": 35,
+                            "col": 8,
+                            "offset": 543
+                        },
+                        "end": {
+                            "line": 35,
+                            "col": 11,
+                            "offset": 546
+                        }
+                    },
+                    {
+                        "path": ".github/workflows/snyk-infrastructure.yml",
+                        "start": {
+                            "line": 37,
+                            "col": 24,
+                            "offset": 543
+                        },
+                        "end": {
+                            "line": 37,
+                            "col": 35,
+                            "offset": 554
+                        }
+                    }
+                ]
+            ],
+            "message": "Syntax error at line .github/workflows/snyk-infrastructure.yml:35:\n When parsing a snippet as Bash for metavariable-pattern in rule 'yaml.github-actions.security.curl-eval.curl-eval', `${{` was unexpected",
+            "path": ".github/workflows/snyk-infrastructure.yml",
+            "spans": [
+                {
+                    "file": ".github/workflows/snyk-infrastructure.yml",
+                    "start": {
+                        "line": 35,
+                        "col": 8,
+                        "offset": 543
+                    },
+                    "end": {
+                        "line": 35,
+                        "col": 11,
+                        "offset": 546
+                    }
+                },
+                {
+                    "file": ".github/workflows/snyk-infrastructure.yml",
+                    "start": {
+                        "line": 37,
+                        "col": 24,
+                        "offset": 543
+                    },
+                    "end": {
+                        "line": 37,
+                        "col": 35,
+                        "offset": 554
+                    }
+                }
+            ]
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": [
+                "PartialParsing",
+                [
+                    {
+                        "path": ".github/workflows/snyk-infrastructure.yml",
+                        "start": {
+                            "line": 142,
+                            "col": 20,
+                            "offset": 4487
+                        },
+                        "end": {
+                            "line": 155,
+                            "col": 51,
+                            "offset": 5016
+                        }
+                    }
+                ]
+            ],
+            "message": "Syntax error at line .github/workflows/snyk-infrastructure.yml:142:\n When parsing a snippet as Bash for metavariable-pattern in rule 'yaml.github-actions.security.curl-eval.curl-eval', `\"R`[A Running Snyk ${{ matrix.scan-type }} scan...\"\n\n# Special handling for container scans\nif [ \"${{ matrix.scan-type }}\" = \"container\" ]; then\n  find . -name \"Dockerfile\" -o -name \"*.dockerfile\" -o -name \"Containerfile\" | while read -r dockerfile; do\n    echo \"R`Tg Scanning $dockerfile\"\n    snyk container test file:\"$dockerfile\" --file=\"$dockerfile\" ${{ matrix.args }} || true\n  done\nelse\n  # Standard scan for other types\n  snyk ${{ matrix.command }} ${{ matrix.args }}\nfi\n\necho \"D]F ${{ matrix.scan-type }} scan completed\"\n` was unexpected",
+            "path": ".github/workflows/snyk-infrastructure.yml",
+            "spans": [
+                {
+                    "file": ".github/workflows/snyk-infrastructure.yml",
+                    "start": {
+                        "line": 142,
+                        "col": 20,
+                        "offset": 4487
+                    },
+                    "end": {
+                        "line": 155,
+                        "col": 51,
+                        "offset": 5016
+                    }
+                }
+            ]
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": [
+                "PartialParsing",
+                [
+                    {
+                        "path": ".github/workflows/snyk-infrastructure.yml",
+                        "start": {
+                            "line": 195,
+                            "col": 6,
+                            "offset": 6184
+                        },
+                        "end": {
+                            "line": 195,
+                            "col": 38,
+                            "offset": 6216
+                        }
+                    },
+                    {
+                        "path": ".github/workflows/snyk-infrastructure.yml",
+                        "start": {
+                            "line": 196,
+                            "col": 26,
+                            "offset": 6184
+                        },
+                        "end": {
+                            "line": 196,
+                            "col": 29,
+                            "offset": 6187
+                        }
+                    },
+                    {
+                        "path": ".github/workflows/snyk-infrastructure.yml",
+                        "start": {
+                            "line": 197,
+                            "col": 24,
+                            "offset": 6184
+                        },
+                        "end": {
+                            "line": 197,
+                            "col": 27,
+                            "offset": 6187
+                        }
+                    },
+                    {
+                        "path": ".github/workflows/snyk-infrastructure.yml",
+                        "start": {
+                            "line": 207,
+                            "col": 8,
+                            "offset": 6184
+                        },
+                        "end": {
+                            "line": 207,
+                            "col": 87,
+                            "offset": 6263
+                        }
+                    }
+                ]
+            ],
+            "message": "Syntax error at line .github/workflows/snyk-infrastructure.yml:195:\n When parsing a snippet as Bash for metavariable-pattern in rule 'yaml.github-actions.security.curl-eval.curl-eval', `\"DAc Infrastructure as Code: ${{` was unexpected",
+            "path": ".github/workflows/snyk-infrastructure.yml",
+            "spans": [
+                {
+                    "file": ".github/workflows/snyk-infrastructure.yml",
+                    "start": {
+                        "line": 195,
+                        "col": 6,
+                        "offset": 6184
+                    },
+                    "end": {
+                        "line": 195,
+                        "col": 38,
+                        "offset": 6216
+                    }
+                },
+                {
+                    "file": ".github/workflows/snyk-infrastructure.yml",
+                    "start": {
+                        "line": 196,
+                        "col": 26,
+                        "offset": 6184
+                    },
+                    "end": {
+                        "line": 196,
+                        "col": 29,
+                        "offset": 6187
+                    }
+                },
+                {
+                    "file": ".github/workflows/snyk-infrastructure.yml",
+                    "start": {
+                        "line": 197,
+                        "col": 24,
+                        "offset": 6184
+                    },
+                    "end": {
+                        "line": 197,
+                        "col": 27,
+                        "offset": 6187
+                    }
+                },
+                {
+                    "file": ".github/workflows/snyk-infrastructure.yml",
+                    "start": {
+                        "line": 207,
+                        "col": 8,
+                        "offset": 6184
+                    },
+                    "end": {
+                        "line": 207,
+                        "col": 87,
+                        "offset": 6263
+                    }
+                }
+            ]
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": [
+                "PartialParsing",
+                [
+                    {
+                        "path": ".github/workflows/synopsys-io.yml",
+                        "start": {
+                            "line": 53,
+                            "col": 39,
+                            "offset": 1585
+                        },
+                        "end": {
+                            "line": 53,
+                            "col": 42,
+                            "offset": 1588
+                        }
+                    },
+                    {
+                        "path": ".github/workflows/synopsys-io.yml",
+                        "start": {
+                            "line": 54,
+                            "col": 29,
+                            "offset": 1585
+                        },
+                        "end": {
+                            "line": 54,
+                            "col": 32,
+                            "offset": 1588
+                        }
+                    },
+                    {
+                        "path": ".github/workflows/synopsys-io.yml",
+                        "start": {
+                            "line": 55,
+                            "col": 9,
+                            "offset": 1585
+                        },
+                        "end": {
+                            "line": 55,
+                            "col": 12,
+                            "offset": 1588
+                        }
+                    }
+                ]
+            ],
+            "message": "Syntax error at line .github/workflows/synopsys-io.yml:53:\n When parsing a snippet as Bash for metavariable-pattern in rule 'yaml.github-actions.security.curl-eval.curl-eval', `${{` was unexpected",
+            "path": ".github/workflows/synopsys-io.yml",
+            "spans": [
+                {
+                    "file": ".github/workflows/synopsys-io.yml",
+                    "start": {
+                        "line": 53,
+                        "col": 39,
+                        "offset": 1585
+                    },
+                    "end": {
+                        "line": 53,
+                        "col": 42,
+                        "offset": 1588
+                    }
+                },
+                {
+                    "file": ".github/workflows/synopsys-io.yml",
+                    "start": {
+                        "line": 54,
+                        "col": 29,
+                        "offset": 1585
+                    },
+                    "end": {
+                        "line": 54,
+                        "col": 32,
+                        "offset": 1588
+                    }
+                },
+                {
+                    "file": ".github/workflows/synopsys-io.yml",
+                    "start": {
+                        "line": 55,
+                        "col": 9,
+                        "offset": 1585
+                    },
+                    "end": {
+                        "line": 55,
+                        "col": 12,
+                        "offset": 1588
+                    }
+                }
+            ]
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": [
+                "PartialParsing",
+                [
+                    {
+                        "path": ".github/workflows/test-workflows.yml",
+                        "start": {
+                            "line": 70,
+                            "col": 18,
+                            "offset": 2460
+                        },
+                        "end": {
+                            "line": 70,
+                            "col": 21,
+                            "offset": 2463
+                        }
+                    },
+                    {
+                        "path": ".github/workflows/test-workflows.yml",
+                        "start": {
+                            "line": 71,
+                            "col": 14,
+                            "offset": 2460
+                        },
+                        "end": {
+                            "line": 71,
+                            "col": 17,
+                            "offset": 2463
+                        }
+                    },
+                    {
+                        "path": ".github/workflows/test-workflows.yml",
+                        "start": {
+                            "line": 72,
+                            "col": 18,
+                            "offset": 2460
+                        },
+                        "end": {
+                            "line": 72,
+                            "col": 21,
+                            "offset": 2463
+                        }
+                    },
+                    {
+                        "path": ".github/workflows/test-workflows.yml",
+                        "start": {
+                            "line": 72,
+                            "col": 60,
+                            "offset": 2460
+                        },
+                        "end": {
+                            "line": 72,
+                            "col": 63,
+                            "offset": 2463
+                        }
+                    },
+                    {
+                        "path": ".github/workflows/test-workflows.yml",
+                        "start": {
+                            "line": 77,
+                            "col": 25,
+                            "offset": 2460
+                        },
+                        "end": {
+                            "line": 77,
+                            "col": 28,
+                            "offset": 2463
+                        }
+                    },
+                    {
+                        "path": ".github/workflows/test-workflows.yml",
+                        "start": {
+                            "line": 78,
+                            "col": 22,
+                            "offset": 2460
+                        },
+                        "end": {
+                            "line": 78,
+                            "col": 25,
+                            "offset": 2463
+                        }
+                    },
+                    {
+                        "path": ".github/workflows/test-workflows.yml",
+                        "start": {
+                            "line": 79,
+                            "col": 36,
+                            "offset": 2460
+                        },
+                        "end": {
+                            "line": 79,
+                            "col": 51,
+                            "offset": 2475
+                        }
+                    },
+                    {
+                        "path": ".github/workflows/test-workflows.yml",
+                        "start": {
+                            "line": 82,
+                            "col": 28,
+                            "offset": 2460
+                        },
+                        "end": {
+                            "line": 82,
+                            "col": 43,
+                            "offset": 2475
+                        }
+                    }
+                ]
+            ],
+            "message": "Syntax error at line .github/workflows/test-workflows.yml:70:\n When parsing a snippet as Bash for metavariable-pattern in rule 'yaml.github-actions.security.curl-eval.curl-eval', `${{` was unexpected",
+            "path": ".github/workflows/test-workflows.yml",
+            "spans": [
+                {
+                    "file": ".github/workflows/test-workflows.yml",
+                    "start": {
+                        "line": 70,
+                        "col": 18,
+                        "offset": 2460
+                    },
+                    "end": {
+                        "line": 70,
+                        "col": 21,
+                        "offset": 2463
+                    }
+                },
+                {
+                    "file": ".github/workflows/test-workflows.yml",
+                    "start": {
+                        "line": 71,
+                        "col": 14,
+                        "offset": 2460
+                    },
+                    "end": {
+                        "line": 71,
+                        "col": 17,
+                        "offset": 2463
+                    }
+                },
+                {
+                    "file": ".github/workflows/test-workflows.yml",
+                    "start": {
+                        "line": 72,
+                        "col": 18,
+                        "offset": 2460
+                    },
+                    "end": {
+                        "line": 72,
+                        "col": 21,
+                        "offset": 2463
+                    }
+                },
+                {
+                    "file": ".github/workflows/test-workflows.yml",
+                    "start": {
+                        "line": 72,
+                        "col": 60,
+                        "offset": 2460
+                    },
+                    "end": {
+                        "line": 72,
+                        "col": 63,
+                        "offset": 2463
+                    }
+                },
+                {
+                    "file": ".github/workflows/test-workflows.yml",
+                    "start": {
+                        "line": 77,
+                        "col": 25,
+                        "offset": 2460
+                    },
+                    "end": {
+                        "line": 77,
+                        "col": 28,
+                        "offset": 2463
+                    }
+                },
+                {
+                    "file": ".github/workflows/test-workflows.yml",
+                    "start": {
+                        "line": 78,
+                        "col": 22,
+                        "offset": 2460
+                    },
+                    "end": {
+                        "line": 78,
+                        "col": 25,
+                        "offset": 2463
+                    }
+                },
+                {
+                    "file": ".github/workflows/test-workflows.yml",
+                    "start": {
+                        "line": 79,
+                        "col": 36,
+                        "offset": 2460
+                    },
+                    "end": {
+                        "line": 79,
+                        "col": 51,
+                        "offset": 2475
+                    }
+                },
+                {
+                    "file": ".github/workflows/test-workflows.yml",
+                    "start": {
+                        "line": 82,
+                        "col": 28,
+                        "offset": 2460
+                    },
+                    "end": {
+                        "line": 82,
+                        "col": 43,
+                        "offset": 2475
+                    }
+                }
+            ]
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": [
+                "PartialParsing",
+                [
+                    {
+                        "path": ".github/workflows/test-workflows.yml",
+                        "start": {
+                            "line": 87,
+                            "col": 38,
+                            "offset": 3472
+                        },
+                        "end": {
+                            "line": 87,
+                            "col": 53,
+                            "offset": 3487
+                        }
+                    }
+                ]
+            ],
+            "message": "Syntax error at line .github/workflows/test-workflows.yml:87:\n When parsing a snippet as Bash for metavariable-pattern in rule 'yaml.github-actions.security.curl-eval.curl-eval', `{ matrix.branch` was unexpected",
+            "path": ".github/workflows/test-workflows.yml",
+            "spans": [
+                {
+                    "file": ".github/workflows/test-workflows.yml",
+                    "start": {
+                        "line": 87,
+                        "col": 38,
+                        "offset": 3472
+                    },
+                    "end": {
+                        "line": 87,
+                        "col": 53,
+                        "offset": 3487
+                    }
+                }
+            ]
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": [
+                "PartialParsing",
+                [
+                    {
+                        "path": ".github/workflows/test-workflows.yml",
+                        "start": {
+                            "line": 151,
+                            "col": 155,
+                            "offset": 6149
+                        },
+                        "end": {
+                            "line": 151,
+                            "col": 158,
+                            "offset": 6152
+                        }
+                    }
+                ]
+            ],
+            "message": "Syntax error at line .github/workflows/test-workflows.yml:151:\n When parsing a snippet as Bash for metavariable-pattern in rule 'yaml.github-actions.security.curl-eval.curl-eval', `${{` was unexpected",
+            "path": ".github/workflows/test-workflows.yml",
+            "spans": [
+                {
+                    "file": ".github/workflows/test-workflows.yml",
+                    "start": {
+                        "line": 151,
+                        "col": 155,
+                        "offset": 6149
+                    },
+                    "end": {
+                        "line": 151,
+                        "col": 158,
+                        "offset": 6152
+                    }
+                }
+            ]
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": [
+                "PartialParsing",
+                [
+                    {
+                        "path": ".github/workflows/test-workflows.yml",
+                        "start": {
+                            "line": 158,
+                            "col": 157,
+                            "offset": 6559
+                        },
+                        "end": {
+                            "line": 158,
+                            "col": 160,
+                            "offset": 6562
+                        }
+                    }
+                ]
+            ],
+            "message": "Syntax error at line .github/workflows/test-workflows.yml:158:\n When parsing a snippet as Bash for metavariable-pattern in rule 'yaml.github-actions.security.curl-eval.curl-eval', `${{` was unexpected",
+            "path": ".github/workflows/test-workflows.yml",
+            "spans": [
+                {
+                    "file": ".github/workflows/test-workflows.yml",
+                    "start": {
+                        "line": 158,
+                        "col": 157,
+                        "offset": 6559
+                    },
+                    "end": {
+                        "line": 158,
+                        "col": 160,
+                        "offset": 6562
+                    }
+                }
+            ]
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": [
+                "PartialParsing",
+                [
+                    {
+                        "path": ".github/workflows/test-workflows.yml",
+                        "start": {
+                            "line": 198,
+                            "col": 136,
+                            "offset": 8326
+                        },
+                        "end": {
+                            "line": 198,
+                            "col": 139,
+                            "offset": 8329
+                        }
+                    }
+                ]
+            ],
+            "message": "Syntax error at line .github/workflows/test-workflows.yml:198:\n When parsing a snippet as Bash for metavariable-pattern in rule 'yaml.github-actions.security.curl-eval.curl-eval', `${{` was unexpected",
+            "path": ".github/workflows/test-workflows.yml",
+            "spans": [
+                {
+                    "file": ".github/workflows/test-workflows.yml",
+                    "start": {
+                        "line": 198,
+                        "col": 136,
+                        "offset": 8326
+                    },
+                    "end": {
+                        "line": 198,
+                        "col": 139,
+                        "offset": 8329
+                    }
+                }
+            ]
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": [
+                "PartialParsing",
+                [
+                    {
+                        "path": ".github/workflows/test-workflows.yml",
+                        "start": {
+                            "line": 260,
+                            "col": 22,
+                            "offset": 11079
+                        },
+                        "end": {
+                            "line": 260,
+                            "col": 25,
+                            "offset": 11082
+                        }
+                    }
+                ]
+            ],
+            "message": "Syntax error at line .github/workflows/test-workflows.yml:260:\n When parsing a snippet as Bash for metavariable-pattern in rule 'yaml.github-actions.security.curl-eval.curl-eval', `${{` was unexpected",
+            "path": ".github/workflows/test-workflows.yml",
+            "spans": [
+                {
+                    "file": ".github/workflows/test-workflows.yml",
+                    "start": {
+                        "line": 260,
+                        "col": 22,
+                        "offset": 11079
+                    },
+                    "end": {
+                        "line": 260,
+                        "col": 25,
+                        "offset": 11082
+                    }
+                }
+            ]
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": [
+                "PartialParsing",
+                [
+                    {
+                        "path": ".github/workflows/test-workflows.yml",
+                        "start": {
+                            "line": 264,
+                            "col": 38,
+                            "offset": 11427
+                        },
+                        "end": {
+                            "line": 264,
+                            "col": 58,
+                            "offset": 11447
+                        }
+                    }
+                ]
+            ],
+            "message": "Syntax error at line .github/workflows/test-workflows.yml:264:\n When parsing a snippet as Bash for metavariable-pattern in rule 'yaml.github-actions.security.curl-eval.curl-eval', `{ matrix.case.target` was unexpected",
+            "path": ".github/workflows/test-workflows.yml",
+            "spans": [
+                {
+                    "file": ".github/workflows/test-workflows.yml",
+                    "start": {
+                        "line": 264,
+                        "col": 38,
+                        "offset": 11427
+                    },
+                    "end": {
+                        "line": 264,
+                        "col": 58,
+                        "offset": 11447
+                    }
+                }
+            ]
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": [
+                "PartialParsing",
+                [
+                    {
+                        "path": ".github/workflows/test-workflows.yml",
+                        "start": {
+                            "line": 279,
+                            "col": 153,
+                            "offset": 12189
+                        },
+                        "end": {
+                            "line": 279,
+                            "col": 156,
+                            "offset": 12192
+                        }
+                    }
+                ]
+            ],
+            "message": "Syntax error at line .github/workflows/test-workflows.yml:279:\n When parsing a snippet as Bash for metavariable-pattern in rule 'yaml.github-actions.security.curl-eval.curl-eval', `${{` was unexpected",
+            "path": ".github/workflows/test-workflows.yml",
+            "spans": [
+                {
+                    "file": ".github/workflows/test-workflows.yml",
+                    "start": {
+                        "line": 279,
+                        "col": 153,
+                        "offset": 12189
+                    },
+                    "end": {
+                        "line": 279,
+                        "col": 156,
+                        "offset": 12192
+                    }
+                }
+            ]
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": [
+                "PartialParsing",
+                [
+                    {
+                        "path": ".github/workflows/test-workflows.yml",
+                        "start": {
+                            "line": 286,
+                            "col": 155,
+                            "offset": 12597
+                        },
+                        "end": {
+                            "line": 286,
+                            "col": 158,
+                            "offset": 12600
+                        }
+                    }
+                ]
+            ],
+            "message": "Syntax error at line .github/workflows/test-workflows.yml:286:\n When parsing a snippet as Bash for metavariable-pattern in rule 'yaml.github-actions.security.curl-eval.curl-eval', `${{` was unexpected",
+            "path": ".github/workflows/test-workflows.yml",
+            "spans": [
+                {
+                    "file": ".github/workflows/test-workflows.yml",
+                    "start": {
+                        "line": 286,
+                        "col": 155,
+                        "offset": 12597
+                    },
+                    "end": {
+                        "line": 286,
+                        "col": 158,
+                        "offset": 12600
+                    }
+                }
+            ]
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": [
+                "PartialParsing",
+                [
+                    {
+                        "path": ".github/workflows/trivy.yml",
+                        "start": {
+                            "line": 37,
+                            "col": 64,
+                            "offset": 908
+                        },
+                        "end": {
+                            "line": 37,
+                            "col": 67,
+                            "offset": 911
+                        }
+                    }
+                ]
+            ],
+            "message": "Syntax error at line .github/workflows/trivy.yml:37:\n When parsing a snippet as Bash for metavariable-pattern in rule 'yaml.github-actions.security.curl-eval.curl-eval', `${{` was unexpected",
+            "path": ".github/workflows/trivy.yml",
+            "spans": [
+                {
+                    "file": ".github/workflows/trivy.yml",
+                    "start": {
+                        "line": 37,
+                        "col": 64,
+                        "offset": 908
+                    },
+                    "end": {
+                        "line": 37,
+                        "col": 67,
+                        "offset": 911
+                    }
+                }
+            ]
+        },
+        {
+            "code": 3,
+            "level": "warn",
+            "type": [
+                "PartialParsing",
+                [
+                    {
+                        "path": ".github/workflows/veracode.yml",
+                        "start": {
+                            "line": 53,
+                            "col": 111,
+                            "offset": 1990
+                        },
+                        "end": {
+                            "line": 53,
+                            "col": 136,
+                            "offset": 2015
+                        }
+                    }
+                ]
+            ],
+            "message": "Syntax error at line .github/workflows/veracode.yml:53:\n When parsing a snippet as Bash for metavariable-pattern in rule 'yaml.github-actions.security.curl-eval.curl-eval', `{secrets.VERACODE_API_KEY` was unexpected",
+            "path": ".github/workflows/veracode.yml",
+            "spans": [
+                {
+                    "file": ".github/workflows/veracode.yml",
+                    "start": {
+                        "line": 53,
+                        "col": 111,
+                        "offset": 1990
+                    },
+                    "end": {
+                        "line": 53,
+                        "col": 136,
+                        "offset": 2015
+                    }
+                }
+            ]
+        }
+    ],
+    "paths": {
+        "scanned": [
+            ".DS_Store",
+            ".agent/rules/axpos_logic.md",
+            ".agent/rules/snyk_rules.md",
+            ".agent/workflows/execute-all-workflows-locally.md",
+            ".firebaserc",
+            ".gitattributes",
+            ".github/.whitesource",
+            ".github/CODEOWNERS",
+            ".github/CONTEXT_ACCESS_WARNINGS.md",
+            ".github/FUNDING.yml",
+            ".github/ISSUE_TEMPLATE/bug_report.md",
+            ".github/ISSUE_TEMPLATE/custom.md",
+            ".github/ISSUE_TEMPLATE/feature_request.md",
+            ".github/PULL_REQUEST_TEMPLATE/pull_request_template.md",
+            ".github/dependabot.yml",
+            ".github/workflows/01-direct-push-master.sh",
+            ".github/workflows/02-direct-push-staging.sh",
+            ".github/workflows/03-direct-push-aws-dev.sh",
+            ".github/workflows/04-pr-any-to-aws-dev.sh",
+            ".github/workflows/05-pr-aws-dev-to-staging.sh",
+            ".github/workflows/06-pr-staging-to-master.sh",
+            ".github/workflows/07-pr-creation-joseguzman1337.sh",
+            ".github/workflows/08-pr-creation-ctllaw.sh",
+            ".github/workflows/09-add-invalid-reviewer.sh",
+            ".github/workflows/10-approval-merge-permissions.sh",
+            ".github/workflows/add-reviewer.sh",
+            ".github/workflows/anchore.yml",
+            ".github/workflows/apisec-scan.yml",
+            ".github/workflows/approve-and-merge-pr.sh",
+            ".github/workflows/auto-assign_PR_Creator.yml",
+            ".github/workflows/auto-assign_PR_Reviewers.yml",
+            ".github/workflows/auto_merge.yml",
+            ".github/workflows/block-github-changes.yml",
+            ".github/workflows/brakeman.yml",
+            ".github/workflows/build.yml",
+            ".github/workflows/check-reviewers.sh",
+            ".github/workflows/checkmarx.yml",
+            ".github/workflows/checkov.yml",
+            ".github/workflows/cleanthat.yaml",
+            ".github/workflows/clj-holmes.yml",
+            ".github/workflows/cloudrail.yml",
+            ".github/workflows/codacy.yml",
+            ".github/workflows/codeql-analysis.yml",
+            ".github/workflows/codeql.yml",
+            ".github/workflows/codescan.yml",
+            ".github/workflows/common_functions.sh",
+            ".github/workflows/create-and-merge-pr.sh",
+            ".github/workflows/create-pr.sh",
+            ".github/workflows/crunch42.yml",
+            ".github/workflows/debricked.yml",
+            ".github/workflows/dependency-review.yml",
+            ".github/workflows/detekt.yml",
+            ".github/workflows/devskim.yml",
+            ".github/workflows/direct_workflow_executor.sh",
+            ".github/workflows/enforce-branch-sequence.yml",
+            ".github/workflows/execute_all_workflows.sh",
+            ".github/workflows/flawfinder.yml",
+            ".github/workflows/fortify.yml",
+            ".github/workflows/kubesec.yml",
+            ".github/workflows/mayhem-for-api.yml",
+            ".github/workflows/mobsf.yml",
+            ".github/workflows/msvc.yml",
+            ".github/workflows/njsscan.yml",
+            ".github/workflows/nowsecure.yml",
+            ".github/workflows/org/rulesets/aws-dev.json",
+            ".github/workflows/org/rulesets/ctl_all_env.json",
+            ".github/workflows/org/rulesets/master.json",
+            ".github/workflows/org/rulesets/staging.json",
+            ".github/workflows/ossar-analysis.yml",
+            ".github/workflows/ossar.yml",
+            ".github/workflows/php.yml",
+            ".github/workflows/pmd.yml",
+            ".github/workflows/powershell.yml",
+            ".github/workflows/prisma.yml",
+            ".github/workflows/proof-html.yml",
+            ".github/workflows/psalm.yml",
+            ".github/workflows/qodana.yml",
+            ".github/workflows/repos/aws-dev.json",
+            ".github/workflows/repos/master.json",
+            ".github/workflows/repos/staging.json",
+            ".github/workflows/rubocop.yml",
+            ".github/workflows/rulesets/.DS_Store",
+            ".github/workflows/rulesets/org/rulesets/aws-dev.json",
+            ".github/workflows/rulesets/org/rulesets/ctl_all_env.json",
+            ".github/workflows/rulesets/org/rulesets/master.json",
+            ".github/workflows/rulesets/org/rulesets/staging.json",
+            ".github/workflows/rulesets/repos/aws-dev.json",
+            ".github/workflows/rulesets/repos/master.json",
+            ".github/workflows/rulesets/repos/staging.json",
+            ".github/workflows/run_workflows_locally.sh",
+            ".github/workflows/scorecards.yml",
+            ".github/workflows/scripts/01-direct-push-master.sh",
+            ".github/workflows/scripts/02-direct-push-staging.sh",
+            ".github/workflows/scripts/03-direct-push-aws-dev.sh",
+            ".github/workflows/scripts/04-pr-any-to-aws-dev.sh",
+            ".github/workflows/scripts/05-pr-aws-dev-to-staging.sh",
+            ".github/workflows/scripts/06-pr-staging-to-master.sh",
+            ".github/workflows/scripts/07-pr-creation-joseguzman1337.sh",
+            ".github/workflows/scripts/08-pr-creation-ctllaw.sh",
+            ".github/workflows/scripts/09-add-invalid-reviewer.sh",
+            ".github/workflows/scripts/10-approval-merge-permissions.sh",
+            ".github/workflows/scripts/add-reviewer.sh",
+            ".github/workflows/scripts/approve-and-merge-pr.sh",
+            ".github/workflows/scripts/check-reviewers.sh",
+            ".github/workflows/scripts/common_functions.sh",
+            ".github/workflows/scripts/create-and-merge-pr.sh",
+            ".github/workflows/scripts/create-pr.sh",
+            ".github/workflows/scwSARIF.yml",
+            ".github/workflows/securitycodescan.yml",
+            ".github/workflows/semgrep.yml",
+            ".github/workflows/shiftleft.yml",
+            ".github/workflows/snyk-container.yml",
+            ".github/workflows/snyk-infrastructure-analysis.yml",
+            ".github/workflows/snyk-infrastructure.yml",
+            ".github/workflows/stackhawk.yml",
+            ".github/workflows/synopsys-io.yml",
+            ".github/workflows/sysdig-scan.yml",
+            ".github/workflows/test-workflows.yml",
+            ".github/workflows/tfsec.yml",
+            ".github/workflows/trivy.yml",
+            ".github/workflows/veracode.yml",
+            ".github/workflows/xanitizer.yml",
+            ".gitignore",
+            ".idea/.gitignore",
+            ".idea/aws.xml",
+            ".idea/d3c0d3rs.iml",
+            ".idea/misc.xml",
+            ".idea/modules.xml",
+            ".idea/vcs.xml",
+            ".pre-commit-config.yaml",
+            ".secrets",
+            ".vscode/.flake8",
+            ".vscode/.pylintrc",
+            ".vscode/autopep8.py",
+            ".vscode/cfnLint.run",
+            ".vscode/mypy.ini",
+            ".vscode/ruff.toml",
+            ".vscode/settings.json",
+            ".vscode/store_good_commit.py",
+            ".vscode/tasks.json",
+            ".whitesource",
+            "AGENTS.md",
+            "LICENSE",
+            "README.md",
+            "SECURITY.md",
+            "android/platform/external/deqp-deps/SPIRV-Tools/SPIRV-Tools.md",
+            "android/platform/external/deqp-deps/SPIRV-Tools/bin/spirv-as",
+            "android/platform/external/deqp-deps/SPIRV-Tools/bin/spirv-cfg",
+            "android/platform/external/deqp-deps/SPIRV-Tools/bin/spirv-dis",
+            "android/platform/external/deqp-deps/SPIRV-Tools/bin/spirv-lesspipe.sh",
+            "android/platform/external/deqp-deps/SPIRV-Tools/include/spirv-tools/libspirv.h",
+            "android/platform/external/deqp-deps/SPIRV-Tools/include/spirv-tools/libspirv.hpp",
+            "android/platform/external/deqp-deps/SPIRV-Tools/include/spirv-tools/linker.hpp",
+            "android/platform/external/deqp-deps/SPIRV-Tools/include/spirv-tools/optimizer.hpp",
+            "android/platform/external/deqp-deps/SPIRV-Tools/lib/cmake/SPIRV-Tools/SPIRV-ToolsConfig.cmake",
+            "android/platform/external/deqp-deps/SPIRV-Tools/lib/cmake/SPIRV-Tools/SPIRV-ToolsTarget-relwithdebinfo.cmake",
+            "android/platform/external/deqp-deps/SPIRV-Tools/lib/cmake/SPIRV-Tools/SPIRV-ToolsTarget.cmake",
+            "android/platform/external/deqp-deps/SPIRV-Tools/lib/cmake/SPIRV-Tools-diff/SPIRV-Tools-diffConfig.cmake",
+            "android/platform/external/deqp-deps/SPIRV-Tools/lib/cmake/SPIRV-Tools-diff/SPIRV-Tools-diffTargets-relwithdebinfo.cmake",
+            "android/platform/external/deqp-deps/SPIRV-Tools/lib/cmake/SPIRV-Tools-diff/SPIRV-Tools-diffTargets.cmake",
+            "android/platform/external/deqp-deps/SPIRV-Tools/lib/cmake/SPIRV-Tools-fuzz/SPIRV-Tools-fuzzConfig.cmake",
+            "android/platform/external/deqp-deps/SPIRV-Tools/lib/cmake/SPIRV-Tools-fuzz/SPIRV-Tools-fuzzTarget-relwithdebinfo.cmake",
+            "android/platform/external/deqp-deps/SPIRV-Tools/lib/cmake/SPIRV-Tools-fuzz/SPIRV-Tools-fuzzTarget.cmake",
+            "android/platform/external/deqp-deps/SPIRV-Tools/lib/cmake/SPIRV-Tools-link/SPIRV-Tools-linkConfig.cmake",
+            "android/platform/external/deqp-deps/SPIRV-Tools/lib/cmake/SPIRV-Tools-link/SPIRV-Tools-linkTargets-relwithdebinfo.cmake",
+            "android/platform/external/deqp-deps/SPIRV-Tools/lib/cmake/SPIRV-Tools-link/SPIRV-Tools-linkTargets.cmake",
+            "android/platform/external/deqp-deps/SPIRV-Tools/lib/cmake/SPIRV-Tools-lint/SPIRV-Tools-lintConfig.cmake",
+            "android/platform/external/deqp-deps/SPIRV-Tools/lib/cmake/SPIRV-Tools-lint/SPIRV-Tools-lintTargets-relwithdebinfo.cmake",
+            "android/platform/external/deqp-deps/SPIRV-Tools/lib/cmake/SPIRV-Tools-lint/SPIRV-Tools-lintTargets.cmake",
+            "android/platform/external/deqp-deps/SPIRV-Tools/lib/cmake/SPIRV-Tools-opt/SPIRV-Tools-optConfig.cmake",
+            "android/platform/external/deqp-deps/SPIRV-Tools/lib/cmake/SPIRV-Tools-opt/SPIRV-Tools-optTargets-relwithdebinfo.cmake",
+            "android/platform/external/deqp-deps/SPIRV-Tools/lib/cmake/SPIRV-Tools-opt/SPIRV-Tools-optTargets.cmake",
+            "android/platform/external/deqp-deps/SPIRV-Tools/lib/cmake/SPIRV-Tools-reduce/SPIRV-Tools-reduceConfig.cmake",
+            "android/platform/external/deqp-deps/SPIRV-Tools/lib/cmake/SPIRV-Tools-reduce/SPIRV-Tools-reduceTarget-relwithdebinfo.cmake",
+            "android/platform/external/deqp-deps/SPIRV-Tools/lib/cmake/SPIRV-Tools-reduce/SPIRV-Tools-reduceTarget.cmake",
+            "android/platform/external/deqp-deps/SPIRV-Tools/lib/cmake/SPIRV-Tools-tools/SPIRV-Tools-toolsConfig.cmake",
+            "android/platform/external/deqp-deps/SPIRV-Tools/lib/cmake/SPIRV-Tools-tools/SPIRV-Tools-toolsTargets-relwithdebinfo.cmake",
+            "android/platform/external/deqp-deps/SPIRV-Tools/lib/cmake/SPIRV-Tools-tools/SPIRV-Tools-toolsTargets.cmake",
+            "android/platform/external/deqp-deps/SPIRV-Tools/lib/libSPIRV-Tools-diff.a",
+            "android/platform/external/deqp-deps/SPIRV-Tools/lib/libSPIRV-Tools-fuzz.a",
+            "android/platform/external/deqp-deps/SPIRV-Tools/lib/libSPIRV-Tools-link.a",
+            "android/platform/external/deqp-deps/SPIRV-Tools/lib/libSPIRV-Tools-lint.a",
+            "android/platform/external/deqp-deps/SPIRV-Tools/lib/libSPIRV-Tools-opt.a",
+            "android/platform/external/deqp-deps/SPIRV-Tools/lib/libSPIRV-Tools-reduce.a",
+            "android/platform/external/deqp-deps/SPIRV-Tools/lib/libSPIRV-Tools.a",
+            "android/platform/external/deqp-deps/SPIRV-Tools/lib/pkgconfig/SPIRV-Tools-shared.pc",
+            "android/platform/external/deqp-deps/SPIRV-Tools/lib/pkgconfig/SPIRV-Tools.pc",
+            "pr1m3.code-workspace",
+            "codeql-custom-queries-python/codeql-pack.lock.yml",
+            "codeql-custom-queries-python/codeql-pack.yml",
+            "codeql-custom-queries-python/example.ql",
+            "config/local_manifests/agate.xml",
+            "dataconnect/dataconnect.yaml",
+            "dataconnect/example/connector.yaml",
+            "dataconnect/example/queries.gql",
+            "dataconnect/schema/schema.gql",
+            "dataconnect/seed_data.gql",
+            "docs/AXPOS_Agate_Implementation_Report.md",
+            "docs/COMPONENT_UPDATES.md",
+            "docs/api_keys.md",
+            "firebase.json",
+            "mcp.json",
+            "pyrefly.toml",
+            "renovate.json",
+            "requirements.txt",
+            "scripts/__pycache__/smartsync.cpython-313.pyc",
+            "scripts/__pycache__/update_actions.cpython-313.pyc",
+            "scripts/automate_build_cycle.sh",
+            "scripts/cx_token_automator.py",
+            "scripts/finish_build.sh",
+            "scripts/internal_build.sh",
+            "scripts/internal_provision.sh",
+            "scripts/internal_sync_and_patch.sh",
+            "scripts/setup_host.sh",
+            "scripts/shell.sh",
+            "scripts/smartsync.py",
+            "scripts/update_actions.py",
+            "web-app/.gitignore",
+            "web-app/README.md",
+            "web-app/eslint.config.js",
+            "web-app/index.html",
+            "web-app/package-lock.json",
+            "web-app/package.json",
+            "web-app/public/vite.svg",
+            "web-app/src/App.css",
+            "web-app/src/App.jsx",
+            "web-app/src/assets/react.svg",
+            "web-app/src/dataconnect-generated/.guides/config.json",
+            "web-app/src/dataconnect-generated/.guides/setup.md",
+            "web-app/src/dataconnect-generated/.guides/usage.md",
+            "web-app/src/dataconnect-generated/README.md",
+            "web-app/src/dataconnect-generated/esm/index.esm.js",
+            "web-app/src/dataconnect-generated/esm/package.json",
+            "web-app/src/dataconnect-generated/index.cjs.js",
+            "web-app/src/dataconnect-generated/index.d.ts",
+            "web-app/src/dataconnect-generated/package.json",
+            "web-app/src/dataconnect-generated/react/README.md",
+            "web-app/src/dataconnect-generated/react/esm/index.esm.js",
+            "web-app/src/dataconnect-generated/react/esm/package.json",
+            "web-app/src/dataconnect-generated/react/index.cjs.js",
+            "web-app/src/dataconnect-generated/react/index.d.ts",
+            "web-app/src/dataconnect-generated/react/package.json",
+            "web-app/src/index.css",
+            "web-app/src/main.jsx",
+            "web-app/vite.config.js"
+        ]
+    },
+    "time": {
+        "rules": [],
+        "rules_parse_time": 0.8053491115570068,
+        "profiling_times": {
+            "config_time": 2.136183977127075,
+            "core_time": 1.8792729377746582,
+            "ignores_time": 0.0008549690246582031,
+            "total_time": 4.016968011856079
+        },
+        "parsing_time": {
+            "total_time": 0.0,
+            "per_file_time": {
+                "mean": 0.0,
+                "std_dev": 0.0
+            },
+            "very_slow_stats": {
+                "time_ratio": 0.0,
+                "count_ratio": 0.0
+            },
+            "very_slow_files": []
+        },
+        "scanning_time": {
+            "total_time": 2.5896973609924316,
+            "per_file_time": {
+                "mean": 0.004046402126550675,
+                "std_dev": 0.00013317473871443607
+            },
+            "very_slow_stats": {
+                "time_ratio": 0.0,
+                "count_ratio": 0.0
+            },
+            "very_slow_files": []
+        },
+        "matching_time": {
+            "total_time": 0.0,
+            "per_file_and_rule_time": {
+                "mean": 0.0,
+                "std_dev": 0.0
+            },
+            "very_slow_stats": {
+                "time_ratio": 0.0,
+                "count_ratio": 0.0
+            },
+            "very_slow_rules_on_files": []
+        },
+        "tainting_time": {
+            "total_time": 0.0,
+            "per_def_and_rule_time": {
+                "mean": 0.0,
+                "std_dev": 0.0
+            },
+            "very_slow_stats": {
+                "time_ratio": 0.0,
+                "count_ratio": 0.0
+            },
+            "very_slow_rules_on_defs": []
+        },
+        "fixpoint_timeouts": [],
+        "prefiltering": {
+            "project_level_time": 0.0,
+            "file_level_time": 0.0,
+            "rules_with_project_prefilters_ratio": 0.0,
+            "rules_with_file_prefilters_ratio": 0.8775728732897085,
+            "rules_selected_ratio": 0.14770969660916122,
+            "rules_matched_ratio": 0.14770969660916122
+        },
+        "targets": [],
+        "total_bytes": 0,
+        "max_memory_bytes": 1462882880
+    },
+    "engine_requested": "OSS",
+    "skipped_rules": [],
+    "profiling_results": []
+}

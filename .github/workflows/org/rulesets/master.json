@@ -1,0 +1,46 @@
+{
+  "id": 829911,
+  "name": "master",
+  "target": "branch",
+  "source_type": "Organization",
+  "source": "Nucleus-Flow-Testing",
+  "enforcement": "active",
+  "conditions": {
+    "repository_name": {
+      "exclude": [],
+      "include": [
+        "~ALL"
+      ]
+    },
+    "ref_name": {
+      "exclude": [],
+      "include": [
+        "refs/heads/master",
+        "refs/heads/main",
+        "~DEFAULT_BRANCH"
+      ]
+    }
+  },
+  "rules": [
+    {
+      "type": "pull_request",
+      "parameters": {
+        "required_approving_review_count": 2,
+        "dismiss_stale_reviews_on_push": true,
+        "require_code_owner_review": true,
+        "require_last_push_approval": true,
+        "required_review_thread_resolution": true
+      }
+    },
+    {
+      "type": "required_linear_history"
+    },
+    {
+      "type": "deletion"
+    },
+    {
+      "type": "non_fast_forward"
+    }
+  ],
+  "bypass_actors": []
+}

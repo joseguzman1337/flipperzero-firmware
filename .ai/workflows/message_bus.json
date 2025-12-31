@@ -1,0 +1,1982 @@
+[
+  {
+    "id": "issue-501",
+    "target_agent": "jules",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 501,
+      "issue_title": "[Upstream #3897] A Javascript module for NFC",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-500",
+    "target_agent": "warp",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 500,
+      "issue_title": "[Upstream #3898] Universal Remote Feature - Enhancement Request",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-499",
+    "target_agent": "warp",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 499,
+      "issue_title": "[Upstream #3900] [Request] - Require PIN on cold boot",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-498",
+    "target_agent": "warp",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 498,
+      "issue_title": "[Upstream #3903] Firmware update fails",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-497",
+    "target_agent": "gemini",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 497,
+      "issue_title": "[Upstream #3907] NFC Read does not identify MF Ultralight card - OFW 1.01",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-496",
+    "target_agent": "warp",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 496,
+      "issue_title": "[Upstream #3908] Idle priority threads that only yield can lock up serial USB if qFlipper is in use",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-495",
+    "target_agent": "warp",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 495,
+      "issue_title": "[Upstream #3910] `mbedtls.cfg.h` is not accessible when using local SDKs via uFBT",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-494",
+    "target_agent": "gemini",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 494,
+      "issue_title": "[Upstream #3911] NFC Emulation Not Working Since 0.94.1",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-493",
+    "target_agent": "warp",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 493,
+      "issue_title": "[Upstream #3913] Consider enabling C++23 and C23",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-492",
+    "target_agent": "warp",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 492,
+      "issue_title": "[Upstream #3914] Javacard Emulation",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-491",
+    "target_agent": "warp",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 491,
+      "issue_title": "[Upstream #3917] Potential GPLv3 Violation and Website Plagiarism by FlipperCN",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-490",
+    "target_agent": "warp",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 490,
+      "issue_title": "[Upstream #3919] C# Serial terminal not registering as computer",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-489",
+    "target_agent": "warp",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 489,
+      "issue_title": "[Upstream #3920] [Sub-GHz] Request support for gate remote: 318Mhz, AM, static code",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-488",
+    "target_agent": "warp",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 488,
+      "issue_title": "[Upstream #3921] Feature Request: External \"System Service\"",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-487",
+    "target_agent": "warp",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 487,
+      "issue_title": "[Upstream #3925] 0.104.0-rc branch is missing the number_input module ",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-486",
+    "target_agent": "warp",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 486,
+      "issue_title": "[Upstream #3927] Spurious BusFault when trying to start large app",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-485",
+    "target_agent": "warp",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 485,
+      "issue_title": "[Upstream #3932] `furi_hal_random` returns values when RNG output is not ready",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-484",
+    "target_agent": "warp",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 484,
+      "issue_title": "[Upstream #3935] Make asking for the pin configurable",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-483",
+    "target_agent": "gemini",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 483,
+      "issue_title": "[Upstream #3936] FSK Modulation for LF RFID",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-482",
+    "target_agent": "warp",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 482,
+      "issue_title": "[Upstream #3938] [Sub-Ghz] Request support for Sherlotronics 403.55Mhz Transmitter",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-481",
+    "target_agent": "jules",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 481,
+      "issue_title": "[Upstream #3939] readKeyState function for badusb mjs module",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-480",
+    "target_agent": "warp",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 480,
+      "issue_title": "[Upstream #3940] Unable to use my Chamberlain garage door with latest FW",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-479",
+    "target_agent": "warp",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 479,
+      "issue_title": "[Upstream #3941] Reduce background memory from navigation state",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-478",
+    "target_agent": "warp",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 478,
+      "issue_title": "[Upstream #3945] Incorrect read of Mifare Ultralight tag with password locked pages",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-477",
+    "target_agent": "jules",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 477,
+      "issue_title": "[Upstream #3960] JavaScript: toString uses base 10 but global.t.ts says default is base 16",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-476",
+    "target_agent": "jules",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 476,
+      "issue_title": "[Upstream #3965] JavaScript: should read_analog be named readAnalog?",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-475",
+    "target_agent": "warp",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 475,
+      "issue_title": "[Upstream #3970] Rearrange order of favourites",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-474",
+    "target_agent": "warp",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 474,
+      "issue_title": "[Upstream #3972] test_index.c link in docs",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-473",
+    "target_agent": "gemini",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 473,
+      "issue_title": "[Upstream #3976] NFC: Plantain parser bugs",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-472",
+    "target_agent": "warp",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 472,
+      "issue_title": "[Upstream #3981] Show alarm icon in status bar if alarm set",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-471",
+    "target_agent": "gemini",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 471,
+      "issue_title": "[Upstream #3984] RFID Read problem",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-470",
+    "target_agent": "warp",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 470,
+      "issue_title": "[Upstream #3986] Easier / quicker access of system settings like Bluetooth, power off and clock & alarm",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-469",
+    "target_agent": "jules",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 469,
+      "issue_title": "[Upstream #3990] BadUSB disconnecting from PC after script is run",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-468",
+    "target_agent": "warp",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 468,
+      "issue_title": "[Upstream #3994] Clock & Alarm - lot of improvements needed",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-467",
+    "target_agent": "gemini",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 467,
+      "issue_title": "[Upstream #3997] Problem writing Electra RFID tags (but not others)",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-466",
+    "target_agent": "warp",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 466,
+      "issue_title": "[Upstream #4001] NiceFlo cant decoded in Sub-GHZ",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-465",
+    "target_agent": "gemini",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 465,
+      "issue_title": "[Upstream #4002] RFE: Cannot write NFC-V tag",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-464",
+    "target_agent": "warp",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 464,
+      "issue_title": "[Upstream #4003] Ability to make custom menus",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-463",
+    "target_agent": "warp",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 463,
+      "issue_title": "[Upstream #4005] Ff",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-462",
+    "target_agent": "warp",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 462,
+      "issue_title": "[Upstream #4007] universal IR",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-461",
+    "target_agent": "warp",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 461,
+      "issue_title": "[Upstream #4008] USB-UART Bridge error: Flipper Zero crashed.",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-460",
+    "target_agent": "warp",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 460,
+      "issue_title": "[Upstream #4009] [mbedtls] Add AES part of the library.",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-459",
+    "target_agent": "warp",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 459,
+      "issue_title": "[Upstream #4011] change Bluetooth / device name",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-458",
+    "target_agent": "warp",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 458,
+      "issue_title": "[Upstream #4012] Flipper Zero Mifare Plus 2K support (SL1 ONLY)",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-457",
+    "target_agent": "jules",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 457,
+      "issue_title": "[Upstream #4016] BadUSB F13-F24 keys support not functional",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-456",
+    "target_agent": "warp",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 456,
+      "issue_title": "[Upstream #4018] Include these IR Codes",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-455",
+    "target_agent": "gemini",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 455,
+      "issue_title": "[Upstream #4019] Cannot read the SIMON VOSS RFID CHIP",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-454",
+    "target_agent": "warp",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 454,
+      "issue_title": "[Upstream #4024] `ufbt` no longer properly deploys SDK on Windows Systems with non-Latin/Cyrillic system language",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-453",
+    "target_agent": "warp",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 453,
+      "issue_title": "[Upstream #4026] DESFire Light shows as unknown",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-452",
+    "target_agent": "gemini",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 452,
+      "issue_title": "[Upstream #4031] NFC Plugin for type 4 tags",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-451",
+    "target_agent": "warp",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 451,
+      "issue_title": "[Upstream #4034] notjustthetip",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-450",
+    "target_agent": "jules",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 450,
+      "issue_title": "[Upstream #4035] Support PWM output in JavaScript GPIO module",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-449",
+    "target_agent": "warp",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 449,
+      "issue_title": "[Upstream #4037] Feature Request: Crontab",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-448",
+    "target_agent": "warp",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 448,
+      "issue_title": "[Upstream #4041] How to avoid losing the key when flashing the machine?  ",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-447",
+    "target_agent": "warp",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 447,
+      "issue_title": "[Upstream #4042] Add Walkie Talkie recording",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-446",
+    "target_agent": "gemini",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 446,
+      "issue_title": "[Upstream #4044] Add ISO 3166 to ISO 11784 and ISO 11785 animal reading in the 125 kHz RFID app",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-445",
+    "target_agent": "gemini",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 445,
+      "issue_title": "[Upstream #4045] [NFC] Protocol st25tb write data 0 at block when not initialized",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-444",
+    "target_agent": "gemini",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 444,
+      "issue_title": "[Upstream #4046] RFID: furi_check failed crash on read raw rfid data attempt.",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-443",
+    "target_agent": "claude",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 443,
+      "issue_title": "[Upstream #4055] U2F WebAuthn Doesn't Work on MacOS 15.2",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-442",
+    "target_agent": "warp",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 442,
+      "issue_title": "[Upstream #4056] 5g jammer via flipper zero",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-441",
+    "target_agent": "warp",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 441,
+      "issue_title": "[Upstream #4057] 5g jammer w/flipper",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-440",
+    "target_agent": "warp",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 440,
+      "issue_title": "[Upstream #4059] ISO14443a-4 emulation",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-439",
+    "target_agent": "warp",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 439,
+      "issue_title": "[Upstream #4060] ISO 14443-4 NXP - Mifare DESFire EV2 4k can only be read but NOT RIGHT emulated.",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-438",
+    "target_agent": "warp",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 438,
+      "issue_title": "[Upstream #4061] mismatch between button menu and button panel",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-437",
+    "target_agent": "gemini",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 437,
+      "issue_title": "[Upstream #4062] NFC problem",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-436",
+    "target_agent": "gemini",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 436,
+      "issue_title": "[Upstream #4063] RFID card not recognized",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-435",
+    "target_agent": "gemini",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 435,
+      "issue_title": "[Upstream #4067] infrared remote crashes the device when frequency is set to 76000",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-434",
+    "target_agent": "jules",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 434,
+      "issue_title": "[Upstream #4071] JavaScript errors in eventLoop.subscribe are not displayed",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-433",
+    "target_agent": "warp",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 433,
+      "issue_title": "[Upstream #4072] Bad USB feature ignores keyboard layout setting (DE-CH)",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-432",
+    "target_agent": "warp",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 432,
+      "issue_title": "[Upstream #4073] Crash with RCP app",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-431",
+    "target_agent": "warp",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 431,
+      "issue_title": "[Upstream #4076] Add the list of paired devices in the Bluetooth settings",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-430",
+    "target_agent": "warp",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 430,
+      "issue_title": "[Upstream #4079] Export BLE buffers in SKD",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-429",
+    "target_agent": "jules",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 429,
+      "issue_title": "[Upstream #4081] Flipperzero crashes when GPS is attached to GPIO",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-428",
+    "target_agent": "gemini",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 428,
+      "issue_title": "[Upstream #4082] Add a shortcut in SubgHz for modulation",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-427",
+    "target_agent": "warp",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 427,
+      "issue_title": "[Upstream #4083] device does not charge to 100%",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-426",
+    "target_agent": "warp",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 426,
+      "issue_title": "[Upstream #4086] Region Mhz locks are incorrect for country code IM",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-425",
+    "target_agent": "gemini",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 425,
+      "issue_title": "[Upstream #4088] NFC crash",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-424",
+    "target_agent": "gemini",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 424,
+      "issue_title": "[Upstream #4089] Bug in Manual Read: effects slix nfc, possibly others",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-423",
+    "target_agent": "warp",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 423,
+      "issue_title": "[Upstream #4093] UFBT: Update the template build.yml to use artifact-upload@v4",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-422",
+    "target_agent": "warp",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 422,
+      "issue_title": "[Upstream #4102] ST25TB04K",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-421",
+    "target_agent": "warp",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 421,
+      "issue_title": "[Upstream #4104] Question regarding (non)consistency of blocking/internal animation manifests",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-420",
+    "target_agent": "gemini",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 420,
+      "issue_title": "[Upstream #4106] NFC Reading Issue with ISO 14443-3A Mifare Ultralight Card",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-419",
+    "target_agent": "warp",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 419,
+      "issue_title": "[Upstream #4107] Custom Parity/Stop Bits for Serial",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-418",
+    "target_agent": "gemini",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 418,
+      "issue_title": "[Upstream #4108] NFC bus fault",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-417",
+    "target_agent": "warp",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 417,
+      "issue_title": "[Upstream #4112] Meshtastic with flipper",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-416",
+    "target_agent": "jules",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 416,
+      "issue_title": "[Upstream #4128] JS API: pwmStop() throws \"PWM is not supported on this pin\" on supported pins.",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-415",
+    "target_agent": "warp",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 415,
+      "issue_title": "[Upstream #4130] Hook for Favorites menu",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-414",
+    "target_agent": "gemini",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 414,
+      "issue_title": "[Upstream #4134] NFC Enhancement: FeliCa Poller Enumerate Through All Service Codes",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-413",
+    "target_agent": "warp",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 413,
+      "issue_title": "[Upstream #4138] Add two BART Stations to Clipper Database",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-412",
+    "target_agent": "warp",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 412,
+      "issue_title": "[Upstream #4140] Please Help Me",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-411",
+    "target_agent": "gemini",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 411,
+      "issue_title": "[Upstream #4143] RFID raw files - Securakey",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-410",
+    "target_agent": "jules",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 410,
+      "issue_title": "[Upstream #4148] BadUSB script runs too fast for notepad.exe on Windows 11",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-409",
+    "target_agent": "warp",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 409,
+      "issue_title": "[Upstream #4152] I2C Slave mode",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-408",
+    "target_agent": "jules",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 408,
+      "issue_title": "[Upstream #4162] Connecting as USB HID keyboard cannot read state of keyboard LEDs (CapsLock/NumLock/ScrollLock)",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-407",
+    "target_agent": "gemini",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 407,
+      "issue_title": "[Upstream #4180] It's possible to never see \"I-understand-what-I-am-doing\" if you don't understand what radiotype means",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-406",
+    "target_agent": "warp",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 406,
+      "issue_title": "[Upstream #4183] Flipper zero",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-405",
+    "target_agent": "warp",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 405,
+      "issue_title": "[Upstream #4190] Lock f0 in dummy mode",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-404",
+    "target_agent": "warp",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 404,
+      "issue_title": "[Upstream #4191] [1.3.3-rc] Freezes on boot with PIN set",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-403",
+    "target_agent": "warp",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 403,
+      "issue_title": "[Upstream #4194] Technical Specification for Flipper Zero Mifare Classic 1K Enhancement",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-402",
+    "target_agent": "gemini",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 402,
+      "issue_title": "[Upstream #4196] Technical Specification: NFC Tag Information Application for Flipper Zero",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-401",
+    "target_agent": "gemini",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 401,
+      "issue_title": "[Upstream #4200] Enhance SubGhz with protocol command cycling",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-400",
+    "target_agent": "jules",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 400,
+      "issue_title": "[Upstream #4203] JavaScript PWM won't re-initialize",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-399",
+    "target_agent": "gemini",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 399,
+      "issue_title": "[Upstream #4207] Subghz Chat not working",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-398",
+    "target_agent": "gemini",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 398,
+      "issue_title": "[Upstream #4209] [NFC] Incorrect mapping of Ultralight C in memory",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-397",
+    "target_agent": "jules",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 397,
+      "issue_title": "[Upstream #4214] furi_hal_hid_get_led_state() returns 0 regardless of keyboard state",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-396",
+    "target_agent": "warp",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 396,
+      "issue_title": "[Upstream #4215] Add .busb format for badsusb",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-395",
+    "target_agent": "gemini",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 395,
+      "issue_title": "[Upstream #4217] NFC doesn't work at all, RFID is fine",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-394",
+    "target_agent": "warp",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 394,
+      "issue_title": "[Upstream #4218] [Buetooth] Why is the extra beacon size limited to 31?",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-393",
+    "target_agent": "gemini",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 393,
+      "issue_title": "[Upstream #4247] NFC files not syncing via Bluetooth from Flipper to Android app (v1.8)",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-392",
+    "target_agent": "warp",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 392,
+      "issue_title": "[Upstream #4248] Inconsistent file path syntax in CLI",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-391",
+    "target_agent": "gemini",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 391,
+      "issue_title": "[Upstream #4249] Reading NFC card while connected via USB to a computer and to qFlipper leads to a OOM Crash",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-390",
+    "target_agent": "warp",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 390,
+      "issue_title": "[Upstream #4250] Add ability to verify written tags/buttons",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-389",
+    "target_agent": "jules",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 389,
+      "issue_title": "[Upstream #4253] Adding a JS command to directly exit the application",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-388",
+    "target_agent": "warp",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 388,
+      "issue_title": "[Upstream #4258] Internal GDB error when trying to flash firmware using wifi devboard",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-387",
+    "target_agent": "warp",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 387,
+      "issue_title": "[Upstream #4262] Error while building firmware",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-386",
+    "target_agent": "warp",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 386,
+      "issue_title": "[Upstream #4263] Weather station: support for LaCrosse TX141-BV3",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-385",
+    "target_agent": "jules",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 385,
+      "issue_title": "[Upstream #4268] [hid_app] Select mouse button for mouse clicker",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-384",
+    "target_agent": "gemini",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 384,
+      "issue_title": "[Upstream #4269] Support non-standard Indala RFID fob",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-383",
+    "target_agent": "jules",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 383,
+      "issue_title": "[Upstream #4272] \u041f\u0440\u0438 \u043f\u043e\u043f\u044b\u0442\u043a\u0435 \u043f\u043e\u0434\u043a\u043b\u044e\u0447\u0438\u0442\u044c \u043c\u043e\u0434\u0443\u043b\u044c \"flipper\" \u0432 js-\u0441\u043a\u0440\u0438\u043f\u0442\u0435 \u043e\u0448\u0438\u0431\u043a\u0430",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-382",
+    "target_agent": "gemini",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 382,
+      "issue_title": "[Upstream #4275] RFID Pet-animal",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-381",
+    "target_agent": "gemini",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 381,
+      "issue_title": "[Upstream #4276] RFID keyfob",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-380",
+    "target_agent": "warp",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 380,
+      "issue_title": "[Upstream #4278] Flipper",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-379",
+    "target_agent": "warp",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 379,
+      "issue_title": "[Upstream #4281] [mbedtls] Add ECDH",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-378",
+    "target_agent": "warp",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 378,
+      "issue_title": "[Upstream #4289] Same bag as cards #2218",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-377",
+    "target_agent": "claude",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 377,
+      "issue_title": "[Upstream #4300] NFC app refuses to write NDEF after tag was password-protected, misinterprets AUTH0 / lock bytes for NTAG21x (tested on genuine NTAG216)",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-376",
+    "target_agent": "warp",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 376,
+      "issue_title": "[Upstream #4303] Freezing desktop animation",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-375",
+    "target_agent": "warp",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 375,
+      "issue_title": "[Upstream #4307] How to use sub-GHz",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-374",
+    "target_agent": "warp",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 374,
+      "issue_title": "[Upstream #4310] Incorrect Sub-GHz region lock for BH (Bahrain) \u2014 433 MHz should be permitted",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-373",
+    "target_agent": "warp",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 373,
+      "issue_title": "[Upstream #4314] Reading saved Felica Standart emulation by another FZ leads to its crash",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-372",
+    "target_agent": "warp",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 372,
+      "issue_title": "[Upstream #4317] \"System Protobuf Version timeout\"",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-371",
+    "target_agent": "claude",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 371,
+      "issue_title": "[Upstream #4321] NTAG215 emulation enables password auth and config lock too early",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  },
+  {
+    "id": "issue-370",
+    "target_agent": "jules",
+    "task_type": "fix_issue",
+    "priority": "normal",
+    "payload": {
+      "issue_number": 370,
+      "issue_title": "[Upstream #4322] Javascript - Infrared Module",
+      "action": "investigate_and_fix",
+      "auto_approve": true,
+      "create_pr": true,
+      "auto_merge": true
+    },
+    "timestamp": "2025-12-31T12:19:57+08:00"
+  }
+]

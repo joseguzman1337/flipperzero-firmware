@@ -1,0 +1,76 @@
+{
+  "SchemaVersion": 2,
+  "CreatedAt": "2025-12-13T23:00:30.869043-05:00",
+  "ArtifactName": ".",
+  "ArtifactType": "filesystem",
+  "Metadata": {
+    "RepoURL": "https://github.com/0x0012637/pr1m3.git",
+    "Branch": "main",
+    "Commit": "1452862dab4b95e909fd9ad090f27f78186aae2d",
+    "CommitMsg": ".",
+    "Author": "pr1m3 Builder \u003cbuilder@pr1m3.local\u003e",
+    "Committer": "pr1m3 Builder \u003cbuilder@pr1m3.local\u003e"
+  },
+  "Results": [
+    {
+      "Target": "requirements.txt",
+      "Class": "lang-pkgs",
+      "Type": "pip"
+    },
+    {
+      "Target": "web-app/package-lock.json",
+      "Class": "lang-pkgs",
+      "Type": "npm"
+    },
+    {
+      "Target": ".secrets",
+      "Class": "secret",
+      "Secrets": [
+        {
+          "RuleID": "github-pat",
+          "Category": "GitHub",
+          "Severity": "CRITICAL",
+          "Title": "GitHub Personal Access Token",
+          "StartLine": 2,
+          "EndLine": 2,
+          "Code": {
+            "Lines": [
+              {
+                "Number": 1,
+                "Content": "SNYK_TOKEN=3d662e89-553c-465f-8d0a-bca496c32ead",
+                "IsCause": false,
+                "Annotation": "",
+                "Truncated": false,
+                "Highlighted": "SNYK_TOKEN=3d662e89-553c-465f-8d0a-bca496c32ead",
+                "FirstCause": false,
+                "LastCause": false
+              },
+              {
+                "Number": 2,
+                "Content": "GITHUB_TOKEN=****************************************",
+                "IsCause": true,
+                "Annotation": "",
+                "Truncated": false,
+                "Highlighted": "GITHUB_TOKEN=****************************************",
+                "FirstCause": true,
+                "LastCause": true
+              },
+              {
+                "Number": 3,
+                "Content": "SONAR_TOKEN=da427d968d57c2c856ae7276d93fe14961899e59",
+                "IsCause": false,
+                "Annotation": "",
+                "Truncated": false,
+                "Highlighted": "SONAR_TOKEN=da427d968d57c2c856ae7276d93fe14961899e59",
+                "FirstCause": false,
+                "LastCause": false
+              }
+            ]
+          },
+          "Match": "GITHUB_TOKEN=****************************************",
+          "Offset": 61
+        }
+      ]
+    }
+  ]
+}

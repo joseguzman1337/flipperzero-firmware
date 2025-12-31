@@ -1,0 +1,27 @@
+on:
+  pull_request: {}
+  push:
+    branches:
+    - master
+    paths:
+    - .github/workflows/semgrep.yml
+  schedule:
+  - cron: '0 0 * * *'
+name: Semgrep
+permissions:
+  contents: read
+
+jobs:
+  semgrep:
+    name: Scan
+    runs-on: ubuntu-latest
+    steps:
+    - name: Harden Runner
+      uses: step-security/harden-runner@v2.10.2
+      with:
+        egress-policy: audit
+
+    - uses: actions/checkout@v4.2.2
+    - uses: returntocorp/semgrep-action@713efdd345f3035192eaa63f56867b88e63e4e5d # v1
+      with:
+        publishToken: ${{ secrets.SEMGREP_APP_TOKEN }}

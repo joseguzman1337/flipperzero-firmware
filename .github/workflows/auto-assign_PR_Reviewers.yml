@@ -1,0 +1,43 @@
+name: Auto Assign PR Reviewers
+
+on:
+  pull_request_target:
+    types: [opened, reopened, synchronize]
+    branches:
+      - "staging"
+      - "master"
+      - "dev"
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  auto-assign-reviewers: # Job to assign reviewers based on PR type
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clear Cache
+        uses: actions/cache@v4.1.2 # v4.0.2
+        with:
+          path: |
+            ./.github/workflows/
+          key: ${{ runner.os }}-workflow-${{ github.event_name }}-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-workflow-${{ github.event_name }}-
+
+      - name: Harden Runner
+        uses: step-security/harden-runner@v2.10.2 # v2.8.1
+        with:
+          egress-policy: audit
+
+      - name: Auto Assign Reviewers
+        uses: actions/github-script@v7.0.1 # v7.0.1
+        with:
+          github-token: ${{ github.token }}
+          script: |
+            github.rest.pulls.requestReviewers({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number,
+              reviewers: ['claude', 'codex', 'gemini-code-assist', 'google-labs-jules', 'joseguzman1337']
+            });

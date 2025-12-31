@@ -1,0 +1,22 @@
+{
+  "id": 829977,
+  "name": "ctl_all_env",
+  "target": "push",
+  "source_type": "Organization",
+  "source": "Nucleus-Flow-Testing",
+  "enforcement": "active",
+  "conditions": {
+    "repository_name": {
+      "exclude": [],
+      "include": [
+        "master",
+        "main",
+        "staging",
+        "dev"
+      ],
+      "protected": true
+    }
+  },
+  "rules": [],
+  "bypass_actors": []
+}

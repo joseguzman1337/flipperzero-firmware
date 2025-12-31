@@ -1,0 +1,232 @@
+name: Snyk Infrastructure as Code Scan
+
+on:
+  pull_request:
+    branches: ["dev"]
+  schedule:
+    - cron: "0 0 * * 0" # Weekly scan on Sunday at midnight
+
+permissions:
+  contents: read
+
+jobs:
+  setup-and-cache:
+    runs-on: ubuntu-latest
+    outputs:
+      cache-key: ${{ steps.cache-key.outputs.key }}
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 0
+
+      - name: Generate Cache Key
+        id: cache-key
+        run: |
+          # Generate a cache key based on lock files
+          if [ -f "package-lock.json" ]; then
+            HASH=$(sha256sum package-lock.json | cut -d' ' -f1)
+          elif [ -f "yarn.lock" ]; then
+            HASH=$(sha256sum yarn.lock | cut -d' ' -f1)
+          elif [ -f "pnpm-lock.yaml" ]; then
+            HASH=$(sha256sum pnpm-lock.yaml | cut -d' ' -f1)
+          else
+            HASH=${{ github.sha }}
+          fi
+          echo "key=snyk-cache-${{ runner.os }}-${HASH:0:16}" >> $GITHUB_OUTPUT
+
+  security-scan:
+    needs: setup-and-cache
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      actions: read
+
+    strategy:
+      matrix:
+        scan-type: [iac, code, opensource, container]
+        include:
+          - scan-type: iac
+            command: iac test
+            args: --report --severity-threshold=high
+            condition: true
+          - scan-type: code
+            command: code test
+            args: --report --severity-threshold=high
+            condition: true
+          - scan-type: opensource
+            command: test
+            args: --all-projects --report --severity-threshold=high
+            condition: true
+          - scan-type: container
+            command: container test
+            args: --report --severity-threshold=high
+            condition: true
+
+    steps:
+      - name: Clear Workflow Cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            ./.github/workflows/
+          key: ${{ runner.os }}-workflow-${{ github.event_name }}-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-workflow-${{ github.event_name }}-
+
+      - name: Harden Runner
+        uses: step-security/harden-runner@v2
+        with:
+          egress-policy: audit
+
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 0
+
+      - name: Extract Snyk Token from API Keys
+        id: extract-snyk-token
+        run: |
+          # Extract Snyk token from docs/api_keys.md (line 69)
+          SNYK_TOKEN=$(sed -n '69p' docs/api_keys.md | tr -d '[:space:]')
+          echo "SNYK_TOKEN=${SNYK_TOKEN}" >> $GITHUB_ENV
+          if [ -n "$SNYK_TOKEN" ]; then
+            echo "✅ Snyk token extracted successfully"
+          else
+            echo "⚠️ Warning: Snyk token not found in docs/api_keys.md"
+          fi
+
+      - name: Cache Snyk Dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cache/snyk
+            ~/.local/share/snyk
+            /tmp/snyk
+          key: ${{ needs.setup-and-cache.outputs.cache-key }}
+          restore-keys: |
+            snyk-cache-${{ runner.os }}-
+
+      - name: Install Latest Snyk CLI
+        run: |
+          echo "Installing latest Snyk CLI..."
+          curl -fsSL https://static.snyk.io/cli/latest/snyk-linux -o snyk
+          chmod +x snyk
+          sudo mv snyk /usr/local/bin/
+          snyk --version
+
+      - name: Detect Container Files
+        id: detect-container
+        if: matrix.scan-type == 'container'
+        run: |
+          if find . -name "Dockerfile" -o -name "*.dockerfile" -o -name "Containerfile" | grep -q .; then
+            echo "has-dockerfiles=true" >> $GITHUB_OUTPUT
+            echo "Found container files for scanning"
+          else
+            echo "has-dockerfiles=false" >> $GITHUB_OUTPUT
+            echo "No container files found"
+          fi
+
+      - name: Snyk Authenticate
+        if: ${{ !github.event.pull_request.head.repo.fork && matrix.condition }}
+        run: snyk auth "$SNYK_TOKEN"
+        continue-on-error: true
+
+      - name: Run Snyk ${{ matrix.scan-type }} Scan
+        if: ${{ !github.event.pull_request.head.repo.fork && matrix.condition }}
+        env:
+          # Container-specific environment
+          DOCKER_HOST: ${{ matrix.scan-type == 'container' && 'unix:///var/run/docker.sock' || '' }}
+        run: |
+          echo "🚀 Running Snyk ${{ matrix.scan-type }} scan..."
+
+          # Special handling for container scans
+          if [ "${{ matrix.scan-type }}" = "container" ]; then
+            find . -name "Dockerfile" -o -name "*.dockerfile" -o -name "Containerfile" | while read -r dockerfile; do
+              echo "📦 Scanning $dockerfile"
+              snyk container test file:"$dockerfile" --file="$dockerfile" ${{ matrix.args }} || true
+            done
+          else
+            # Standard scan for other types
+            snyk ${{ matrix.command }} ${{ matrix.args }}
+          fi
+
+          echo "✅ ${{ matrix.scan-type }} scan completed"
+        continue-on-error: true
+
+  monitor-and-summary:
+    needs: [setup-and-cache, security-scan]
+    runs-on: ubuntu-latest
+    if: ${{ !github.event.pull_request.head.repo.fork }}
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Extract Snyk Token from API Keys
+        id: extract-snyk-token
+        run: |
+          # Extract Snyk token from docs/api_keys.md (line 69)
+          SNYK_TOKEN=$(sed -n '69p' docs/api_keys.md | tr -d '[:space:]')
+          echo "SNYK_TOKEN=${SNYK_TOKEN}" >> $GITHUB_ENV
+          if [ -n "$SNYK_TOKEN" ]; then
+            echo "✅ Snyk token extracted successfully"
+          else
+            echo "⚠️ Warning: Snyk token not found in docs/api_keys.md"
+          fi
+
+      - name: Install Snyk CLI
+        run: |
+          curl -fsSL https://static.snyk.io/cli/latest/snyk-linux -o snyk
+          chmod +x snyk
+          sudo mv snyk /usr/local/bin/
+
+      - name: Authenticate
+        run: snyk auth "$SNYK_TOKEN"
+
+      - name: Monitor Projects
+        run: |
+          echo "📊 Monitoring all projects in Snyk..."
+          snyk monitor --all-projects
+
+          echo ""
+          echo "📈 Scan Summary:"
+          echo "• Infrastructure as Code: ${{ needs.security-scan.result == 'success' && 'Completed' || 'Failed/Skipped' }}"
+          echo "• Code Analysis: ${{ needs.security-scan.result == 'success' && 'Completed' || 'Failed/Skipped' }}"
+          echo "• Open Source: ${{ needs.security-scan.result == 'success' && 'Completed' || 'Failed/Skipped' }}"
+
+          # Check for container files
+          if find . -name "Dockerfile" -o -name "*.dockerfile" -o -name "Containerfile" | grep -q .; then
+            echo "• Container: Completed"
+          else
+            echo "• Container: No Dockerfiles found"
+          fi
+
+          echo ""
+          echo "🔗 View detailed results at: https://app.snyk.io/org/$(snyk config get org)/"
+
+      - name: Upload Scan Results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: snyk-scan-results
+          path: |
+            **/*.snyk
+            **/snyk-report*
+          retention-days: 30
+
+  handle-forks:
+    if: ${{ github.event.pull_request.head.repo.fork }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Skip Scan Notification
+        run: |
+          echo "⚠️ Security scans skipped"
+          echo "Reason: PR is from a fork"
+          echo ""
+          echo "For security scanning on forks:"
+          echo "1. Create a Snyk account at https://snyk.io"
+          echo "2. Add your Snyk token to docs/api_keys.md (line 69)"
+          echo "3. Resubmit the PR"

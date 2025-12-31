@@ -1,0 +1,46 @@
+{
+  "id": 843685,
+  "name": "master",
+  "target": "branch",
+  "source_type": "Repository",
+  "source": "joseguzman1337-Org/demo-open-source",
+  "enforcement": "active",
+  "conditions": {
+    "repository_name": {
+      "exclude": [],
+      "include": [
+        "joseguzman1337-Org/demo-open-source"
+      ]
+    },
+    "ref_name": {
+      "exclude": [],
+      "include": [
+        "refs/heads/master",
+        "refs/heads/main",
+        "~DEFAULT_BRANCH"
+      ]
+    }
+  },
+  "rules": [
+    {
+      "type": "required_linear_history"
+    },
+    {
+      "type": "deletion"
+    },
+    {
+      "type": "pull_request",
+      "parameters": {
+        "required_approving_review_count": 1,
+        "dismiss_stale_reviews_on_push": true,
+        "require_code_owner_review": true,
+        "require_last_push_approval": true,
+        "required_review_thread_resolution": true
+      }
+    },
+    {
+      "type": "non_fast_forward"
+    }
+  ],
+  "bypass_actors": []
+}

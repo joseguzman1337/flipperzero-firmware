@@ -1,0 +1,341 @@
+name: Test Workflows
+
+on:
+  push:
+    branches:
+      - master
+      - staging
+      - dev
+  pull_request:
+    branches:
+      - master
+      - staging
+      - dev
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  # Test scenarios 1, 2, 3: Direct pushes to protected branches should fail
+  test-direct-push:
+    permissions:
+      contents: write # for Git to git push
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        branch: [master, staging, dev]
+    steps:
+      - name: Clear Cache
+        uses: actions/cache@v4.1.2 # v4.0.2
+        with:
+          path: |
+            ./.github/workflows/
+          key: ${{ runner.os }}-workflow-${{ github.event_name }}-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-workflow-${{ github.event_name }}-
+      - name: Harden Runner
+        uses: step-security/harden-runner@v2.10.2 # v2.8.1
+        with:
+          egress-policy: audit
+      - name: Checkout Code
+        uses: actions/checkout@v4.2.2 # v4.1.7
+      - name: Verify working directory
+        run: pwd && ls -la && ls -la ./.github/workflows && ls -la ./.github/workflows/scripts/
+        continue-on-error: true
+      - name: Check if test script exists
+        run: test -f ./.github/workflows/scripts/common_functions.sh && echo "File exists" || echo "File does not exist"
+        continue-on-error: true
+      - name: Make tests scripts executable
+        run: |
+          chmod +x ./.github/workflows/scripts/common_functions.sh        
+          chmod +x ./.github/workflows/scripts/01-direct-push-master.sh
+          chmod +x ./.github/workflows/scripts/02-direct-push-staging.sh
+          chmod +x ./.github/workflows/scripts/03-direct-push-dev.sh
+          chmod +x ./.github/workflows/scripts/04-pr-any-to-dev.sh
+          chmod +x ./.github/workflows/scripts/05-pr-dev-to-staging.sh
+          chmod +x ./.github/workflows/scripts/06-pr-staging-to-master.sh
+          chmod +x ./.github/workflows/scripts/07-pr-creation-joseguzman1337.sh
+          chmod +x ./.github/workflows/scripts/08-pr-creation-joseguzman1337.sh
+          chmod +x ./.github/workflows/scripts/09-add-invalid-reviewer.sh
+          chmod +x ./.github/workflows/scripts/10-approval-merge-permissions.sh
+          chmod +x ./.github/workflows/scripts/check-reviewers.sh
+        continue-on-error: true
+      - name: Checkout code
+        uses: actions/checkout@v4.2.2 # v4.1.7
+      - name: Attempt direct push
+        run: |
+          git config user.name "GitHub Actions Bot"
+          git config user.email "github-actions@github.com"
+          # Fetch and merge/rebase before pushing
+          git fetch origin ${{ matrix.branch }}
+          git checkout ${{ matrix.branch }}  # Switch to the target branch
+          git merge origin/${{ matrix.branch }} || git rebase origin/${{ matrix.branch }}
+          echo "Some change" >> README.md
+          git add .
+          git commit -m "Test commit"
+          # Push with error handling
+          if git push origin HEAD:${{ matrix.branch }}; then
+          git push origin HEAD:${{ matrix.branch }}
+             echo "::error::Direct push to ${{ matrix.branch }} unexpectedly succeeded! This is a security issue."
+             exit 1
+          else
+              echo "Direct push to ${{ matrix.branch }} correctly failed as expected. It's good that you can't push directly to these branches."
+          fi
+        continue-on-error: true
+      - name: Check for failure
+        run: |
+          echo "Direct push to ${{ matrix.branch }} should have failed. This test is designed to ensure that only pull requests are allowed for these branches."
+          exit 1
+        if: ${{ success() }}
+        continue-on-error: true
+  # Test scenario 4: Enforce PR sequence (any->dev->staging->master)
+  test-pr-sequence:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        case:
+          - {
+              source: "test-branch",
+              target: "dev",
+              shouldFail: false,
+              message: "Creating a pull request from a test branch to the dev branch should be successful.",
+            }
+          - {
+              source: "dev",
+              target: "staging",
+              shouldFail: false,
+              message: "Creating a pull request from dev branch to the staging branch should be successful.",
+            }
+          - {
+              source: "staging",
+              target: "master",
+              shouldFail: false,
+              message: "Creating a pull request from staging branch to the master branch should be successful.",
+            }
+          - {
+              source: "test-branch",
+              target: "staging",
+              shouldFail: true,
+              message: "Creating a pull request directly from a test branch to the staging branch should fail. You need to first merge to dev.",
+            }
+          - {
+              source: "test-branch",
+              target: "master",
+              shouldFail: true,
+              message: "Creating a pull request directly from a test branch to the master branch should fail. You need to first merge to dev and then staging.",
+            }
+          - {
+              source: "dev",
+              target: "master",
+              shouldFail: true,
+              message: "Creating a pull request directly from dev to master branch should fail. You need to first merge to staging.",
+            }
+    steps:
+      - name: Harden Runner
+        uses: step-security/harden-runner@v2.10.2 # v2.8.1
+        with:
+          egress-policy: audit
+      - name: Checkout code
+        uses: actions/checkout@v4.2.2 # v4.1.7
+      - name: Verify working directory
+        run: pwd && ls -la && ls -la ./.github/workflows && ls -la ./.github/workflows/scripts/
+        continue-on-error: true
+      - name: Check if test script exists
+        run: test -f ./.github/workflows/scripts/common_functions.sh && echo "File exists" || echo "File does not exist"
+        continue-on-error: true
+      - name: Create and merge PR (Success case)
+        if: ${{ !matrix.case.shouldFail }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          chmod +x ./.github/workflows/scripts/create-and-merge-pr.sh && ./.github/workflows/scripts/create-and-merge-pr.sh ${{ matrix.case.source }} ${{ matrix.case.target }} "$GITHUB_TOKEN"
+        continue-on-error: true
+      - name: Attempt and fail PR creation/merge (Failure case)
+        if: ${{ matrix.case.shouldFail }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          ! chmod +x ./.github/workflows/scripts/create-and-merge-pr.sh && ./.github/workflows/scripts/create-and-merge-pr.sh ${{ matrix.case.source }} ${{ matrix.case.target }} "$GITHUB_TOKEN"
+        continue-on-error: true
+  # Test scenarios 5, 6, 9: Automatic reviewers, restricted reviewers, dev approval
+  test-pr-creation-and-review:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        case:
+          - {
+              creator: "joseguzman1337",
+              target: "dev",
+              message: "joseguzman1337 creating a pull request to dev should be successful and automatically trigger review.",
+            }
+          - {
+              creator: "joseguzman1337",
+              target: "dev",
+              message: "joseguzman1337 creating a pull request to dev should be successful and automatically trigger review.",
+            }
+          - {
+              creator: "4k4xs4pH1r3-2",
+              target: "dev",
+              message: "4k4xs4pH1r3-2 creating a pull request to dev should be successful and automatically trigger review.",
+            }
+    steps:
+      - name: Harden Runner
+        uses: step-security/harden-runner@v2.10.2 # v2.8.1
+        with:
+          egress-policy: audit
+      - name: Checkout code
+        uses: actions/checkout@v4.2.2 # v4.1.7
+      - name: Verify working directory
+        run: pwd && ls -la && ls -la ./.github/workflows && ls -la ./.github/workflows/scripts/
+        continue-on-error: true
+      - name: Check if test script exists
+        run: test -f ./.github/workflows/scripts/common_functions.sh && echo "File exists" || echo "File does not exist"
+        continue-on-error: true
+      - name: Create PR
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          chmod +x ./.github/workflows/scripts/create-pr.sh && ./.github/workflows/scripts/create-pr.sh ${{ matrix.case.creator }} ${{ matrix.case.target }} "$GITHUB_TOKEN"
+        continue-on-error: true
+      - name: Check for automatic reviewers
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ALLOWED_REVIEWERS: "joseguzman1337,joseguzman1337"
+        run: |
+          chmod +x ./.github/workflows/scripts/check-reviewers.sh && ./.github/workflows/scripts/check-reviewers.sh "$ALLOWED_REVIEWERS" "$GITHUB_TOKEN"
+          echo "This test checks if the automatic reviewers are assigned correctly."
+        continue-on-error: true
+      - name: Approve and merge PR (if allowed)
+        if: ${{ matrix.case.creator == 'joseguzman1337' || matrix.case.creator == 'joseguzman1337' }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          chmod +x ./.github/workflows/scripts/approve-and-merge-pr.sh && ./.github/workflows/scripts/approve-and-merge-pr.sh ${{ matrix.case.creator }} "$GITHUB_TOKEN"
+          echo "This test checks if the allowed users can approve and merge the pull requests."
+        continue-on-error: true
+  # Test scenarios 7, 8: User restrictions on staging/master PRs and approvals
+  test-protected-branch-restrictions:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        case:
+          - {
+              user: "joseguzman1337",
+              target: "staging",
+              shouldFail: false,
+              message: "joseguzman1337 creating a pull request to staging branch should be successful and trigger the review process.",
+            }
+          - {
+              user: "joseguzman1337",
+              target: "staging",
+              shouldFail: false,
+              message: "joseguzman1337 creating a pull request to staging branch should be successful and trigger the review process.",
+            }
+          - {
+              user: "4k4xs4pH1r3-2",
+              target: "staging",
+              shouldFail: true,
+              message: "4k4xs4pH1r3-2 creating a pull request to staging branch should fail as they are not allowed to push directly to the staging branch.",
+            }
+          - {
+              user: "4k4xs4pH1r3-2",
+              target: "master",
+              shouldFail: true,
+              message: "4k4xs4pH1r3-2 creating a pull request to the master branch should fail as they are not allowed to push directly to the master branch.",
+            }
+    steps:
+      - name: Harden Runner
+        uses: step-security/harden-runner@v2.10.2 # v2.8.1
+        with:
+          egress-policy: audit
+      - name: Checkout code
+        uses: actions/checkout@v4.2.2 # v4.1.7
+      - name: Attempt direct push
+        run: |
+          git config user.name "GitHub Actions Bot"
+          git config user.email "github-actions@github.com"
+          echo "Some change" >> README.md
+          git add .
+          git commit -m "Test commit"
+          git push origin HEAD:${{ matrix.case.target }}
+        continue-on-error: true
+      - name: Check for failure
+        run: |
+          echo "Direct push to ${{ matrix.case.target }} should have failed. This test checks if pushing directly to staging and master is restricted."
+          exit 1
+        if: ${{ success() }}
+        continue-on-error: true
+      - name: Verify working directory
+        run: pwd && ls -la && ls -la ./.github/workflows && ls -la ./.github/workflows/scripts/
+        continue-on-error: true
+      - name: Check if test script exists
+        run: test -f ./.github/workflows/scripts/common_functions.sh && echo "File exists" || echo "File does not exist"
+        continue-on-error: true
+      - name: Create and merge PR (if allowed)
+        if: ${{ !matrix.case.shouldFail }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          chmod +x ./.github/workflows/scripts/create-and-merge-pr.sh && ./.github/workflows/scripts/create-and-merge-pr.sh ${{ matrix.case.user }} ${{ matrix.case.target }} "$GITHUB_TOKEN"
+        continue-on-error: true
+      - name: Attempt and fail PR creation/merge (Failure case)
+        if: ${{ matrix.case.shouldFail }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          ! chmod +x ./.github/workflows/scripts/create-and-merge-pr.sh && ./.github/workflows/scripts/create-and-merge-pr.sh ${{ matrix.case.user }} ${{ matrix.case.target }} "$GITHUB_TOKEN"
+          echo "This test ensures that users not allowed to push directly to staging or master cannot create pull requests to those branches."
+        continue-on-error: true
+  # Test scenario 10: Reviewer self-adding and restrictions
+  test-reviewer-management:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Harden Runner
+        uses: step-security/harden-runner@v2.10.2 # v2.8.1
+        with:
+          egress-policy: audit
+      - name: Checkout code
+        uses: actions/checkout@v4.2.2 # v4.1.7
+      - name: Attempt direct push
+        run: |
+          git config user.name "GitHub Actions Bot"
+          git config user.email "github-actions@github.com"
+          echo "Some change" >> README.md
+          git add .
+          git commit -m "Test commit"
+          git push origin HEAD:dev
+        continue-on-error: true
+      - name: Check for failure
+        run: |
+          echo "Direct push to dev should have failed. This test ensures that only pull requests are allowed for protected branches."
+          exit 1
+        if: ${{ success() }}
+        continue-on-error: true
+      - name: Verify working directory
+        run: pwd && ls -la && ls -la ./.github/workflows && ls -la ./.github/workflows/scripts/
+        continue-on-error: true
+      - name: Check if test script exists
+        run: test -f ./.github/workflows/scripts/common_functions.sh && echo "File exists" || echo "File does not exist"
+        continue-on-error: true
+      - name: Create PR (any user can create on dev)
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          chmod +x ./.github/workflows/scripts/create-pr.sh && ./.github/workflows/scripts/create-pr.sh anyuser dev "$GITHUB_TOKEN"
+        continue-on-error: true
+      - name: Attempt to add invalid reviewer
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          ! chmod +x ./.github/workflows/scripts/add-reviewer.sh && ./.github/workflows/scripts/add-reviewer.sh someotheruser "$GITHUB_TOKEN"
+          echo "This test ensures that reviewers cannot be added arbitrarily. Only allowed reviewers can be added."
+        continue-on-error: true
+      - name: Add allowed reviewers
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ALLOWED_REVIEWERS: "joseguzman1337,joseguzman1337"
+        run: |
+          chmod +x ./.github/workflows/scripts/add-reviewer.sh && ./.github/workflows/scripts/add-reviewer.sh "$ALLOWED_REVIEWERS" "$GITHUB_TOKEN"
+          echo "This test ensures that allowed reviewers can be added to the pull request."
+        continue-on-error: true

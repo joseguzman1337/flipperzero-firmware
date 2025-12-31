@@ -48,13 +48,20 @@ bool ducky_is_line_end(const char chr) {
     return (chr == ' ') || (chr == '\0') || (chr == '\r') || (chr == '\n');
 }
 
-uint16_t ducky_get_keycode(BadUsbScript* bad_usb, const char* param, bool accept_chars) {
+uint16_t ducky_get_keycode(BadUsbScript* bad_usb, const char* param, bool accept_modifiers) {
     uint16_t keycode = ducky_get_keycode_by_name(param);
     if(keycode != HID_KEYBOARD_NONE) {
         return keycode;
     }
 
-    if((accept_chars) && (strlen(param) > 0)) {
+    if(accept_modifiers) {
+        uint16_t keycode = ducky_get_modifier_keycode_by_name(param);
+        if(keycode != HID_KEYBOARD_NONE) {
+            return keycode;
+        }
+    }
+
+    if(strlen(param) > 0) {
         return BADUSB_ASCII_TO_KEY(bad_usb, param[0]) & 0xFF;
     }
     return 0;
@@ -130,6 +137,114 @@ int32_t ducky_error(BadUsbScript* bad_usb, const char* text, ...) {
 
     va_end(args);
     return SCRIPT_STATE_ERROR;
+}
+
+const char* ducky_map_get(map_str_t map, const char* key) {
+    if(key[0] == '$' || key[0] == '#') key++;
+    // get the value from the map
+    const char** value = map_str_get(map, key);
+    return value ? *value : NULL;
+}
+
+void ducky_maps_free(BadUsbScript* bad_usb, bool init) {
+    // hashmaps must be cleared when script is stopped/paused otherwise we could have a
+    // multiple #constant definition error
+    map_str_clear(bad_usb->variables);
+    map_str_clear(bad_usb->constants);
+    map_str_clear(bad_usb->constants_sharp);
+
+    // hashmaps must be re-initialized if script has been stopped/paused to avoid app crash
+    // hashmap must not be re-initialized if script is closed
+    if (init) {
+        map_str_init(bad_usb->variables);
+        map_str_init(bad_usb->constants);
+        map_str_init(bad_usb->constants_sharp);
+    }
+}
+
+int32_t ducky_define(BadUsbScript* bad_usb, const char* param, bool is_constant) {
+
+    char* space_pos;
+    // Variables must be assigned using =
+    if(!is_constant)
+        if (strchr(param, '=') == NULL)
+            return ducky_error(bad_usb, "No valid assignment for variable", param);
+        else {
+            // get variable name and value splitting the string
+            space_pos = strchr(param, '=');
+        }
+    else {
+        // get variable name and value splitting the string
+        space_pos = strchr(param, ' ');
+    }
+
+    if(space_pos == NULL) return ducky_error(bad_usb, "No valid name for variable or constant", param);
+
+
+    size_t var_name_length = space_pos - param;
+    // Remove ending spaces from the variable name
+    while(var_name_length > 0 && param[var_name_length - 1] == ' ')
+        var_name_length--;
+
+    // Memory allocation
+    char* var_name = (char*)malloc(var_name_length + 1);
+    if (!var_name) {
+        free(var_name); // free var_name before exit
+        return ducky_error(bad_usb, "Var name NULL", param);
+    }
+
+    // Copy variable name and add the null terminator
+    memcpy(var_name, param, var_name_length);
+    var_name[var_name_length] = '\0';
+
+
+    // Check if the variable starts with a '$' and remove it
+    if(is_constant) {
+        if (var_name[0] == '$')
+            return ducky_error(bad_usb, "Constant cannot start with $", var_name);
+        else if(var_name[0] == '#' && ducky_map_get(bad_usb->constants_sharp, var_name) != NULL)
+            return ducky_error(bad_usb, "Multiple #constant definition for %s", var_name);
+        else if(var_name[0] != '#' && ducky_map_get(bad_usb->constants, var_name) != NULL)
+            return ducky_error(bad_usb, "Multiple constant definition for %s", var_name);
+    }
+    else {
+        if (var_name[0] != '$')
+            return ducky_error(bad_usb, "Variable must start with $", var_name);
+    }
+
+    // Memory allocation
+    size_t var_value_length = strlen(space_pos + 1);
+
+    // Remove starting spaces from the variable value
+    while(*(space_pos+1) == ' ') {
+        space_pos++;
+        var_value_length--;
+    }
+
+    char* var_value = (char*)malloc(var_value_length + 1);
+    if (!var_value) {
+        free(var_name); // free var_name before exit
+        free(var_value); // free var_name before exit
+        return ducky_error(bad_usb, "Var value is NULL", param);
+    }
+
+    // Copy variable value and add the null terminator
+    memcpy(var_value, space_pos + 1, var_value_length);
+    var_value[var_value_length] = '\0';
+
+    if(var_name == NULL || var_value == NULL)
+        return ducky_error(bad_usb, "Var name or value is NULL", param);
+
+    if (is_constant)
+        if (var_name[0] == '#')
+            map_str_set_at(bad_usb->constants_sharp, ++var_name, var_value);
+        else
+            map_str_set_at(bad_usb->constants, var_name, var_value);
+    else
+        map_str_set_at(bad_usb->variables, ++var_name, var_value);
+    FURI_LOG_D(WORKER_TAG, "Var Name: %s - Var Value: %s", var_name, var_value);
+
+    return 0;
 }
 
 bool ducky_string(BadUsbScript* bad_usb, const char* param) {
@@ -211,9 +326,7 @@ static int32_t ducky_parse_line(BadUsbScript* bad_usb, FuriString* line) {
 
     // Main key
     char next_char = *line_cstr;
-    uint16_t main_key = ducky_get_keycode_by_name(line_cstr);
-    if(!main_key && next_char) main_key = BADUSB_ASCII_TO_KEY(bad_usb, next_char);
-    key = modifiers | main_key;
+    key = modifiers | ducky_get_keycode(bad_usb, line_cstr, false);
 
     if(key == 0 && next_char) ducky_error(bad_usb, "No keycode defined for %s", line_cstr);
 
@@ -507,9 +620,11 @@ static int32_t bad_usb_worker(void* context) {
                 } else if(flags & WorkerEvtStartStop) {
                     worker_state = BadUsbStateIdle; // Stop executing script
                     bad_usb->hid->release_all(bad_usb->hid_inst);
+                    ducky_maps_free(bad_usb, true);
                 } else if(flags & WorkerEvtDisconnect) {
                     worker_state = BadUsbStateNotConnected; // USB disconnected
                     bad_usb->hid->release_all(bad_usb->hid_inst);
+                    ducky_maps_free(bad_usb, true);
                 } else if(flags & WorkerEvtPauseResume) {
                     pause_state = BadUsbStateRunning;
                     worker_state = BadUsbStatePaused; // Pause
@@ -530,11 +645,13 @@ static int32_t bad_usb_worker(void* context) {
                     worker_state = BadUsbStateScriptError;
                     bad_usb->st.state = worker_state;
                     bad_usb->hid->release_all(bad_usb->hid_inst);
+                    ducky_maps_free(bad_usb, true);
                 } else if(delay_val == SCRIPT_STATE_END) { // End of script
                     delay_val = 0;
                     worker_state = BadUsbStateIdle;
                     bad_usb->st.state = BadUsbStateDone;
                     bad_usb->hid->release_all(bad_usb->hid_inst);
+                    ducky_maps_free(bad_usb, true);
                     continue;
                 } else if(delay_val == SCRIPT_STATE_STRING_START) { // Start printing string with delays
                     delay_val = bad_usb->defdelay;
@@ -563,6 +680,7 @@ static int32_t bad_usb_worker(void* context) {
                 } else if(flags & WorkerEvtDisconnect) {
                     worker_state = BadUsbStateNotConnected; // USB disconnected
                     bad_usb->hid->release_all(bad_usb->hid_inst);
+                    ducky_maps_free(bad_usb, true);
                 }
                 bad_usb->st.state = worker_state;
                 continue;
@@ -578,10 +696,12 @@ static int32_t bad_usb_worker(void* context) {
                     worker_state = BadUsbStateIdle; // Stop executing script
                     bad_usb->st.state = worker_state;
                     bad_usb->hid->release_all(bad_usb->hid_inst);
+                    ducky_maps_free(bad_usb, true);
                 } else if(flags & WorkerEvtDisconnect) {
                     worker_state = BadUsbStateNotConnected; // USB disconnected
                     bad_usb->st.state = worker_state;
                     bad_usb->hid->release_all(bad_usb->hid_inst);
+                    ducky_maps_free(bad_usb, true);
                 } else if(flags & WorkerEvtPauseResume) {
                     if(pause_state == BadUsbStateRunning) {
                         if(delay_val > 0) {
@@ -612,9 +732,11 @@ static int32_t bad_usb_worker(void* context) {
                 } else if(flags & WorkerEvtStartStop) {
                     worker_state = BadUsbStateIdle; // Stop executing script
                     bad_usb->hid->release_all(bad_usb->hid_inst);
+                    ducky_maps_free(bad_usb, true);
                 } else if(flags & WorkerEvtDisconnect) {
                     worker_state = BadUsbStateNotConnected; // USB disconnected
                     bad_usb->hid->release_all(bad_usb->hid_inst);
+                    ducky_maps_free(bad_usb, true);
                 } else if(flags & WorkerEvtPauseResume) {
                     pause_state = BadUsbStateStringDelay;
                     worker_state = BadUsbStatePaused; // Pause
@@ -637,7 +759,7 @@ static int32_t bad_usb_worker(void* context) {
             (worker_state == BadUsbStateScriptError)) { // State: error
             uint32_t flags =
                 bad_usb_flags_get(WorkerEvtEnd, FuriWaitForever); // Waiting for exit command
-
+            ducky_maps_free(bad_usb, true);
             if(flags & WorkerEvtEnd) {
                 break;
             }
@@ -678,6 +800,11 @@ BadUsbScript* bad_usb_script_open(FuriString* file_path, BadUsbHidInterface inte
 
     bad_usb->thread = furi_thread_alloc_ex("BadUsbWorker", 2048, bad_usb_worker, bad_usb);
     furi_thread_start(bad_usb->thread);
+
+    map_str_init(bad_usb->variables);
+    map_str_init(bad_usb->constants);
+    map_str_init(bad_usb->constants_sharp);
+
     return bad_usb;
 } //-V773
 
@@ -687,6 +814,7 @@ void bad_usb_script_close(BadUsbScript* bad_usb) {
     furi_thread_join(bad_usb->thread);
     furi_thread_free(bad_usb->thread);
     furi_string_free(bad_usb->file_path);
+    ducky_maps_free(bad_usb, false);
     free(bad_usb);
 }
 

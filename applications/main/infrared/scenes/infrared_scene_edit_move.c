@@ -1,103 +1,87 @@
-#include "../infrared_i.h"
+#include "../infrared_app_i.h"
 
-static void infrared_scene_edit_move_dialog_result_callback(DialogExResult result, void* context) {
-    Infrared* infrared = context;
-    view_dispatcher_send_custom_event(infrared->view_dispatcher, result);
+static int32_t infrared_scene_edit_move_task_callback(void* context) {
+    InfraredApp* infrared = context;
+    const InfraredErrorCode error = infrared_remote_move_signal(
+        infrared->remote,
+        infrared->app_state.prev_button_index,
+        infrared->app_state.current_button_index);
+    view_dispatcher_send_custom_event(
+        infrared->view_dispatcher, InfraredCustomEventTypeTaskFinished);
+
+    return error;
+}
+
+static void infrared_scene_edit_move_button_callback(
+    uint32_t index_old,
+    uint32_t index_new,
+    void* context) {
+    InfraredApp* infrared = context;
+    furi_assert(infrared);
+
+    infrared->app_state.prev_button_index = index_old;
+    infrared->app_state.current_button_index = index_new;
+
+    view_dispatcher_send_custom_event(
+        infrared->view_dispatcher, InfraredCustomEventTypeButtonSelected);
 }
 
 void infrared_scene_edit_move_on_enter(void* context) {
-    Infrared* infrared = context;
-    DialogEx* dialog_ex = infrared->dialog_ex;
+    InfraredApp* infrared = context;
     InfraredRemote* remote = infrared->remote;
 
-    const InfraredEditTarget edit_target = infrared->app_state.edit_target;
-    if(edit_target == InfraredEditTargetButton) {
-        int32_t current_button_index = infrared->app_state.current_button_index_move_orig;
-        furi_assert(current_button_index != InfraredButtonIndexNone);
-
-        dialog_ex_set_header(dialog_ex, "Move Button?", 64, 0, AlignCenter, AlignTop);
-        InfraredRemoteButton* current_button =
-            infrared_remote_get_button(remote, current_button_index);
-        InfraredSignal* signal = infrared_remote_button_get_signal(current_button);
-
-        if(infrared_signal_is_raw(signal)) {
-            const InfraredRawSignal* raw = infrared_signal_get_raw_signal(signal);
-            infrared_text_store_set(
-                infrared,
-                0,
-                "%s\nRAW\n%ld samples",
-                infrared_remote_button_get_name(current_button),
-                raw->timings_size);
-
-        } else {
-            const InfraredMessage* message = infrared_signal_get_message(signal);
-            infrared_text_store_set(
-                infrared,
-                0,
-                "%s\n%s\nA=0x%0*lX C=0x%0*lX",
-                infrared_remote_button_get_name(current_button),
-                infrared_get_protocol_name(message->protocol),
-                ROUND_UP_TO(infrared_get_protocol_address_length(message->protocol), 4),
-                message->address,
-                ROUND_UP_TO(infrared_get_protocol_command_length(message->protocol), 4),
-                message->command);
-        }
-    } else {
-        furi_assert(0);
+    for(size_t i = 0; i < infrared_remote_get_signal_count(remote); ++i) {
+        infrared_move_view_add_item(
+            infrared->move_view, infrared_remote_get_signal_name(remote, i));
     }
 
-    dialog_ex_set_text(dialog_ex, infrared->text_store[0], 64, 31, AlignCenter, AlignCenter);
-    dialog_ex_set_icon(dialog_ex, 0, 0, NULL);
-    dialog_ex_set_left_button_text(dialog_ex, "Cancel");
-    dialog_ex_set_right_button_text(dialog_ex, "Move");
-    dialog_ex_set_result_callback(dialog_ex, infrared_scene_edit_move_dialog_result_callback);
-    dialog_ex_set_context(dialog_ex, context);
+    infrared_move_view_set_callback(
+        infrared->move_view, infrared_scene_edit_move_button_callback, infrared);
 
-    view_dispatcher_switch_to_view(infrared->view_dispatcher, InfraredViewDialogEx);
+    view_dispatcher_switch_to_view(infrared->view_dispatcher, InfraredViewMove);
 }
 
 bool infrared_scene_edit_move_on_event(void* context, SceneManagerEvent event) {
-    Infrared* infrared = context;
-    SceneManager* scene_manager = infrared->scene_manager;
+    InfraredApp* infrared = context;
     bool consumed = false;
 
     if(event.type == SceneManagerEventTypeCustom) {
-        if(event.event == DialogExResultLeft) {
-            scene_manager_previous_scene(scene_manager);
-            consumed = true;
-        } else if(event.event == DialogExResultRight) {
-            bool success = false;
-            InfraredRemote* remote = infrared->remote;
-            InfraredAppState* app_state = &infrared->app_state;
-            const InfraredEditTarget edit_target = app_state->edit_target;
+        if(event.event == InfraredCustomEventTypeButtonSelected) {
+            // Move the button in a separate thread
+            infrared_blocking_task_start(infrared, infrared_scene_edit_move_task_callback);
 
-            if(edit_target == InfraredEditTargetButton) {
-                furi_assert(app_state->current_button_index != InfraredButtonIndexNone);
-                success = infrared_remote_move_button(
-                    remote,
-                    app_state->current_button_index_move_orig,
-                    app_state->current_button_index);
-                app_state->current_button_index_move_orig = InfraredButtonIndexNone;
-                app_state->current_button_index = InfraredButtonIndexNone;
-            } else {
-                furi_assert(0);
-            }
+        } else if(event.event == InfraredCustomEventTypeTaskFinished) {
+            const InfraredErrorCode task_error = infrared_blocking_task_finalize(infrared);
 
-            if(success) {
-                scene_manager_next_scene(scene_manager, InfraredSceneEditMoveDone);
-            } else {
-                const uint32_t possible_scenes[] = {InfraredSceneRemoteList, InfraredSceneStart};
+            if(INFRARED_ERROR_PRESENT(task_error)) {
+                const char* format = "Failed to move\n\"%s\"";
+                uint8_t signal_index = infrared->app_state.prev_button_index;
+
+                if(INFRARED_ERROR_CHECK(
+                       task_error, InfraredErrorCodeSignalRawUnableToReadTooLongData)) {
+                    signal_index = INFRARED_ERROR_GET_INDEX(task_error);
+                    format = "Failed to move\n\"%s\" is too long.\nTry to edit file from pc";
+                }
+                furi_assert(format);
+
+                const char* signal_name =
+                    infrared_remote_get_signal_name(infrared->remote, signal_index);
+                infrared_show_error_message(infrared, format, signal_name);
+
+                const uint32_t possible_scenes[] = {InfraredSceneRemoteList, InfraredSceneRemote};
                 scene_manager_search_and_switch_to_previous_scene_one_of(
-                    scene_manager, possible_scenes, COUNT_OF(possible_scenes));
+                    infrared->scene_manager, possible_scenes, COUNT_OF(possible_scenes));
+            } else {
+                view_dispatcher_switch_to_view(infrared->view_dispatcher, InfraredViewMove);
             }
-            consumed = true;
         }
+        consumed = true;
     }
 
     return consumed;
 }
 
 void infrared_scene_edit_move_on_exit(void* context) {
-    Infrared* infrared = context;
-    UNUSED(infrared);
+    InfraredApp* infrared = context;
+    infrared_move_view_reset(infrared->move_view);
 }

@@ -1,7 +1,12 @@
 /**
  * @file pulse_glue.h
+<<<<<<< HEAD
  * 
  * Simple tool to glue separated pulses to corret 
+=======
+ *
+ * Simple tool to glue separated pulses to corret
+>>>>>>> origin/dev
  */
 #pragma once
 #include <stdint.h>

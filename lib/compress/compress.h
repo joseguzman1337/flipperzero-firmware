@@ -121,11 +121,19 @@ bool compress_decode(
     size_t* data_res_size);
 
 /** I/O callback for streamed compression/decompression
+<<<<<<< HEAD
  * 
  * @param context user context
  * @param buffer buffer to read/write
  * @param size size of buffer
  * 
+=======
+ *
+ * @param context user context
+ * @param buffer buffer to read/write
+ * @param size size of buffer
+ *
+>>>>>>> origin/dev
  * @return number of bytes read/written, 0 on end of stream, negative on error
  */
 typedef int32_t (*CompressIoCallback)(void* context, uint8_t* buffer, size_t size);
@@ -191,7 +199,11 @@ bool compress_stream_decoder_read(
  *
  * @param      instance   The CompressStreamDecoder instance
  * @param[in]  position   The position
+<<<<<<< HEAD
  * 
+=======
+ *
+>>>>>>> origin/dev
  * @return     true on success
  * @warning    Backward seeking is not supported
  */

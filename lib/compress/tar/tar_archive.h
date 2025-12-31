@@ -12,7 +12,11 @@ typedef struct TarArchive TarArchive;
 
 typedef struct Storage Storage;
 
+<<<<<<< HEAD
 /** Tar archive open mode 
+=======
+/** Tar archive open mode
+>>>>>>> origin/dev
  */
 typedef enum {
     TarOpenModeRead = 'r',

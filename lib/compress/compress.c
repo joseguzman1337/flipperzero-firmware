@@ -454,10 +454,17 @@ static bool compress_decode_stream_chunk(
     HSD_sink_res sink_res;
     HSD_poll_res poll_res;
 
+<<<<<<< HEAD
     /* 
     First, try to output data from decoder to the output buffer. 
     If the we could fill the output buffer, return
     If the output buffer is not full, keep polling the decoder 
+=======
+    /*
+    First, try to output data from decoder to the output buffer.
+    If the we could fill the output buffer, return
+    If the output buffer is not full, keep polling the decoder
+>>>>>>> origin/dev
         until it has no more data to output.
     Then, read more data from the input and sink it to the decoder.
     Repeat until the input is exhausted or output buffer is full.
@@ -533,7 +540,11 @@ bool compress_stream_decoder_read(
 bool compress_stream_decoder_seek(CompressStreamDecoder* instance, size_t position) {
     furi_check(instance);
 
+<<<<<<< HEAD
     /* Check if requested position is ahead of current position 
+=======
+    /* Check if requested position is ahead of current position
+>>>>>>> origin/dev
        we can't rewind the input stream */
     furi_check(position >= instance->stream_position);
 

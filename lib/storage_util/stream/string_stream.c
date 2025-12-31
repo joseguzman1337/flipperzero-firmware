@@ -163,9 +163,15 @@ static bool string_stream_delete_and_insert(
 
 /**
  * Write to string stream helper
+<<<<<<< HEAD
  * @param stream 
  * @param c 
  * @return size_t 
+=======
+ * @param stream
+ * @param c
+ * @return size_t
+>>>>>>> origin/dev
  */
 static size_t string_stream_write_char(StringStream* stream, char c) {
     if(string_stream_eof(stream)) {

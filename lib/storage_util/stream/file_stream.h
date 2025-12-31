@@ -9,16 +9,26 @@ extern "C" {
 
 /**
  * Allocate file stream
+<<<<<<< HEAD
  * @return Stream* 
+=======
+ * @return Stream*
+>>>>>>> origin/dev
  */
 Stream* file_stream_alloc(Storage* storage);
 
 /**
  * Opens an existing file or create a new one.
  * @param stream pointer to file stream object.
+<<<<<<< HEAD
  * @param path path to file 
  * @param access_mode access mode from FS_AccessMode 
  * @param open_mode open mode from FS_OpenMode 
+=======
+ * @param path path to file
+ * @param access_mode access mode from FS_AccessMode
+ * @param open_mode open mode from FS_OpenMode
+>>>>>>> origin/dev
  * @return success flag. You need to close the file even if the open operation failed.
  */
 bool file_stream_open(
@@ -29,6 +39,7 @@ bool file_stream_open(
 
 /**
  * Closes the file.
+<<<<<<< HEAD
  * @param stream 
  * @return true 
  * @return false 
@@ -36,6 +47,15 @@ bool file_stream_open(
 bool file_stream_close(Stream* stream);
 
 /** 
+=======
+ * @param stream
+ * @return true
+ * @return false
+ */
+bool file_stream_close(Stream* stream);
+
+/**
+>>>>>>> origin/dev
  * Retrieves the error id from the file object
  * @param stream pointer to stream object.
  * @return FS_Error error id

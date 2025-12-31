@@ -1,7 +1,11 @@
 /**
  * @file saved_struct.h
  * @brief SavedStruct - data serialization/de-serialization
+<<<<<<< HEAD
  * 
+=======
+ *
+>>>>>>> origin/dev
  */
 #pragma once
 

@@ -138,7 +138,11 @@ CliAnsiParserResult cli_ansi_parser_feed(CliAnsiParser* parser, char c);
 
 /**
  * @brief Feeds an ANSI parser a timeout event
+<<<<<<< HEAD
  * 
+=======
+ *
+>>>>>>> origin/dev
  * As a user of the ANSI parser API, you are responsible for calling this
  * function some time after the last character was fed into the parser. The
  * recommended timeout is about 10 ms. The exact value does not matter as long

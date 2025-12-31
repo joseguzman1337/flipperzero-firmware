@@ -53,10 +53,17 @@ void submenu_settings_helpers_free(SubmenuSettingsHelper* helper);
 
 /**
  * @brief App start callback for the submenu-based settings helper
+<<<<<<< HEAD
  * 
  * If an argument containing one of the options was provided, launches the
  * corresponding scene.
  * 
+=======
+ *
+ * If an argument containing one of the options was provided, launches the
+ * corresponding scene.
+ *
+>>>>>>> origin/dev
  * @param helper helper object
  * @param arg app argument, may be NULL
  * @returns true if a setting name was provided in the argument, false if normal

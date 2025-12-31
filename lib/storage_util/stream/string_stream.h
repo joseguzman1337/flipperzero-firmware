@@ -8,7 +8,11 @@ extern "C" {
 
 /**
  * Allocate string stream
+<<<<<<< HEAD
  * @return Stream* 
+=======
+ * @return Stream*
+>>>>>>> origin/dev
  */
 Stream* string_stream_alloc(void);
 

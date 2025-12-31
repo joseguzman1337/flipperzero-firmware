@@ -109,14 +109,23 @@ bool bit_lib_test_parity_32(uint32_t bits, BitLibParity parity);
 
 /**
  * @brief Test parity of bit array, check parity for every parity_length block from start
+<<<<<<< HEAD
  * 
+=======
+ *
+>>>>>>> origin/dev
  * @param data Bit array
  * @param position Start position
  * @param length Bit count
  * @param parity Parity to test against
  * @param parity_length Parity block length
+<<<<<<< HEAD
  * @return true 
  * @return false 
+=======
+ * @return true
+ * @return false
+>>>>>>> origin/dev
  */
 bool bit_lib_test_parity(
     const uint8_t* data,
@@ -127,7 +136,11 @@ bool bit_lib_test_parity(
 
 /**
  * @brief Add parity to bit array
+<<<<<<< HEAD
  * 
+=======
+ *
+>>>>>>> origin/dev
  * @param data Source bit array
  * @param position Start position
  * @param dest Destination bit array
@@ -135,7 +148,11 @@ bool bit_lib_test_parity(
  * @param source_length Source bit count
  * @param parity_length Parity block length
  * @param parity Parity to test against
+<<<<<<< HEAD
  * @return size_t 
+=======
+ * @return size_t
+>>>>>>> origin/dev
  */
 size_t bit_lib_add_parity(
     const uint8_t* data,
@@ -148,18 +165,30 @@ size_t bit_lib_add_parity(
 
 /**
  * @brief Remove bit every n in array and shift array left. Useful to remove parity.
+<<<<<<< HEAD
  * 
+=======
+ *
+>>>>>>> origin/dev
  * @param data Bit array
  * @param position Start position
  * @param length Bit count
  * @param n every n bit will be removed
+<<<<<<< HEAD
  * @return size_t 
+=======
+ * @return size_t
+>>>>>>> origin/dev
  */
 size_t bit_lib_remove_bit_every_nth(uint8_t* data, size_t position, uint8_t length, uint8_t n);
 
 /**
  * @brief Copy bits from source to destination.
+<<<<<<< HEAD
  * 
+=======
+ *
+>>>>>>> origin/dev
  * @param data destination array
  * @param position position in destination array
  * @param length length of bits to copy
@@ -175,7 +204,11 @@ void bit_lib_copy_bits(
 
 /**
  * @brief Reverse bits in bit array
+<<<<<<< HEAD
  * 
+=======
+ *
+>>>>>>> origin/dev
  * @param data Bit array
  * @param position start position
  * @param length length of bits to reverse
@@ -184,17 +217,28 @@ void bit_lib_reverse_bits(uint8_t* data, size_t position, uint8_t length);
 
 /**
  * @brief Count 1 bits in data
+<<<<<<< HEAD
  * 
  * @param data 
+=======
+ *
+ * @param data
+>>>>>>> origin/dev
  * @return uint8_t set bit count
  */
 uint8_t bit_lib_get_bit_count(uint32_t data);
 
 /**
  * @brief Print data as bit array
+<<<<<<< HEAD
  * 
  * @param data 
  * @param length 
+=======
+ *
+ * @param data
+ * @param length
+>>>>>>> origin/dev
  */
 void bit_lib_print_bits(const uint8_t* data, size_t length);
 
@@ -206,11 +250,19 @@ typedef struct {
 
 /**
  * @brief Print data as bit array and mark regions. Regions needs to be sorted by start position.
+<<<<<<< HEAD
  * 
  * @param regions 
  * @param region_count 
  * @param data 
  * @param length 
+=======
+ *
+ * @param regions
+ * @param region_count
+ * @param data
+ * @param length
+>>>>>>> origin/dev
  */
 void bit_lib_print_regions(
     const BitLibRegion* regions,
@@ -220,15 +272,25 @@ void bit_lib_print_regions(
 
 /**
  * @brief Reverse bits in uint16_t, faster than generic bit_lib_reverse_bits.
+<<<<<<< HEAD
  * 
  * @param data 
  * @return uint16_t 
+=======
+ *
+ * @param data
+ * @return uint16_t
+>>>>>>> origin/dev
  */
 uint16_t bit_lib_reverse_16_fast(uint16_t data);
 
 /**
  * @brief Reverse bits in uint8_t, faster than generic bit_lib_reverse_bits.
+<<<<<<< HEAD
  * 
+=======
+ *
+>>>>>>> origin/dev
  * @param byte Byte
  * @return uint8_t the reversed byte
  */
@@ -236,15 +298,25 @@ uint8_t bit_lib_reverse_8_fast(uint8_t byte);
 
 /**
  * @brief Slow, but generic CRC8 implementation
+<<<<<<< HEAD
  * 
  * @param data 
  * @param data_size 
+=======
+ *
+ * @param data
+ * @param data_size
+>>>>>>> origin/dev
  * @param polynom CRC polynom
  * @param init init value
  * @param ref_in true if the right bit is older
  * @param ref_out true to reverse output
  * @param xor_out xor output with this value
+<<<<<<< HEAD
  * @return uint8_t 
+=======
+ * @return uint8_t
+>>>>>>> origin/dev
  */
 uint16_t bit_lib_crc8(
     uint8_t const* data,
@@ -257,15 +329,25 @@ uint16_t bit_lib_crc8(
 
 /**
  * @brief Slow, but generic CRC16 implementation
+<<<<<<< HEAD
  * 
  * @param data 
  * @param data_size 
+=======
+ *
+ * @param data
+ * @param data_size
+>>>>>>> origin/dev
  * @param polynom CRC polynom
  * @param init init value
  * @param ref_in true if the right bit is older
  * @param ref_out true to reverse output
  * @param xor_out xor output with this value
+<<<<<<< HEAD
  * @return uint16_t 
+=======
+ * @return uint16_t
+>>>>>>> origin/dev
  */
 uint16_t bit_lib_crc16(
     uint8_t const* data,
@@ -278,9 +360,15 @@ uint16_t bit_lib_crc16(
 
 /**
  * @brief Convert number to bytes in big endian order
+<<<<<<< HEAD
  * 
  * @param src number to convert 
  * @param len max used bytes count 
+=======
+ *
+ * @param src number to convert
+ * @param len max used bytes count
+>>>>>>> origin/dev
  * @param dest destination
  * @return void
  */
@@ -288,9 +376,15 @@ void bit_lib_num_to_bytes_be(uint64_t src, uint8_t len, uint8_t* dest);
 
 /**
  * @brief Convert number to bytes in little endian order
+<<<<<<< HEAD
  * 
  * @param src number to convert 
  * @param len max used bytes count 
+=======
+ *
+ * @param src number to convert
+ * @param len max used bytes count
+>>>>>>> origin/dev
  * @param dest destination
  * @return void
  */
@@ -298,27 +392,45 @@ void bit_lib_num_to_bytes_le(uint64_t src, uint8_t len, uint8_t* dest);
 
 /**
  * @brief Convert bytes to number in big endian order
+<<<<<<< HEAD
  * 
  * @param src byte array 
  * @param len max used bytes count 
+=======
+ *
+ * @param src byte array
+ * @param len max used bytes count
+>>>>>>> origin/dev
  * @return uint64_t
  */
 uint64_t bit_lib_bytes_to_num_be(const uint8_t* src, uint8_t len);
 
 /**
  * @brief Convert bytes to number in little endian order
+<<<<<<< HEAD
  * 
  * @param src byte array 
  * @param len max used bytes count 
+=======
+ *
+ * @param src byte array
+ * @param len max used bytes count
+>>>>>>> origin/dev
  * @return uint64_t
  */
 uint64_t bit_lib_bytes_to_num_le(const uint8_t* src, uint8_t len);
 
 /**
  * @brief Convert bytes in binary-coded decimal encoding to number
+<<<<<<< HEAD
  * 
  * @param src byte array 
  * @param len max used bytes count 
+=======
+ *
+ * @param src byte array
+ * @param len max used bytes count
+>>>>>>> origin/dev
  * @param is_bcd will be true if all processed bytes is BCD encoded (no A-F nibbles)
  * @return uint64_t
  */

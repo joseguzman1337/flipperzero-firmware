@@ -48,8 +48,13 @@ bool stream_eof(Stream* stream);
  * @param stream Stream instance
  * @param offset how much to move the pointer
  * @param offset_type starting from what
+<<<<<<< HEAD
  * @return true 
  * @return false 
+=======
+ * @return true
+ * @return false
+>>>>>>> origin/dev
  */
 bool stream_seek(Stream* stream, int32_t offset, StreamOffset offset_type);
 
@@ -114,8 +119,13 @@ bool stream_delete_and_insert(
 
 /**
  * Read line from a stream (supports LF and CRLF line endings)
+<<<<<<< HEAD
  * @param stream 
  * @param str_result 
+=======
+ * @param stream
+ * @param str_result
+>>>>>>> origin/dev
  * @return true if line length is not zero
  * @return false otherwise
  */
@@ -154,8 +164,13 @@ size_t stream_write_cstring(Stream* stream, const char* string);
 /**
  * Write formatted string to the stream
  * @param stream Stream instance
+<<<<<<< HEAD
  * @param format 
  * @param ... 
+=======
+ * @param format
+ * @param ...
+>>>>>>> origin/dev
  * @return size_t how many bytes was written
  */
 size_t stream_write_format(Stream* stream, const char* format, ...)
@@ -164,8 +179,13 @@ size_t stream_write_format(Stream* stream, const char* format, ...)
 /**
  * Write formatted string to the stream, va_list version
  * @param stream Stream instance
+<<<<<<< HEAD
  * @param format 
  * @param args 
+=======
+ * @param format
+ * @param args
+>>>>>>> origin/dev
  * @return size_t how many bytes was written
  */
 size_t stream_write_vaformat(Stream* stream, const char* format, va_list args);
@@ -211,8 +231,13 @@ bool stream_insert_cstring(Stream* stream, const char* string);
 /**
  * Insert formatted string to the stream
  * @param stream Stream instance
+<<<<<<< HEAD
  * @param format 
  * @param ... 
+=======
+ * @param format
+ * @param ...
+>>>>>>> origin/dev
  * @return true if the operation was successful
  * @return false on error
  */
@@ -222,8 +247,13 @@ bool stream_insert_format(Stream* stream, const char* format, ...)
 /**
  * Insert formatted string to the stream, va_list version
  * @param stream Stream instance
+<<<<<<< HEAD
  * @param format 
  * @param args 
+=======
+ * @param format
+ * @param args
+>>>>>>> origin/dev
  * @return true if the operation was successful
  * @return false on error
  */
@@ -263,8 +293,13 @@ bool stream_delete_and_insert_cstring(Stream* stream, size_t delete_size, const 
  * Delete N chars from the stream and insert formatted string to the stream
  * @param stream Stream instance
  * @param delete_size size of data to be deleted
+<<<<<<< HEAD
  * @param format 
  * @param ... 
+=======
+ * @param format
+ * @param ...
+>>>>>>> origin/dev
  * @return true if the operation was successful
  * @return false on error
  */
@@ -275,8 +310,13 @@ bool stream_delete_and_insert_format(Stream* stream, size_t delete_size, const c
  * Delete N chars from the stream and insert formatted string to the stream, va_list version
  * @param stream Stream instance
  * @param delete_size size of data to be deleted
+<<<<<<< HEAD
  * @param format 
  * @param args 
+=======
+ * @param format
+ * @param args
+>>>>>>> origin/dev
  * @return true if the operation was successful
  * @return false on error
  */
@@ -298,53 +338,93 @@ bool stream_delete(Stream* stream, size_t size);
 
 /**
  * Copy data from one stream to another. Data will be copied from current RW pointer and to current RW pointer.
+<<<<<<< HEAD
  * @param stream_from 
  * @param stream_to 
  * @param size 
  * @return size_t 
+=======
+ * @param stream_from
+ * @param stream_to
+ * @param size
+ * @return size_t
+>>>>>>> origin/dev
  */
 size_t stream_copy(Stream* stream_from, Stream* stream_to, size_t size);
 
 /**
  * Copy data from one stream to another. Data will be copied from start of one stream and to start of other stream.
+<<<<<<< HEAD
  * @param stream_from 
  * @param stream_to 
  * @return size_t 
+=======
+ * @param stream_from
+ * @param stream_to
+ * @return size_t
+>>>>>>> origin/dev
  */
 size_t stream_copy_full(Stream* stream_from, Stream* stream_to);
 
 /**
  * Splits one stream into two others. The original stream will remain untouched.
+<<<<<<< HEAD
  * @param stream 
  * @param stream_left 
  * @param stream_right 
  * @return true 
  * @return false 
+=======
+ * @param stream
+ * @param stream_left
+ * @param stream_right
+ * @return true
+ * @return false
+>>>>>>> origin/dev
  */
 bool stream_split(Stream* stream, Stream* stream_left, Stream* stream_right);
 
 /**
  * Loads data to the stream from a file. Data will be loaded to the current RW pointer. RW pointer will be moved to the end of the stream.
+<<<<<<< HEAD
  * @param stream Stream instance 
  * @param storage 
  * @param path 
  * @return size_t 
+=======
+ * @param stream Stream instance
+ * @param storage
+ * @param path
+ * @return size_t
+>>>>>>> origin/dev
  */
 size_t stream_load_from_file(Stream* stream, Storage* storage, const char* path);
 
 /**
  * Writes data from a stream to a file. Data will be saved starting from the current RW pointer. RW pointer will be moved to the end of the stream.
+<<<<<<< HEAD
  * @param stream Stream instance 
  * @param storage 
  * @param path 
  * @param mode 
  * @return size_t 
+=======
+ * @param stream Stream instance
+ * @param storage
+ * @param path
+ * @param mode
+ * @return size_t
+>>>>>>> origin/dev
  */
 size_t stream_save_to_file(Stream* stream, Storage* storage, const char* path, FS_OpenMode mode);
 
 /**
  * Dump stream inner data (size, RW position, content)
+<<<<<<< HEAD
  * @param stream Stream instance 
+=======
+ * @param stream Stream instance
+>>>>>>> origin/dev
  */
 void stream_dump_data(Stream* stream);
 

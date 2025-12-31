@@ -43,7 +43,11 @@ bool hex_chars_to_uint64(const char* value_str, uint64_t* value);
  * @param src       source data
  * @param target    output value
  * @param length    data length
+<<<<<<< HEAD
  * 
+=======
+ *
+>>>>>>> origin/dev
  */
 void uint8_to_hex_chars(const uint8_t* src, uint8_t* target, int length);
 

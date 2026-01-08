@@ -1,1 +1,1 @@
-# Welcome
+../../../../../../../applications/system/js_app/packages/fz-sdk/docs_readme.md

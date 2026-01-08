@@ -1,3 +1,1 @@
-({
-    add: function (a, b) { return a + b; },
-})
+../../../../../../../../applications/system/js_app/examples/apps/Scripts/load_api.js

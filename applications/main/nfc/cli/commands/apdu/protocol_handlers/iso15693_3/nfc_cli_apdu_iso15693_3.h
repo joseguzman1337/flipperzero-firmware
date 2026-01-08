@@ -1,6 +1,1 @@
-#pragma once
-
-#include "../nfc_cli_apdu_common_types.h"
-
-NfcCommand
-    nfc_cli_apdu_iso15693_3_handler(NfcGenericEvent event, NfcCliApduRequestResponse* instance);
+../../../../../../../../../../applications/main/nfc/cli/commands/apdu/protocol_handlers/iso15693_3/nfc_cli_apdu_iso15693_3.h

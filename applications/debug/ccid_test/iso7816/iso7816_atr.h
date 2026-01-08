@@ -1,6 +1,1 @@
-#pragma once
-
-typedef struct {
-    uint8_t TS;
-    uint8_t T0;
-} Iso7816Atr;
+../../../../../../applications/debug/ccid_test/iso7816/iso7816_atr.h

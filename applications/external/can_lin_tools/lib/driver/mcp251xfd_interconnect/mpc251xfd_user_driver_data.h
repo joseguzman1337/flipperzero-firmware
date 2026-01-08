@@ -1,0 +1,1 @@
+../../../../../../../../applications/external/can_lin_tools/lib/driver/mcp251xfd_interconnect/mpc251xfd_user_driver_data.h

@@ -124,15 +124,17 @@ static const uint8_t furi_hal_bt_hid_report_map_data[] = {
 FuriHalBtHidKbReport* kb_report = NULL;
 FuriHalBtHidMouseReport* mouse_report = NULL;
 FuriHalBtHidConsumerReport* consumer_report = NULL;
+static BleServiceDevInfo* dev_info_service = NULL;
+static BleServiceBattery* battery_service = NULL;
 
 void furi_hal_bt_hid_start() {
     // Start device info
-    if(!dev_info_svc_is_started()) {
-        dev_info_svc_start();
+    if(!dev_info_service) {
+        dev_info_service = ble_svc_dev_info_start();
     }
     // Start battery service
-    if(!battery_svc_is_started()) {
-        battery_svc_start();
+    if(!battery_service) {
+        battery_service = ble_svc_battery_start(true);
     }
     // Start HID service
     if(!hid_svc_is_started()) {
@@ -161,11 +163,13 @@ void furi_hal_bt_hid_stop() {
     furi_assert(mouse_report);
     furi_assert(consumer_report);
     // Stop all services
-    if(dev_info_svc_is_started()) {
-        dev_info_svc_stop();
+    if(dev_info_service) {
+        ble_svc_dev_info_stop(dev_info_service);
+        dev_info_service = NULL;
     }
-    if(battery_svc_is_started()) {
-        battery_svc_stop();
+    if(battery_service) {
+        ble_svc_battery_stop(battery_service);
+        battery_service = NULL;
     }
     if(hid_svc_is_started()) {
         hid_svc_stop();

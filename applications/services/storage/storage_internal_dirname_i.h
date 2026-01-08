@@ -1,3 +1,1 @@
-#pragma once
-
-#define STORAGE_INTERNAL_DIR_NAME ".int"
+../../../../../applications/services/storage/storage_internal_dirname_i.h

@@ -1,2 +1,1 @@
-ADD_SCENE(lfrfid_debug, start, Start)
-ADD_SCENE(lfrfid_debug, tune, Tune)
+../../../../../../applications/debug/lfrfid_debug/scenes/lfrfid_debug_scene_config.h

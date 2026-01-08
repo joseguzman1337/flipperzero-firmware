@@ -1,5 +1,1 @@
-#pragma once
-
-#include "../nfc_cli_dump_common_types.h"
-
-NfcCommand nfc_cli_dump_poller_callback_iso14443_4a(NfcGenericEvent event, void* context);
+../../../../../../../../../../applications/main/nfc/cli/commands/dump/protocols/iso14443_4a/nfc_cli_dump_iso14443_4a.h

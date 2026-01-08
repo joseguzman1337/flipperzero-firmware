@@ -1,11 +1,1 @@
-#pragma once
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-typedef struct U2fApp U2fApp;
-
-#ifdef __cplusplus
-}
-#endif
+../../../../../applications/main/u2f/u2f_app.h

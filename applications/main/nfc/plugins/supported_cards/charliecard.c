@@ -1,0 +1,1 @@
+../../../../../../../applications/main/nfc/plugins/supported_cards/charliecard.c

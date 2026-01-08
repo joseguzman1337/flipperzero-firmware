@@ -1,0 +1,1 @@
+../../../../lib/flipper_metadata/property.h

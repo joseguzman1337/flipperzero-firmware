@@ -1,10 +1,1 @@
-App(
-    appid="spi_test",
-    name="SPI Test",
-    apptype=FlipperAppType.DEBUG,
-    entry_point="spi_test_app",
-    requires=["gui"],
-    stack_size=1 * 1024,
-    fap_category="Debug",
-    fap_libs=["softio"],
-)
+../../../../../applications/debug/spi_test/application.fam

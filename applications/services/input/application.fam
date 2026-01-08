@@ -1,10 +1,1 @@
-App(
-    appid="input",
-    name="InputSrv",
-    apptype=FlipperAppType.SERVICE,
-    entry_point="input_srv",
-    cdefines=["SRV_INPUT"],
-    stack_size=1 * 1024,
-    order=80,
-    sdk_headers=["input.h"],
-)
+../../../../../applications/services/input/application.fam

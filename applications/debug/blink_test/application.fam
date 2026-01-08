@@ -1,9 +1,1 @@
-App(
-    appid="blink_test",
-    name="Blink Test",
-    apptype=FlipperAppType.DEBUG,
-    entry_point="blink_test_app",
-    requires=["gui"],
-    stack_size=1 * 1024,
-    fap_category="Debug",
-)
+../../../../../applications/debug/blink_test/application.fam

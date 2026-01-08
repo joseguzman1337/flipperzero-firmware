@@ -1,0 +1,1 @@
+../../../../../../applications/system/nfc_cli/cli/nfc_cli_scanner.c

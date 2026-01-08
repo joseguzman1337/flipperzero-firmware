@@ -1,0 +1,1 @@
+../../../../../../applications/main/nfc/scenes/nfc_scene_nfcv_emulate.c

@@ -1,14 +1,1 @@
-App(
-    appid="ccid_test",
-    name="CCID Debug",
-    apptype=FlipperAppType.DEBUG,
-    entry_point="ccid_test_app",
-    requires=[
-        "gui",
-    ],
-    provides=[
-        "ccid_test",
-    ],
-    stack_size=1 * 1024,
-    fap_category="Debug",
-)
+../../../../../applications/debug/ccid_test/application.fam

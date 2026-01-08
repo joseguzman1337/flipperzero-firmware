@@ -1,0 +1,1 @@
+../../../../../../applications/main/bad_usb/scenes/bad_usb_scene_config_usb_name.c

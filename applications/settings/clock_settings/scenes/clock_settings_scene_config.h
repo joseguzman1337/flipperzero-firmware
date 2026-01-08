@@ -1,1 +1,1 @@
-ADD_SCENE(clock_settings, start, Start)
+../../../../../../applications/settings/clock_settings/scenes/clock_settings_scene_config.h

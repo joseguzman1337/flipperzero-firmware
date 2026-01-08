@@ -1,3 +1,1 @@
-#pragma once
-
-void subghz_on_system_start(void);
+../../../../../applications/main/subghz/subghz_cli.h

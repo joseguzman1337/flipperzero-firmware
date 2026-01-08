@@ -1,1 +1,1 @@
-## This is test file content
+../../../../../../applications/examples/example_apps_assets/files/test_asset.txt

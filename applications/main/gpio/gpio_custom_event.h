@@ -1,13 +1,1 @@
-#pragma once
-
-typedef enum {
-    GpioStartEventOtgOff = 0,
-    GpioStartEventOtgOn,
-    GpioStartEventManualControl,
-    GpioStartEventUsbUart,
-
-    GpioCustomEventErrorBack,
-
-    GpioUsbUartEventConfig,
-    GpioUsbUartEventConfigSet,
-} GpioCustomEvent;
+../../../../../applications/main/gpio/gpio_custom_event.h

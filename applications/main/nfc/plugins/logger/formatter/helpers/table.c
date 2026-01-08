@@ -1,0 +1,1 @@
+../../../../../../../../../applications/main/nfc/plugins/logger/formatter/helpers/table.c

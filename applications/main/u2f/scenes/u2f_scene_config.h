@@ -1,2 +1,1 @@
-ADD_SCENE(u2f, main, Main)
-ADD_SCENE(u2f, error, Error)
+../../../../../../applications/main/u2f/scenes/u2f_scene_config.h

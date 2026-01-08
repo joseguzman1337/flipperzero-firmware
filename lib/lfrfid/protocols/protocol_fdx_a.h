@@ -1,4 +1,1 @@
-#pragma once
-#include <toolbox/protocols/protocol.h>
-
-extern const ProtocolBase protocol_fdx_a;
+../../../../../lib/lfrfid/protocols/protocol_fdx_a.h

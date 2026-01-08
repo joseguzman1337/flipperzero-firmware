@@ -1,3 +1,1 @@
-#pragma once
-
-#define SLIDESHOW_FILE_NAME ".slideshow"
+../../../../../../applications/services/desktop/helpers/slideshow_filename.h

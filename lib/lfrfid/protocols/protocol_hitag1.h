@@ -1,4 +1,1 @@
-#pragma once
-#include <toolbox/protocols/protocol.h>
-
-extern const ProtocolBase protocol_hitag1;
+../../../../../lib/lfrfid/protocols/protocol_hitag1.h

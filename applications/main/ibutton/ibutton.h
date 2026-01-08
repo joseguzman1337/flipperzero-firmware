@@ -1,3 +1,1 @@
-#pragma once
-
-typedef struct iButton iButton;
+../../../../../applications/main/ibutton/ibutton.h

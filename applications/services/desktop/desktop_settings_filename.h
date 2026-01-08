@@ -1,3 +1,1 @@
-#pragma once
-
-#define DESKTOP_SETTINGS_FILE_NAME ".desktop.settings"
+../../../../../applications/services/desktop/desktop_settings_filename.h

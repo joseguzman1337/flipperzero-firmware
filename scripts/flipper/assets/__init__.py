@@ -1,0 +1,1 @@
+../../../../../scripts/flipper/assets/__init__.py

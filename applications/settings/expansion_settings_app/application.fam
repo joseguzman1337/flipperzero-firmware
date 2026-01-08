@@ -1,9 +1,1 @@
-App(
-    appid="expansion_settings",
-    name="Expansion Modules",
-    apptype=FlipperAppType.SETTINGS,
-    entry_point="expansion_settings_app",
-    requires=["gui"],
-    stack_size=1 * 1024,
-    order=80,
-)
+../../../../../applications/settings/expansion_settings_app/application.fam

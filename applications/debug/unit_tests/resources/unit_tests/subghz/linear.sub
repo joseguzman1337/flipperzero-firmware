@@ -1,7 +1,1 @@
-Filetype: Flipper SubGhz Key File
-Version: 1
-Frequency: 433920000
-Preset: FuriHalSubGhzPresetOok650Async
-Protocol: Linear
-Bit: 10
-Key: 00 00 00 00 00 00 01 E4
+../../../../../../../../applications/debug/unit_tests/resources/unit_tests/subghz/linear.sub

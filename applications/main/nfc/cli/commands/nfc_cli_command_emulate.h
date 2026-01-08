@@ -1,5 +1,1 @@
-#pragma once
-
-#include "../nfc_cli_command_base_i.h"
-
-extern const NfcCliCommandDescriptor emulate_cmd;
+../../../../../../../applications/main/nfc/cli/commands/nfc_cli_command_emulate.h

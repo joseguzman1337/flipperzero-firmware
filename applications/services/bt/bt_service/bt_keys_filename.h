@@ -1,3 +1,1 @@
-#pragma once
-
-#define BT_KEYS_STORAGE_FILE_NAME ".bt.keys"
+../../../../../../applications/services/bt/bt_service/bt_keys_filename.h

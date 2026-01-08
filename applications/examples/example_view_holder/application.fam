@@ -1,8 +1,1 @@
-App(
-    appid="example_view_holder",
-    name="Example: ViewHolder",
-    apptype=FlipperAppType.EXTERNAL,
-    entry_point="example_view_holder_app",
-    requires=["gui"],
-    fap_category="Examples",
-)
+../../../../../applications/examples/example_view_holder/application.fam

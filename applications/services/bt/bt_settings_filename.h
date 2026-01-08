@@ -1,3 +1,1 @@
-#pragma once
-
-#define BT_SETTINGS_FILE_NAME ".bt.settings"
+../../../../../applications/services/bt/bt_settings_filename.h

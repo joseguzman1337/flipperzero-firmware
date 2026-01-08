@@ -1,5 +1,1 @@
-ADD_SCENE(power_settings, start, Start)
-ADD_SCENE(power_settings, battery_info, BatteryInfo)
-ADD_SCENE(power_settings, reboot, Reboot)
-ADD_SCENE(power_settings, reboot_confirm, RebootConfirm)
-ADD_SCENE(power_settings, power_off, PowerOff)
+../../../../../../applications/settings/power_settings_app/scenes/power_settings_scene_config.h

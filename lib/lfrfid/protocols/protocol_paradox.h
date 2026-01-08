@@ -1,4 +1,1 @@
-#pragma once
-#include <toolbox/protocols/protocol.h>
-
-extern const ProtocolBase protocol_paradox;
+../../../../../lib/lfrfid/protocols/protocol_paradox.h

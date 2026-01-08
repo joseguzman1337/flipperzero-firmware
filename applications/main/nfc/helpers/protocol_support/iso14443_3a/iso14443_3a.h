@@ -1,5 +1,1 @@
-#pragma once
-
-#include "../nfc_protocol_support_base.h"
-
-extern const NfcProtocolSupportBase nfc_protocol_support_iso14443_3a;
+../../../../../../../../applications/main/nfc/helpers/protocol_support/iso14443_3a/iso14443_3a.h

@@ -8,21 +8,13 @@
 #include <stdint.h>
 #include <stdbool.h>
 
+#include <datetime/datetime.h>
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-typedef struct {
-    // Time
-    uint8_t hour; /**< Hour in 24H format: 0-23 */
-    uint8_t minute; /**< Minute: 0-59 */
-    uint8_t second; /**< Second: 0-59 */
-    // Date
-    uint8_t day; /**< Current day: 1-31 */
-    uint8_t month; /**< Current month: 1-12 */
-    uint16_t year; /**< Current year: 2000-2099 */
-    uint8_t weekday; /**< Current weekday: 1-7 */
-} FuriHalRtcDateTime;
+typedef DateTime FuriHalRtcDateTime;
 
 typedef enum {
     FuriHalRtcFlagDebug = (1 << 0),
@@ -59,6 +51,7 @@ typedef enum {
     FuriHalRtcRegisterPinFails, /**< Failed pins count */
     /* Index of FS directory entry corresponding to FW update to be applied */
     FuriHalRtcRegisterUpdateFolderFSIndex,
+    FuriHalRtcRegisterPinValue, /**< Encoded value of the currently set PIN */
 
     FuriHalRtcRegisterMAX, /**< Service value, do not use */
 } FuriHalRtcRegister;
@@ -79,6 +72,24 @@ typedef enum {
     FuriHalRtcLocaleDateFormatYMD = 2, /**< Year/Month/Day */
 } FuriHalRtcLocaleDateFormat;
 
+typedef enum {
+    FuriHalRtcLogDeviceUsart = 0x0, /**< Default: USART */
+    FuriHalRtcLogDeviceLpuart = 0x1, /**< Default: LPUART */
+    FuriHalRtcLogDeviceReserved = 0x2, /**< Reserved for future use */
+    FuriHalRtcLogDeviceNone = 0x3, /**< None, disable serial logging */
+} FuriHalRtcLogDevice;
+
+typedef enum {
+    FuriHalRtcLogBaudRate230400 = 0x0, /**< 230400 baud */
+    FuriHalRtcLogBaudRate9600 = 0x1, /**< 9600 baud */
+    FuriHalRtcLogBaudRate38400 = 0x2, /**< 38400 baud */
+    FuriHalRtcLogBaudRate57600 = 0x3, /**< 57600 baud */
+    FuriHalRtcLogBaudRate115200 = 0x4, /**< 115200 baud */
+    FuriHalRtcLogBaudRate460800 = 0x5, /**< 460800 baud */
+    FuriHalRtcLogBaudRate921600 = 0x6, /**< 921600 baud */
+    FuriHalRtcLogBaudRate1843200 = 0x7, /**< 1843200 baud */
+} FuriHalRtcLogBaudRate;
+
 /** Early initialization */
 void furi_hal_rtc_init_early(void);
 
@@ -87,6 +98,9 @@ void furi_hal_rtc_deinit_early(void);
 
 /** Initialize RTC subsystem */
 void furi_hal_rtc_init(void);
+
+/** Prepare system for shutdown */
+void furi_hal_rtc_prepare_for_shutdown(void);
 
 /** Force sync shadow registers */
 void furi_hal_rtc_sync_shadow(void);
@@ -120,6 +134,30 @@ void furi_hal_rtc_set_log_level(uint8_t level);
  * @return     The Log Level value
  */
 uint8_t furi_hal_rtc_get_log_level(void);
+
+/** Set logging device
+ *
+ * @param[in]  device  The device
+ */
+void furi_hal_rtc_set_log_device(FuriHalRtcLogDevice device);
+
+/** Get logging device
+ *
+ * @return     The furi hal rtc log device.
+ */
+FuriHalRtcLogDevice furi_hal_rtc_get_log_device(void);
+
+/** Set logging baud rate
+ *
+ * @param[in]  baud_rate  The baud rate
+ */
+void furi_hal_rtc_set_log_baud_rate(FuriHalRtcLogBaudRate baud_rate);
+
+/** Get logging baud rate
+ *
+ * @return     The furi hal rtc log baud rate.
+ */
+FuriHalRtcLogBaudRate furi_hal_rtc_get_log_baud_rate(void);
 
 /** Set RTC Flag
  *
@@ -213,6 +251,30 @@ void furi_hal_rtc_set_datetime(FuriHalRtcDateTime* datetime);
  */
 void furi_hal_rtc_get_datetime(FuriHalRtcDateTime* datetime);
 
+/** Set RTC Alarm
+ *
+ * @param      datetime  The datetime
+ * @param[in]  enabled   The enabled
+ */
+void furi_hal_rtc_set_alarm(const FuriHalRtcDateTime* datetime, bool enabled);
+
+/** Get RTC Alarm
+ *
+ * @param      datetime  The datetime
+ *
+ * @return     true if enabled
+ */
+bool furi_hal_rtc_get_alarm(FuriHalRtcDateTime* datetime);
+
+typedef void (*FuriHalRtcAlarmCallback)(void* context);
+
+/** Set alarm callback
+ *
+ * @param[in]  callback  The callback
+ * @param[in]  context   The context
+ */
+void furi_hal_rtc_set_alarm_callback(FuriHalRtcAlarmCallback callback, void* context);
+
 /** Validate Date Time
  *
  * @param      datetime  The datetime to validate
@@ -244,6 +306,18 @@ void furi_hal_rtc_set_pin_fails(uint32_t value);
  * @return     Pin Fails Count
  */
 uint32_t furi_hal_rtc_get_pin_fails(void);
+
+/** Set PIN value
+ *
+ * @param[in]  value  The PIN value
+ */
+void furi_hal_rtc_set_pin_value(uint32_t value);
+
+/** Get PIN value
+ *
+ * @return     PIN value
+ */
+uint32_t furi_hal_rtc_get_pin_value(void);
 
 /** Get UNIX Timestamp
  *

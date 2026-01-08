@@ -1,0 +1,1 @@
+../../../../../../../../../../applications/main/nfc/plugins/logger/formatter/protocols/slix/slix_error_formatter.c

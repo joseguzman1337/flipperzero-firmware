@@ -1,5 +1,1 @@
-#pragma once
-
-#include "../nfc_protocol_support_base.h"
-
-extern const NfcProtocolSupportBase nfc_protocol_support_st25tb;
+../../../../../../../../applications/main/nfc/helpers/protocol_support/st25tb/st25tb.h

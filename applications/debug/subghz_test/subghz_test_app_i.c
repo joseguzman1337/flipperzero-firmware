@@ -1,3 +1,1 @@
-#include <furi.h>
-
-#define TAG "SubGhzTest"
+../../../../../applications/debug/subghz_test/subghz_test_app_i.c

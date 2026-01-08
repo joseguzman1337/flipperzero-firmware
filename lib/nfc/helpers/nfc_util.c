@@ -50,3 +50,23 @@ void nfc_util_odd_parity(const uint8_t* src, uint8_t* dst, uint8_t len) {
         *dst = parity;
     }
 }
+
+uint32_t nfc_util_bytes2num(const uint8_t* bytes, uint8_t len) {
+    furi_check(bytes);
+
+    uint32_t num = 0;
+    for(uint8_t i = 0; i < len; i++) {
+        num = (num << 8) | bytes[i];
+    }
+
+    return num;
+}
+
+void nfc_util_num2bytes(uint32_t num, uint8_t len, uint8_t* bytes) {
+    furi_check(bytes);
+
+    for(uint8_t i = 0; i < len; i++) {
+        bytes[len - 1 - i] = (uint8_t)(num & 0xFF);
+        num >>= 8;
+    }
+}

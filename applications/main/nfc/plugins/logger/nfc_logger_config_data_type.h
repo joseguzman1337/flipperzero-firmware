@@ -1,0 +1,1 @@
+../../../../../../../applications/main/nfc/plugins/logger/nfc_logger_config_data_type.h

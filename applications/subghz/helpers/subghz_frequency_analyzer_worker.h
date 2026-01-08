@@ -1,0 +1,1 @@
+../../../../../applications/subghz/helpers/subghz_frequency_analyzer_worker.h

@@ -1,0 +1,1 @@
+../../../../../../../../../../applications/main/nfc/plugins/logger/formatter/protocols/slix/slix_poller_data_formatter.h

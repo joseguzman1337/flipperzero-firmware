@@ -1,3 +1,1 @@
-#pragma once
-
-typedef struct SubGhz SubGhz;
+../../../../../applications/main/subghz/subghz.h

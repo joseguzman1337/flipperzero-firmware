@@ -457,12 +457,14 @@ distenv.PhonyTarget(
 )
 
 # Prepare vscode environment
+vscode_json = [
+    node
+    for node in distenv.Glob("#.vscode/example/*.json")
+    if node.name != "settings.json"
+]
 vscode_dist = distenv.Install(
     "#.vscode",
-    [
-        distenv.Glob("#.vscode/example/*.json", exclude="*.tmpl"),
-        distenv.Glob("#.vscode/example/${LANG_SERVER}/*.json"),
-    ],
+    vscode_json + distenv.Glob("#.vscode/example/${LANG_SERVER}/*.json"),
 )
 for template_file in distenv.Glob("#.vscode/example/*.tmpl"):
     vscode_dist.append(

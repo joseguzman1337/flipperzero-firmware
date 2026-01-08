@@ -1,0 +1,1 @@
+../../../../../../scripts/debug/FreeRTOS/FreeRTOSgdb/__init__.py

@@ -1,3 +1,1 @@
-#pragma once
-
-#define DOLPHIN_STATE_FILE_NAME ".dolphin.state"
+../../../../../../applications/services/dolphin/helpers/dolphin_state_filename.h

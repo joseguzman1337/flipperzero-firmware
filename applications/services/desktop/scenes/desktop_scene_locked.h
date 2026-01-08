@@ -1,6 +1,1 @@
-#pragma once
-
-typedef enum {
-    DesktopSceneLockedStateFirstEnter,
-    DesktopSceneLockedStateRepeatEnter,
-} DesktopSceneLockedState;
+../../../../../../applications/services/desktop/scenes/desktop_scene_locked.h

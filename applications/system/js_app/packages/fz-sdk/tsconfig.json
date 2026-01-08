@@ -1,13 +1,1 @@
-{
-    "compilerOptions": {
-        "checkJs": true,
-        "module": "CommonJS",
-        "noLib": true,
-    },
-    "include": [
-        "./**/*.d.ts"
-    ],
-    "exclude": [
-        "node_modules",
-    ]
-}
+../../../../../../../applications/system/js_app/packages/fz-sdk/tsconfig.json

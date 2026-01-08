@@ -1,6 +1,1 @@
-# Placeholder
-App(
-    appid="drivers",
-    name="Drivers device",
-    apptype=FlipperAppType.METAPACKAGE,
-)
+../../../../applications/drivers/application.fam

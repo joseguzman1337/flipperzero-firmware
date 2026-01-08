@@ -1,0 +1,1 @@
+../../../../../../../../applications/main/nfc/plugins/logger/formatter/nfc_formatter.c

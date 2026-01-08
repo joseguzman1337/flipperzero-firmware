@@ -1,3 +1,1 @@
-#pragma once
-
-typedef struct ArchiveApp ArchiveApp;
+../../../../../applications/main/archive/archive.h

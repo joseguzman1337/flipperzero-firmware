@@ -1,4 +1,1 @@
-ADD_SCENE(example_number_input, input_number, InputNumber)
-ADD_SCENE(example_number_input, show_number, ShowNumber)
-ADD_SCENE(example_number_input, input_max, InputMax)
-ADD_SCENE(example_number_input, input_min, InputMin)
+../../../../../../applications/examples/example_number_input/scenes/example_number_input_scene_config.h

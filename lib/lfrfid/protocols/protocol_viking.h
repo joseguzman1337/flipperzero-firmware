@@ -1,4 +1,1 @@
-#pragma once
-#include <toolbox/protocols/protocol.h>
-
-extern const ProtocolBase protocol_viking;
+../../../../../lib/lfrfid/protocols/protocol_viking.h

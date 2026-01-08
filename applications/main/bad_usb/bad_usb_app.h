@@ -1,11 +1,1 @@
-#pragma once
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-typedef struct BadUsbApp BadUsbApp;
-
-#ifdef __cplusplus
-}
-#endif
+../../../../../applications/main/bad_usb/bad_usb_app.h

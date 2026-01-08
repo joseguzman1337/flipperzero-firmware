@@ -1,5 +1,1 @@
-#pragma once
-
-#include "../../nfc_cli_command_base_i.h"
-
-extern const NfcCliCommandDescriptor dump_cmd;
+../../../../../../../../applications/main/nfc/cli/commands/dump/nfc_cli_command_dump.h

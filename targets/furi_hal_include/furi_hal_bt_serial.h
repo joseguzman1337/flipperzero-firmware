@@ -6,7 +6,7 @@
 extern "C" {
 #endif
 
-#define FURI_HAL_BT_SERIAL_PACKET_SIZE_MAX SERIAL_SVC_DATA_LEN_MAX
+#define FURI_HAL_BT_SERIAL_PACKET_SIZE_MAX BLE_SVC_SERIAL_DATA_LEN_MAX
 
 typedef enum {
     FuriHalBtSerialRpcStatusNotActive,

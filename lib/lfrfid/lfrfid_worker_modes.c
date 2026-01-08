@@ -5,7 +5,7 @@
 #include <toolbox/pulse_protocols/pulse_glue.h>
 #include <toolbox/buffer_stream.h>
 #include "tools/varint_pair.h"
-#include "tools/bit_lib.h"
+#include <lib/bit_lib/bit_lib.h>
 
 #define TAG "LfRfidWorker"
 
@@ -18,23 +18,23 @@
 
 #ifdef LFRFID_WORKER_READ_DEBUG_GPIO
 #define LFRFID_WORKER_READ_DEBUG_GPIO_VALUE &gpio_ext_pa7
-#define LFRFID_WORKER_READ_DEBUG_GPIO_LOAD &gpio_ext_pa6
+#define LFRFID_WORKER_READ_DEBUG_GPIO_LOAD  &gpio_ext_pa6
 #endif
 
 #define LFRFID_WORKER_READ_AVERAGE_COUNT 64
-#define LFRFID_WORKER_READ_MIN_TIME_US 16
+#define LFRFID_WORKER_READ_MIN_TIME_US   16
 
-#define LFRFID_WORKER_READ_DROP_TIME_MS 50
+#define LFRFID_WORKER_READ_DROP_TIME_MS      50
 #define LFRFID_WORKER_READ_STABILIZE_TIME_MS 450
-#define LFRFID_WORKER_READ_SWITCH_TIME_MS 2000
+#define LFRFID_WORKER_READ_SWITCH_TIME_MS    2000
 
-#define LFRFID_WORKER_WRITE_VERIFY_TIME_MS 2000
-#define LFRFID_WORKER_WRITE_DROP_TIME_MS 50
+#define LFRFID_WORKER_WRITE_VERIFY_TIME_MS   2000
+#define LFRFID_WORKER_WRITE_DROP_TIME_MS     50
 #define LFRFID_WORKER_WRITE_TOO_LONG_TIME_MS 10000
 
 #define LFRFID_WORKER_WRITE_MAX_UNSUCCESSFUL_READS 5
 
-#define LFRFID_WORKER_READ_BUFFER_SIZE 512
+#define LFRFID_WORKER_READ_BUFFER_SIZE  512
 #define LFRFID_WORKER_READ_BUFFER_COUNT 16
 
 #define LFRFID_WORKER_EMULATE_BUFFER_SIZE 1024
@@ -94,7 +94,7 @@ typedef enum {
     LFRFIDWorkerReadTimeout,
 } LFRFIDWorkerReadState;
 
-static LFRFIDWorkerReadState lfrfid_worker_read_ttf( //tag talks first
+static LFRFIDWorkerReadState lfrfid_worker_read_internal(
     LFRFIDWorker* worker,
     LFRFIDFeature feature,
     uint32_t timeout,
@@ -331,71 +331,13 @@ static LFRFIDWorkerReadState lfrfid_worker_read_ttf( //tag talks first
     return state;
 }
 
-static LFRFIDWorkerReadState lfrfid_worker_read_rtf( //reader talks first
-    LFRFIDWorker* worker,
-    LFRFIDFeature feature,
-    uint32_t timeout,
-    ProtocolId* result_protocol) {
-    UNUSED(feature);
-    LFRFIDWorkerReadState state = LFRFIDWorkerReadTimeout;
-
-    FURI_LOG_D(TAG, "Start RTF");
-    if(worker->read_cb) {
-        worker->read_cb(LFRFIDWorkerReadStartRTF, PROTOCOL_NO, worker->cb_ctx);
-    }
-    LFRFIDHitagWorker* hitag_worker = lfrfid_hitag_worker_alloc(worker->protocols);
-
-    lfrfid_hitag_worker_start(hitag_worker, LFRFIDHitagWorkerSettingRead);
-
-    FURI_LOG_D(TAG, "Read started");
-
-    //scan for hitag for a while and stay in hitag mode if card was detected
-    uint8_t delays = 0;
-    uint8_t delay_ms = 100;
-    bool notified = false;
-    while(1) {
-        furi_delay_ms(delay_ms);
-
-        if(lfrfid_worker_check_for_stop(worker)) {
-            state = LFRFIDWorkerReadExit;
-            *result_protocol = PROTOCOL_NO;
-            break;
-        }
-
-        if(lfrfid_hitag_worker_get_status(hitag_worker) == LFRFIDHitagStatusDetected) {
-            *result_protocol =
-                LFRFIDProtocolHitag1; //TODO get protocol ID from hitag_worker when expanding the worker to include other hitag protocols
-            if(!notified && worker->read_cb) {
-                worker->read_cb(LFRFIDWorkerReadSenseHitag, *result_protocol, worker->cb_ctx);
-                notified = true;
-            }
-        } else if(lfrfid_hitag_worker_get_status(hitag_worker) == LFRFIDHitagStatusRead) {
-            state = LFRFIDWorkerReadOK;
-            *result_protocol =
-                LFRFIDProtocolHitag1; //TODO get protocol ID from hitag_worker when expanding the worker to include other hitag protocols
-            break;
-        } else if(++delays >= timeout / delay_ms) {
-            break;
-        }
-    }
-
-    lfrfid_hitag_worker_stop(hitag_worker);
-    lfrfid_hitag_worker_free(hitag_worker);
-
-    FURI_LOG_D(TAG, "Read stopped");
-
-    return state;
-}
-
 static void lfrfid_worker_mode_read_process(LFRFIDWorker* worker) {
     ProtocolId read_result = PROTOCOL_NO;
-    LFRFIDWorkerReadState state = LFRFIDWorkerReadOK;
+    LFRFIDWorkerReadState state;
     LFRFIDFeature feature;
 
     if(worker->read_type == LFRFIDWorkerReadTypePSKOnly) {
         feature = LFRFIDFeaturePSK;
-    } else if(worker->read_type == LFRFIDWorkerReadTypeRTFOnly) {
-        feature = LFRFIDFeatureRTF;
     } else {
         feature = LFRFIDFeatureASK;
     }
@@ -403,14 +345,8 @@ static void lfrfid_worker_mode_read_process(LFRFIDWorker* worker) {
     if(worker->read_type == LFRFIDWorkerReadTypeAuto) {
         while(1) {
             // read for a while
-
-            if(feature == LFRFIDFeatureASK || feature == LFRFIDFeaturePSK) {
-                state = lfrfid_worker_read_ttf(
-                    worker, feature, LFRFID_WORKER_READ_SWITCH_TIME_MS, &read_result);
-            } else if(feature == LFRFIDFeatureRTF) {
-                state = lfrfid_worker_read_rtf(
-                    worker, feature, LFRFID_WORKER_READ_SWITCH_TIME_MS, &read_result);
-            }
+            state = lfrfid_worker_read_internal(
+                worker, feature, LFRFID_WORKER_READ_SWITCH_TIME_MS, &read_result);
 
             if(state == LFRFIDWorkerReadOK || state == LFRFIDWorkerReadExit) {
                 break;
@@ -419,9 +355,7 @@ static void lfrfid_worker_mode_read_process(LFRFIDWorker* worker) {
             // switch to next feature
             if(feature == LFRFIDFeatureASK) {
                 feature = LFRFIDFeaturePSK;
-            } else if(feature == LFRFIDFeaturePSK) {
-                feature = LFRFIDFeatureRTF;
-            } else if(feature == LFRFIDFeatureRTF) {
+            } else {
                 feature = LFRFIDFeatureASK;
             }
 
@@ -430,12 +364,10 @@ static void lfrfid_worker_mode_read_process(LFRFIDWorker* worker) {
     } else {
         while(1) {
             if(worker->read_type == LFRFIDWorkerReadTypeASKOnly) {
-                state = lfrfid_worker_read_ttf(worker, feature, UINT32_MAX, &read_result);
-            } else if(worker->read_type == LFRFIDWorkerReadTypePSKOnly) {
-                state = lfrfid_worker_read_ttf(
-                    worker, feature, LFRFID_WORKER_READ_SWITCH_TIME_MS, &read_result);
+                state = lfrfid_worker_read_internal(worker, feature, UINT32_MAX, &read_result);
             } else {
-                state = lfrfid_worker_read_rtf(worker, feature, UINT32_MAX, &read_result);
+                state = lfrfid_worker_read_internal(
+                    worker, feature, LFRFID_WORKER_READ_SWITCH_TIME_MS, &read_result);
             }
 
             if(state == LFRFIDWorkerReadOK || state == LFRFIDWorkerReadExit) {
@@ -471,7 +403,7 @@ static void lfrfid_worker_emulate_dma_isr(bool half, void* context) {
     furi_stream_buffer_send(stream, &flag, sizeof(uint32_t), 0);
 }
 
-static void lfrfid_worker_emulate_ttf(LFRFIDWorker* worker) {
+static void lfrfid_worker_mode_emulate_process(LFRFIDWorker* worker) {
     LFRFIDWorkerEmulateBuffer* buffer = malloc(sizeof(LFRFIDWorkerEmulateBuffer));
     FuriStreamBuffer* stream = furi_stream_buffer_alloc(sizeof(uint32_t), sizeof(uint32_t));
     LFRFIDProtocol protocol = worker->protocol;
@@ -560,34 +492,6 @@ static void lfrfid_worker_emulate_ttf(LFRFIDWorker* worker) {
     pulse_glue_free(pulse_glue);
 }
 
-static void lfrfid_worker_emulate_rtf(LFRFIDWorker* worker) {
-    LFRFIDHitagWorker* hitag_worker = lfrfid_hitag_worker_alloc(
-        worker->protocols); //todo, pass protocols & protocol id when expanding the worker to include other hitag protocols
-
-    lfrfid_hitag_worker_start(hitag_worker, LFRFIDHitagWorkerSettingEmulate);
-    uint8_t delay_ms = 100;
-    while(1) {
-        furi_delay_ms(delay_ms);
-
-        if(lfrfid_worker_check_for_stop(worker)) {
-            break;
-        }
-    }
-
-    lfrfid_hitag_worker_stop(hitag_worker);
-    lfrfid_hitag_worker_free(hitag_worker);
-}
-
-static void lfrfid_worker_mode_emulate_process(LFRFIDWorker* worker) {
-    LFRFIDFeature feature = protocol_dict_get_features(worker->protocols, worker->protocol);
-
-    if(feature == LFRFIDFeatureRTF) {
-        lfrfid_worker_emulate_rtf(worker);
-    } else {
-        lfrfid_worker_emulate_ttf(worker);
-    }
-}
-
 /**************************************************************************************************/
 /********************************************* WRITE **********************************************/
 /**************************************************************************************************/
@@ -595,9 +499,6 @@ static void lfrfid_worker_mode_emulate_process(LFRFIDWorker* worker) {
 static void lfrfid_worker_mode_write_process(LFRFIDWorker* worker) {
     LFRFIDProtocol protocol = worker->protocol;
     LFRFIDWriteRequest* request = malloc(sizeof(LFRFIDWriteRequest));
-    request->write_type = LFRFIDWriteTypeT5577;
-
-    bool can_be_written = protocol_dict_get_write_data(worker->protocols, protocol, request);
 
     uint32_t write_start_time = furi_get_tick();
     bool too_long = false;
@@ -606,67 +507,88 @@ static void lfrfid_worker_mode_write_process(LFRFIDWorker* worker) {
     size_t data_size = protocol_dict_get_data_size(worker->protocols, protocol);
     uint8_t* verify_data = malloc(data_size);
     uint8_t* read_data = malloc(data_size);
+
     protocol_dict_get_data(worker->protocols, protocol, verify_data, data_size);
 
-    if(can_be_written) {
-        while(!lfrfid_worker_check_for_stop(worker)) {
-            FURI_LOG_D(TAG, "Data write");
-            t5577_write(&request->t5577);
+    while(!lfrfid_worker_check_for_stop(worker)) {
+        FURI_LOG_D(TAG, "Data write");
+        uint16_t skips = 0;
+        for(size_t i = 0; i < LFRFIDWriteTypeMax; i++) {
+            memset(request, 0, sizeof(LFRFIDWriteRequest));
+            LFRFIDWriteType write_type = i;
+            request->write_type = write_type;
 
-            ProtocolId read_result = PROTOCOL_NO;
-<<<<<<< HEAD
-            LFRFIDWorkerReadState state = lfrfid_worker_read_ttf(
-=======
-            LFRFIDWorkerReadState state = lfrfid_worker_read_internal(
->>>>>>> origin/upstream-pr-2141-doom/2991-e2e-runner
-                worker,
-                protocol_dict_get_features(worker->protocols, protocol),
-                LFRFID_WORKER_WRITE_VERIFY_TIME_MS,
-                &read_result);
+            protocol_dict_set_data(worker->protocols, protocol, verify_data, data_size);
 
-            if(state == LFRFIDWorkerReadOK) {
-                bool read_success = false;
+            bool can_be_written =
+                protocol_dict_get_write_data(worker->protocols, protocol, request);
 
-                if(read_result == protocol) {
-                    protocol_dict_get_data(worker->protocols, protocol, read_data, data_size);
-
-                    if(memcmp(read_data, verify_data, data_size) == 0) {
-                        read_success = true;
-                    }
-                }
-
-                if(read_success) {
+            if(!can_be_written) {
+                skips++;
+                if(skips == LFRFIDWriteTypeMax) {
                     if(worker->write_cb) {
-                        worker->write_cb(LFRFIDWorkerWriteOK, worker->cb_ctx);
+                        worker->write_cb(LFRFIDWorkerWriteProtocolCannotBeWritten, worker->cb_ctx);
                     }
                     break;
-                } else {
-                    unsuccessful_reads++;
+                }
+                continue;
+            }
 
-                    if(unsuccessful_reads == LFRFID_WORKER_WRITE_MAX_UNSUCCESSFUL_READS) {
-                        if(worker->write_cb) {
-                            worker->write_cb(LFRFIDWorkerWriteFobCannotBeWritten, worker->cb_ctx);
-                        }
+            memset(read_data, 0, data_size);
+
+            if(request->write_type == LFRFIDWriteTypeT5577) {
+                t5577_write(&request->t5577);
+            } else if(request->write_type == LFRFIDWriteTypeEM4305) {
+                em4305_write(&request->em4305);
+            } else {
+                furi_crash("Unknown write type");
+            }
+        }
+        ProtocolId read_result = PROTOCOL_NO;
+        LFRFIDWorkerReadState state = lfrfid_worker_read_internal(
+            worker,
+            protocol_dict_get_features(worker->protocols, protocol),
+            LFRFID_WORKER_WRITE_VERIFY_TIME_MS,
+            &read_result);
+
+        if(state == LFRFIDWorkerReadOK) {
+            bool read_success = false;
+
+            if(read_result == protocol) {
+                protocol_dict_get_data(worker->protocols, protocol, read_data, data_size);
+
+                if(memcmp(read_data, verify_data, data_size) == 0) {
+                    read_success = true;
+                }
+            }
+
+            if(read_success) {
+                if(worker->write_cb) {
+                    worker->write_cb(LFRFIDWorkerWriteOK, worker->cb_ctx);
+                }
+                break;
+            } else {
+                unsuccessful_reads++;
+
+                if(unsuccessful_reads == LFRFID_WORKER_WRITE_MAX_UNSUCCESSFUL_READS) {
+                    if(worker->write_cb) {
+                        worker->write_cb(LFRFIDWorkerWriteFobCannotBeWritten, worker->cb_ctx);
                     }
                 }
-            } else if(state == LFRFIDWorkerReadExit) {
-                break;
             }
+        } else if(state == LFRFIDWorkerReadExit) {
+            break;
+        }
 
-            if(!too_long &&
-               (furi_get_tick() - write_start_time) > LFRFID_WORKER_WRITE_TOO_LONG_TIME_MS) {
-                too_long = true;
-                if(worker->write_cb) {
-                    worker->write_cb(LFRFIDWorkerWriteTooLongToWrite, worker->cb_ctx);
-                }
+        if(!too_long &&
+           (furi_get_tick() - write_start_time) > LFRFID_WORKER_WRITE_TOO_LONG_TIME_MS) {
+            too_long = true;
+            if(worker->write_cb) {
+                worker->write_cb(LFRFIDWorkerWriteTooLongToWrite, worker->cb_ctx);
             }
+        }
 
-            lfrfid_worker_delay(worker, LFRFID_WORKER_WRITE_DROP_TIME_MS);
-        }
-    } else {
-        if(worker->write_cb) {
-            worker->write_cb(LFRFIDWorkerWriteProtocolCannotBeWritten, worker->cb_ctx);
-        }
+        lfrfid_worker_delay(worker, LFRFID_WORKER_WRITE_DROP_TIME_MS);
     }
 
     free(request);

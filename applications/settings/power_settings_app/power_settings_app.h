@@ -11,10 +11,10 @@
 #include "views/battery_info.h"
 #include <gui/modules/submenu.h>
 #include <gui/modules/dialog_ex.h>
-#include <gui/modules/variable_item_list.h>
 
-#include <power/power_settings.h>
 #include "scenes/power_settings_scene.h"
+
+#include <settings_helpers/submenu_based.h>
 
 typedef struct {
     Power* power;
@@ -25,22 +25,16 @@ typedef struct {
     Submenu* submenu;
     DialogEx* dialog;
     PowerInfo info;
-<<<<<<< HEAD
-    VariableItemList* variable_item_list;
-    uint32_t shutdown_idle_delay_ms;
-    FuriPubSub* settings_events;
-=======
->>>>>>> origin/upstream-pr-2141-doom/2991-e2e-runner
+    SubmenuSettingsHelper* settings_helper;
 } PowerSettingsApp;
 
 typedef enum {
     PowerSettingsAppViewBatteryInfo,
     PowerSettingsAppViewSubmenu,
     PowerSettingsAppViewDialog,
-    PowerSettingsAppViewVariableItemList
 } PowerSettingsAppView;
-<<<<<<< HEAD
 
-typedef enum { RebootTypeDFU, RebootTypeNormal } RebootType;
-=======
->>>>>>> origin/upstream-pr-2141-doom/2991-e2e-runner
+typedef enum {
+    RebootTypeDFU,
+    RebootTypeNormal
+} RebootType;

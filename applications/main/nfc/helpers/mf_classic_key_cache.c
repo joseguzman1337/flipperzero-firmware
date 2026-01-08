@@ -3,7 +3,7 @@
 #include <furi/furi.h>
 #include <storage/storage.h>
 
-#define NFC_APP_KEYS_EXTENSION ".keys"
+#define NFC_APP_KEYS_EXTENSION   ".keys"
 #define NFC_APP_KEY_CACHE_FOLDER "/ext/nfc/.cache"
 
 static const char* mf_classic_key_cache_file_header = "Flipper NFC keys";
@@ -23,7 +23,7 @@ static void nfc_get_key_cache_file_path(const uint8_t* uid, size_t uid_len, Furi
     furi_string_cat_printf(path, "%s", NFC_APP_KEYS_EXTENSION);
 }
 
-MfClassicKeyCache* mf_classic_key_cache_alloc() {
+MfClassicKeyCache* mf_classic_key_cache_alloc(void) {
     MfClassicKeyCache* instance = malloc(sizeof(MfClassicKeyCache));
 
     return instance;
@@ -166,7 +166,7 @@ void mf_classic_key_cache_load_from_data(MfClassicKeyCache* instance, const MfCl
     }
 }
 
-bool mf_classic_key_cahce_get_next_key(
+bool mf_classic_key_cache_get_next_key(
     MfClassicKeyCache* instance,
     uint8_t* sector_num,
     MfClassicKey* key,

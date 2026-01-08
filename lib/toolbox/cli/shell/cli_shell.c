@@ -25,7 +25,7 @@ typedef enum {
     CliShellComponentMAX, //<! do not use
 } CliShellComponent;
 
-static const CliShellKeyComboSet* const component_key_combo_sets[] = {
+CliShellKeyComboSet* component_key_combo_sets[] = {
     [CliShellComponentCompletions] = &cli_shell_completions_key_combo_set,
     [CliShellComponentLine] = &cli_shell_line_key_combo_set,
 };
@@ -213,9 +213,8 @@ void cli_shell_execute_command(CliShell* cli_shell, FuriString* command) {
         if(!(command_data.flags & CliCommandFlagParallelSafe)) {
             loader_locked = loader_lock(loader);
             if(!loader_locked) {
-                printf(
-                    ANSI_FG_RED
-                    "this command cannot be run while an application is open" ANSI_RESET);
+                printf(ANSI_FG_RED
+                       "this command cannot be run while an application is open" ANSI_RESET);
                 break;
             }
         }
@@ -300,7 +299,7 @@ static void
     if(key_combo.key == CliKeyUnrecognized) return;
 
     for(size_t i = 0; i < CliShellComponentMAX; i++) { // -V1008
-        const CliShellKeyComboSet* set = component_key_combo_sets[i];
+        CliShellKeyComboSet* set = component_key_combo_sets[i];
         void* component_context = cli_shell->components[i];
 
         for(size_t j = 0; j < set->count; j++) {

@@ -12,12 +12,12 @@
 #define TAG "MusicWorker"
 
 #define MUSIC_PLAYER_FILETYPE "Flipper Music Format"
-#define MUSIC_PLAYER_VERSION 0
+#define MUSIC_PLAYER_VERSION  0
 
 #define SEMITONE_PAUSE 0xFF
 
-#define NOTE_C4 261.63f
-#define NOTE_C4_SEMITONE (4.0f * 12.0f)
+#define NOTE_C4             261.63f
+#define NOTE_C4_SEMITONE    (4.0f * 12.0f)
 #define TWO_POW_TWELTH_ROOT 1.059463094359f
 
 typedef struct {
@@ -26,7 +26,7 @@ typedef struct {
     uint8_t dots;
 } NoteBlock;
 
-ARRAY_DEF(NoteBlockArray, NoteBlock, M_POD_OPLIST);
+ARRAY_DEF(NoteBlockArray, NoteBlock, M_POD_OPLIST); //-V658
 
 struct MusicWorker {
     FuriThread* thread;
@@ -58,7 +58,7 @@ static int32_t music_worker_thread_callback(void* context) {
 
                 float note_from_a4 = (float)note_block->semitone - NOTE_C4_SEMITONE;
                 float frequency = NOTE_C4 * powf(TWO_POW_TWELTH_ROOT, note_from_a4);
-                float duration = 60.0f * furi_kernel_get_tick_frequency() * 4 / instance->bpm /
+                float duration = 60.0 * furi_kernel_get_tick_frequency() * 4 / instance->bpm /
                                  note_block->duration;
                 uint32_t dots = note_block->dots;
                 while(dots > 0) {
@@ -80,7 +80,7 @@ static int32_t music_worker_thread_callback(void* context) {
                 furi_hal_speaker_stop();
                 furi_hal_speaker_start(frequency, volume);
                 while(instance->should_work && furi_get_tick() < next_tick) {
-                    volume *= 0.9945679f;
+                    volume *= 0.9945679;
                     furi_hal_speaker_set_volume(volume);
                     furi_delay_ms(2);
                 }
@@ -97,7 +97,7 @@ static int32_t music_worker_thread_callback(void* context) {
     return 0;
 }
 
-MusicWorker* music_worker_alloc() {
+MusicWorker* music_worker_alloc(void) {
     MusicWorker* instance = malloc(sizeof(MusicWorker));
 
     NoteBlockArray_init(instance->notes);

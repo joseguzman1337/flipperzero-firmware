@@ -12,7 +12,8 @@ void battery_test_dialog_callback(DialogExResult result, void* context) {
     }
 }
 
-uint32_t battery_test_exit_confirm_view() {
+uint32_t battery_test_exit_confirm_view(void* context) {
+    UNUSED(context);
     return BatteryTestAppViewExitDialog;
 }
 
@@ -31,9 +32,8 @@ static void battery_test_battery_info_update_model(void* context) {
     notification_message(app->notifications, &sequence_display_backlight_on);
 }
 
-BatteryTestApp* battery_test_alloc() {
+BatteryTestApp* battery_test_alloc(void) {
     BatteryTestApp* app = malloc(sizeof(BatteryTestApp));
-    furi_check(app);
 
     // Records
     app->gui = furi_record_open(RECORD_GUI);
@@ -42,7 +42,6 @@ BatteryTestApp* battery_test_alloc() {
 
     // View dispatcher
     app->view_dispatcher = view_dispatcher_alloc();
-    view_dispatcher_enable_queue(app->view_dispatcher);
     view_dispatcher_set_event_callback_context(app->view_dispatcher, app);
     view_dispatcher_set_tick_event_callback(
         app->view_dispatcher, battery_test_battery_info_update_model, 500);

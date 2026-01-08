@@ -109,6 +109,8 @@ class FlipperStorage:
 
     def start(self):
         self.port.open()
+        time.sleep(0.5)
+        self.read.until(self.CLI_PROMPT)
         self.port.reset_input_buffer()
         # Send a command with a known syntax to make sure the buffer is flushed
         self.send("device_info\r")
@@ -370,11 +372,7 @@ class FlipperStorage:
         self.send_and_wait_eol(f'storage mkdir "{path}"\r')
         response = self.read.until(self.CLI_EOL)
         self.read.until(self.CLI_PROMPT)
-        try:
-            self._check_no_error(response, path)
-        except FlipperStorageException as exc:
-            if StorageErrorCode.EXIST.value not in str(exc):
-                raise
+        self._check_no_error(response, path)
 
     def format_ext(self):
         """Format external storage on Flipper"""

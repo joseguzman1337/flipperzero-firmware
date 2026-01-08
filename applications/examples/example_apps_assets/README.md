@@ -1,23 +1,25 @@
-# Apps Assets folder Example
+# Apps Assets folder Example {#example_app_assets}
 
 This example shows how to use the Apps Assets folder to store data that is not part of the application itself, but is required for its operation, and that data is provided with the application.
+
+## Source code
+
+Source code for this example can be found [here](https://github.com/flipperdevices/flipperzero-firmware/tree/dev/applications/examples/example_apps_assets).
 
 ## What is the Apps Assets Folder?
 
 The **Apps Assets** folder is a folder where external applications unpack their assets.
 
-The path to the current application assets folder is related to the `appid` of the app. The `appid` is used to identify the app in the app store and is stored in the `application.fam` file. 
+The path to the current application folder is related to the `appid` of the app. The `appid` is used to identify the app in the app store and is stored in the `application.fam` file. 
 The Apps Assets folder is located only on the external storage, the SD card.
 
-For example, if the `appid` of the app is `snake_game`, the path to the Apps Assets folder will be `/ext/apps_assets/snake_game`. But using raw paths is not recommended, because the path to the Apps Assets folder can change in the future. Use the `APP_ASSETS_PATH()` and/or `STORAGE_APP_ASSETS_PATH_PREFIX` macros instead.
+For example, if the `appid` of the app is `snake_game`, the path to the Apps Assets folder will be `/ext/apps_assets/snake_game`. But using raw paths is not recommended, because the path to the Apps Assets folder can change in the future. Use the `/assets` alias instead.
 
 ## How to get the path to the Apps Assets folder?
 
-You can use `/ext/apps_assets/appid` directly (replacing `appid`) to access your application assets folder. For example, if you want to open a file `database.txt` in the Apps Assets folder, you can use this path: `/ext/apps_assets/appid/database.txt`. But this way is not recommended, because the path can change in the future.
+You can use `/assets` alias to get the path to the current application data folder. For example, if you want to open a file `database.txt` in the Apps Assets folder, you can use the next path: `/data/database.txt`. But this way is not recommended, because even the `/assets` alias can change in the future.
 
-We recommend to use the `APP_ASSETS_PATH()` macro to get the path to the Apps Assets folder. For example, if you want to open a file `database.txt` in the Apps Assets folder, you can use this path: `APP_ASSETS_PATH("database.txt")`.
-
-If you want to construct paths at run-time, you can use the `STORAGE_APP_ASSETS_PATH_PREFIX` macro, which evaluates to `/ext/apps_assets/appid` at compile-time.
+We recommend to use the `APP_ASSETS_PATH` macro to get the path to the Apps Assets folder. For example, if you want to open a file `database.txt` in the Apps Assets folder, you can use the next path: `APP_ASSETS_PATH("database.txt")`.
 
 ## What is the difference between the Apps Assets folder and the Apps Data folder?
 

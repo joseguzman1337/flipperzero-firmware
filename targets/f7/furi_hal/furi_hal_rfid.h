@@ -15,19 +15,19 @@ extern "C" {
 
 /** Initialize RFID subsystem
  */
-void furi_hal_rfid_init();
+void furi_hal_rfid_init(void);
 
 /** Config rfid pins to reset state
  */
-void furi_hal_rfid_pins_reset();
+void furi_hal_rfid_pins_reset(void);
 
 /** Release rfid pull pin
  */
-void furi_hal_rfid_pin_pull_release();
+void furi_hal_rfid_pin_pull_release(void);
 
 /** Pulldown rfid pull pin
  */
-void furi_hal_rfid_pin_pull_pulldown();
+void furi_hal_rfid_pin_pull_pulldown(void);
 
 /** Start read timer
  * @param      freq        timer frequency
@@ -37,21 +37,21 @@ void furi_hal_rfid_tim_read_start(float freq, float duty_cycle);
 
 /** Pause read timer, to be able to continue later
  */
-void furi_hal_rfid_tim_read_pause();
+void furi_hal_rfid_tim_read_pause(void);
 
 /** Continue read timer
  */
-void furi_hal_rfid_tim_read_continue();
+void furi_hal_rfid_tim_read_continue(void);
 
 /** Stop read timer
  */
-void furi_hal_rfid_tim_read_stop();
+void furi_hal_rfid_tim_read_stop(void);
 
 typedef void (*FuriHalRfidReadCaptureCallback)(bool level, uint32_t duration, void* context);
 
 void furi_hal_rfid_tim_read_capture_start(FuriHalRfidReadCaptureCallback callback, void* context);
 
-void furi_hal_rfid_tim_read_capture_stop();
+void furi_hal_rfid_tim_read_capture_stop(void);
 
 typedef void (*FuriHalRfidDMACallback)(bool half, void* context);
 
@@ -62,7 +62,7 @@ void furi_hal_rfid_tim_emulate_dma_start(
     FuriHalRfidDMACallback callback,
     void* context);
 
-void furi_hal_rfid_tim_emulate_dma_stop();
+void furi_hal_rfid_tim_emulate_dma_stop(void);
 
 /** Set read timer period
  *
@@ -76,42 +76,11 @@ void furi_hal_rfid_set_read_period(uint32_t period);
  */
 void furi_hal_rfid_set_read_pulse(uint32_t pulse);
 
-void furi_hal_rfid_rtf_carrier_out_stop();
-
-void furi_hal_rfid_rtf_carrier_out_start();
-
-/** start pull out dma timer for RTF rfid emulation mode
- *
- * @param      length  length of dma buffer
- */
-void furi_hal_rfid_rtf_pull_out_dma_start(size_t length);
-
-/** switch timer settings to ETR during RTF rfid emulation mode
- *
- * @param      prevTIMval  pointer for storing previous timer duration value
- * @param      ext_prescaler  prescaler to use for timer settings
- */
-void furi_hal_rfid_rtf_carrier_in_ETR_mode(uint8_t ext_prescaler);
-
-/** start carrier in timers in RTF rfid emulation mode
- */
-void furi_hal_rfid_rtf_carrier_in_start(
-    void* capture_context,
-    uint8_t ext_prescaler,
-    uint32_t* duration,
-    uint32_t* pulse,
-    size_t length,
-    FuriHalRfidReadCaptureCallback callback);
-
-/** stop carrier in timers in RTF rfid emulation mode
- */
-void furi_hal_rfid_rtf_carrier_in_stop();
-
 /** Start/Enable comparator */
-void furi_hal_rfid_comp_start();
+void furi_hal_rfid_comp_start(void);
 
 /** Stop/Disable comparator */
-void furi_hal_rfid_comp_stop();
+void furi_hal_rfid_comp_stop(void);
 
 typedef void (*FuriHalRfidCompCallback)(bool level, void* context);
 
@@ -119,10 +88,10 @@ typedef void (*FuriHalRfidCompCallback)(bool level, void* context);
 void furi_hal_rfid_comp_set_callback(FuriHalRfidCompCallback callback, void* context);
 
 /** Start/Enable Field Presence detect */
-void furi_hal_rfid_field_detect_start();
+void furi_hal_rfid_field_detect_start(void);
 
 /** Stop/Disable Field Presence detect */
-void furi_hal_rfid_field_detect_stop();
+void furi_hal_rfid_field_detect_stop(void);
 
 /** Check Field Presence
  *

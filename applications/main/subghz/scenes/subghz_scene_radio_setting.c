@@ -1,4 +1,4 @@
-#include "../subghz_i.h"
+#include "../subghz_i.h" // IWYU pragma: keep
 #include <lib/toolbox/value_index.h>
 #include <applications/drivers/subghz/cc1101_ext/cc1101_ext_interconnect.h>
 #include <lib/subghz/devices/cc1101_int/cc1101_int_interconnect.h>
@@ -7,17 +7,15 @@ enum SubGhzRadioSettingIndex {
     SubGhzRadioSettingIndexDevice,
 };
 
-#define RADIO_DEVICE_COUNT 3
+#define RADIO_DEVICE_COUNT 2
 const char* const radio_device_text[RADIO_DEVICE_COUNT] = {
     "Internal",
-    "ExtCC1101",
-    "ExtSi4463",
+    "External",
 };
 
 const uint32_t radio_device_value[RADIO_DEVICE_COUNT] = {
     SubGhzRadioDeviceTypeInternal,
     SubGhzRadioDeviceTypeExternalCC1101,
-    SubGhzRadioDeviceTypeExternalSi4463,
 };
 
 const char* const radio_device_name[RADIO_DEVICE_COUNT] = {

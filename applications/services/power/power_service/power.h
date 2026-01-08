@@ -1,8 +1,9 @@
 #pragma once
 
 #include <stdint.h>
-#include <core/pubsub.h>
 #include <stdbool.h>
+
+#include <core/pubsub.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -38,6 +39,7 @@ typedef struct {
     bool gauge_is_ok;
     bool is_charging;
     bool is_shutdown_requested;
+    bool is_otg_enabled;
 
     float current_charger;
     float current_gauge;
@@ -65,7 +67,7 @@ void power_off(Power* power);
  *
  * @param mode      PowerBootMode
  */
-void power_reboot(PowerBootMode mode);
+void power_reboot(Power* power, PowerBootMode mode);
 
 /** Get power info
  *
@@ -82,14 +84,6 @@ void power_get_info(Power* power, PowerInfo* info);
  */
 FuriPubSub* power_get_pubsub(Power* power);
 
-/** Get power settings events pubsub handler
- *
- * @param power     Power instance
- *
- * @return          FuriPubSub instance
- */
-FuriPubSub* power_get_settings_events_pubsub(Power* power);
-
 /** Check battery health
  *
  * @return          true if battery is healthy
@@ -102,6 +96,19 @@ bool power_is_battery_healthy(Power* power);
  * @param enable    true - enable, false - disable
  */
 void power_enable_low_battery_level_notification(Power* power, bool enable);
+
+/** Enable or disable OTG
+ *
+ * @param power     Power instance
+ * @param enable    true - enable, false - disable
+ */
+void power_enable_otg(Power* power, bool enable);
+
+/** Check OTG status
+ * 
+ * @return          true if OTG  is requested
+ */
+bool power_is_otg_enabled(Power* power);
 
 #ifdef __cplusplus
 }

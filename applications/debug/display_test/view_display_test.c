@@ -150,13 +150,11 @@ static void view_display_test_exit(void* context) {
 
 static void view_display_test_timer_callback(void* context) {
     ViewDisplayTest* instance = context;
-    with_view_model(
-        instance->view, ViewDisplayTestModel * model, { model->counter++; }, true);
+    with_view_model(instance->view, ViewDisplayTestModel * model, { model->counter++; }, true);
 }
 
-ViewDisplayTest* view_display_test_alloc() {
+ViewDisplayTest* view_display_test_alloc(void) {
     ViewDisplayTest* instance = malloc(sizeof(ViewDisplayTest));
-    furi_check(instance);
 
     instance->view = view_alloc();
     view_set_context(instance->view, instance);

@@ -70,7 +70,7 @@ static DirWalkResult
     bool end = false;
 
     while(!end) {
-        storage_dir_read(dir_walk->file, &info, name, MAX_NAME_LEN);
+        storage_dir_read(dir_walk->file, &info, name, MAX_NAME_LEN - 1);
 
         if(storage_file_get_error(dir_walk->file) == FSE_OK) {
             result = DirWalkOK;

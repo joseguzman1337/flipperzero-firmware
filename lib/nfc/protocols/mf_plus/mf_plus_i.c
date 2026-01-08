@@ -1,12 +1,5 @@
 #include "mf_plus_i.h"
 
-#include <string.h>
-
-#include <furi.h>
-#include <toolbox/bit_buffer.h>
-#include <toolbox/simple_array.h>
-#include <nfc/protocols/iso14443_4a/iso14443_4a.h>
-
 #define MF_PLUS_FFF_VERSION_KEY \
     MF_PLUS_FFF_PICC_PREFIX " " \
                             "Version"

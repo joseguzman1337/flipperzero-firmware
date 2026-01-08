@@ -56,11 +56,9 @@ void felica_listener_free(FelicaListener* instance) {
 void felica_listener_set_callback(
     FelicaListener* listener,
     NfcGenericCallback callback,
-    NfcGenericLogHistoryCallback log_callback,
     void* context) {
     UNUSED(listener);
     UNUSED(callback);
-    UNUSED(log_callback);
     UNUSED(context);
 }
 

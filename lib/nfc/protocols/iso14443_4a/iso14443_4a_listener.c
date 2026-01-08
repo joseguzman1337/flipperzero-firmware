@@ -37,10 +37,8 @@ static void iso14443_4a_listener_free(Iso14443_4aListener* instance) {
 static void iso14443_4a_listener_set_callback(
     Iso14443_4aListener* instance,
     NfcGenericCallback callback,
-    NfcGenericLogHistoryCallback log_callback,
     void* context) {
     furi_assert(instance);
-    (void)log_callback;
 
     instance->callback = callback;
     instance->context = context;

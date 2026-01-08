@@ -35,7 +35,7 @@ FURI_NORETURN void __furi_halt_implementation(void);
     do {                                                      \
         register const void* r12 asm("r12") = (void*)message; \
         asm volatile("sukima%=:" : : "r"(r12));               \
-        __furi_crash_implementation(void);                        \
+        __furi_crash_implementation();                        \
     } while(0)
 
 /** Crash system
@@ -49,7 +49,7 @@ FURI_NORETURN void __furi_halt_implementation(void);
     do {                                                      \
         register const void* r12 asm("r12") = (void*)message; \
         asm volatile("sukima%=:" : : "r"(r12));               \
-        __furi_halt_implementation(void);                         \
+        __furi_halt_implementation();                         \
     } while(0)
 
 /** Halt system

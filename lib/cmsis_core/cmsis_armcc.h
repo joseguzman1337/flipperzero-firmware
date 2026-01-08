@@ -543,7 +543,7 @@ __attribute__((always_inline)) __STATIC_INLINE uint32_t __USAT(int32_t val, uint
   \details Enables IRQ interrupts by clearing special-purpose register PRIMASK.
            Can only be executed in Privileged modes.
  */
-/* intrinsic void __enable_irq(void);     */
+/* intrinsic void __enable_irq();     */
 
 
 /**
@@ -551,7 +551,7 @@ __attribute__((always_inline)) __STATIC_INLINE uint32_t __USAT(int32_t val, uint
   \details Disables IRQ interrupts by setting special-purpose register PRIMASK.
            Can only be executed in Privileged modes.
  */
-/* intrinsic void __disable_irq(void);    */
+/* intrinsic void __disable_irq();    */
 
 /**
   \brief   Get Control Register
@@ -574,7 +574,7 @@ __STATIC_INLINE void __set_CONTROL(uint32_t control)
 {
   register uint32_t __regControl         __ASM("control");
   __regControl = control;
-  __ISB(void);
+  __ISB();
 }
 
 

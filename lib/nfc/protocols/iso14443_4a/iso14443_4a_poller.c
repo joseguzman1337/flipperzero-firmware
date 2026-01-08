@@ -92,11 +92,9 @@ static const Iso14443_4aPollerStateHandler
 static void iso14443_4a_poller_set_callback(
     Iso14443_4aPoller* instance,
     NfcGenericCallback callback,
-    NfcGenericLogHistoryCallback log_callback,
     void* context) {
     furi_assert(instance);
     furi_assert(callback);
-    (void)log_callback;
 
     instance->callback = callback;
     instance->context = context;

@@ -51,11 +51,9 @@ static void iso15693_3_poller_free(Iso15693_3Poller* instance) {
 static void iso15693_3_poller_set_callback(
     Iso15693_3Poller* instance,
     NfcGenericCallback callback,
-    NfcGenericLogHistoryCallback log_callback,
     void* context) {
     furi_assert(instance);
     furi_assert(callback);
-    (void)log_callback;
 
     instance->callback = callback;
     instance->context = context;

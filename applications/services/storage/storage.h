@@ -573,7 +573,7 @@ bool storage_simply_mkdir(Storage* storage, const char* path);
  *
  * Usage example:
  * ```c
- * FuriString* file_name = furi_string_alloc(void);
+ * FuriString* file_name = furi_string_alloc();
  * Storage* storage = furi_record_open(RECORD_STORAGE);
  *
  * storage_get_next_filename(storage,

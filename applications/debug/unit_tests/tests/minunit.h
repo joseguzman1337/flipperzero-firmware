@@ -95,7 +95,7 @@ void minunit_printf_warning(const char* format, ...);
 
 /*  Run test suite and unset setup and teardown functions */
 #define MU_RUN_SUITE(suite_name) \
-    MU__SAFE_BLOCK(suite_name(void); minunit_setup = NULL; minunit_teardown = NULL;)
+    MU__SAFE_BLOCK(suite_name(); minunit_setup = NULL; minunit_teardown = NULL;)
 
 /*  Configure setup and teardown functions */
 #define MU_SUITE_CONFIGURE(setup_fun, teardown_fun) \
@@ -106,26 +106,26 @@ void minunit_printf_warning(const char* format, ...);
 #define MU_RUN_TEST(test)                                        \
     MU__SAFE_BLOCK(                                              \
         if(minunit_real_timer == 0 && minunit_proc_timer == 0) { \
-            minunit_real_timer = mu_timer_real(void);                \
-            minunit_proc_timer = mu_timer_cpu(void);                 \
-        } if(minunit_setup) (*minunit_setup)(void);                  \
+            minunit_real_timer = mu_timer_real();                \
+            minunit_proc_timer = mu_timer_cpu();                 \
+        } if(minunit_setup) (*minunit_setup)();                  \
         minunit_status = 0;                                      \
         printf(#test "()\r\n");                                  \
-        test(void);                                                  \
+        test();                                                  \
         minunit_run++;                                           \
         if(minunit_status) {                                     \
             minunit_fail++;                                      \
             minunit_print_fail(minunit_last_message);            \
             minunit_status = 0;                                  \
         } fflush(stdout);                                        \
-        if(minunit_teardown)(*minunit_teardown)(void);)
+        if(minunit_teardown)(*minunit_teardown)();)
 
 #define MU_RUN_TEST_1(test, arg_1)                               \
     MU__SAFE_BLOCK(                                              \
         if(minunit_real_timer == 0 && minunit_proc_timer == 0) { \
-            minunit_real_timer = mu_timer_real(void);                \
-            minunit_proc_timer = mu_timer_cpu(void);                 \
-        } if(minunit_setup) (*minunit_setup)(void);                  \
+            minunit_real_timer = mu_timer_real();                \
+            minunit_proc_timer = mu_timer_cpu();                 \
+        } if(minunit_setup) (*minunit_setup)();                  \
         minunit_status = 0;                                      \
         printf(#test "(" #arg_1 ")\r\n");                        \
         test(arg_1);                                             \
@@ -135,7 +135,7 @@ void minunit_printf_warning(const char* format, ...);
             minunit_print_fail(minunit_last_message);            \
             minunit_status = 0;                                  \
         } fflush(stdout);                                        \
-        if(minunit_teardown)(*minunit_teardown)(void);)
+        if(minunit_teardown)(*minunit_teardown)();)
 
 /*  Report */
 #define MU_REPORT()                                                                      \
@@ -144,8 +144,8 @@ void minunit_printf_warning(const char* format, ...);
                        minunit_run,                                                      \
                        minunit_assert,                                                   \
                        minunit_fail);                                                    \
-                   minunit_end_real_timer = mu_timer_real(void);                             \
-                   minunit_end_proc_timer = mu_timer_cpu(void);                              \
+                   minunit_end_real_timer = mu_timer_real();                             \
+                   minunit_end_proc_timer = mu_timer_cpu();                              \
                    printf(                                                               \
                        "\nFinished in %.8f seconds (real) %.8f seconds (proc)\n\n",      \
                        minunit_end_real_timer - minunit_real_timer,                      \
@@ -170,7 +170,7 @@ void minunit_printf_warning(const char* format, ...);
                 #test);                      \
             minunit_status = 1;              \
             return;                          \
-        } else { minunit_print_progress(void); })
+        } else { minunit_print_progress(); })
 
 #define mu_fail(message)                            \
     MU__SAFE_BLOCK(minunit_assert++; snprintf(      \
@@ -197,7 +197,7 @@ void minunit_printf_warning(const char* format, ...);
                 message);                    \
             minunit_status = 1;              \
             return;                          \
-        } else { minunit_print_progress(void); })
+        } else { minunit_print_progress(); })
 
 #define mu_assert_int_eq(expected, result)                                                  \
     MU__SAFE_BLOCK(                                                                         \
@@ -215,7 +215,7 @@ void minunit_printf_warning(const char* format, ...);
                 minunit_tmp_r);                                                             \
             minunit_status = 1;                                                             \
             return;                                                                         \
-        } else { minunit_print_progress(void); })
+        } else { minunit_print_progress(); })
 
 #define mu_assert_int_not_eq(expected, result)                                              \
     MU__SAFE_BLOCK(                                                                         \
@@ -232,7 +232,7 @@ void minunit_printf_warning(const char* format, ...);
                 minunit_tmp_e);                                                             \
             minunit_status = 1;                                                             \
             return;                                                                         \
-        } else { minunit_print_progress(void); })
+        } else { minunit_print_progress(); })
 
 #define mu_assert_int_greater_than(val, result)                                        \
     MU__SAFE_BLOCK(                                                                    \
@@ -250,7 +250,7 @@ void minunit_printf_warning(const char* format, ...);
                 minunit_tmp_e);                                                        \
             minunit_status = 1;                                                        \
             return;                                                                    \
-        } else { minunit_print_progress(void); })
+        } else { minunit_print_progress(); })
 
 #define mu_assert_int_less_than(val, result)                                           \
     MU__SAFE_BLOCK(                                                                    \
@@ -268,7 +268,7 @@ void minunit_printf_warning(const char* format, ...);
                 minunit_tmp_e);                                                        \
             minunit_status = 1;                                                        \
             return;                                                                    \
-        } else { minunit_print_progress(void); })
+        } else { minunit_print_progress(); })
 
 #define mu_assert_int_between(expected_lower, expected_upper, result)              \
     MU__SAFE_BLOCK(                                                                \
@@ -289,7 +289,7 @@ void minunit_printf_warning(const char* format, ...);
                 minunit_tmp_m);                                                    \
             minunit_status = 1;                                                    \
             return;                                                                \
-        } else { minunit_print_progress(void); })
+        } else { minunit_print_progress(); })
 
 #define mu_assert_int_in(expected, array_length, result)                                 \
     MU__SAFE_BLOCK(                                                                      \
@@ -316,7 +316,7 @@ void minunit_printf_warning(const char* format, ...);
                 minunit_tmp_r);                                                          \
             minunit_status = 1;                                                          \
             return;                                                                      \
-        } else { minunit_print_progress(void); })
+        } else { minunit_print_progress(); })
 
 #define mu_assert_double_eq(expected, result)                                                     \
     MU__SAFE_BLOCK(                                                                               \
@@ -337,7 +337,7 @@ void minunit_printf_warning(const char* format, ...);
                 minunit_tmp_r);                                                                   \
             minunit_status = 1;                                                                   \
             return;                                                                               \
-        } else { minunit_print_progress(void); })
+        } else { minunit_print_progress(); })
 
 #define mu_assert_double_greater_than(val, result)                                           \
     MU__SAFE_BLOCK(                                                                          \
@@ -355,7 +355,7 @@ void minunit_printf_warning(const char* format, ...);
                 minunit_tmp_e);                                                              \
             minunit_status = 1;                                                              \
             return;                                                                          \
-        } else { minunit_print_progress(void); })
+        } else { minunit_print_progress(); })
 
 #define mu_assert_double_less_than(val, result)                                              \
     MU__SAFE_BLOCK(                                                                          \
@@ -373,7 +373,7 @@ void minunit_printf_warning(const char* format, ...);
                 minunit_tmp_e);                                                              \
             minunit_status = 1;                                                              \
             return;                                                                          \
-        } else { minunit_print_progress(void); })
+        } else { minunit_print_progress(); })
 
 #define mu_assert_double_between(expected_lower, expected_upper, result)                    \
     MU__SAFE_BLOCK(                                                                         \
@@ -394,7 +394,7 @@ void minunit_printf_warning(const char* format, ...);
                 minunit_tmp_m);                                                             \
             minunit_status = 1;                                                             \
             return;                                                                         \
-        } else { minunit_print_progress(void); })
+        } else { minunit_print_progress(); })
 
 //-V:mu_assert_string_eq:526, 547
 
@@ -416,7 +416,7 @@ void minunit_printf_warning(const char* format, ...);
                 minunit_tmp_r);                                                       \
             minunit_status = 1;                                                       \
             return;                                                                   \
-        } else { minunit_print_progress(void); })
+        } else { minunit_print_progress(); })
 
 //-V:mu_assert_mem_eq:526
 
@@ -446,11 +446,11 @@ void minunit_printf_warning(const char* format, ...);
             }                                                                      \
             minunit_status = 1;                                                    \
             return;                                                                \
-        } else { minunit_print_progress(void); })
+        } else { minunit_print_progress(); })
 
 #define mu_assert_null(result)                                                    \
     MU__SAFE_BLOCK(                                                               \
-        minunit_assert++; if(result == NULL) { minunit_print_progress(void); } else { \
+        minunit_assert++; if(result == NULL) { minunit_print_progress(); } else { \
             snprintf(                                                             \
                 minunit_last_message,                                             \
                 MINUNIT_MESSAGE_LEN,                                              \
@@ -464,7 +464,7 @@ void minunit_printf_warning(const char* format, ...);
 
 #define mu_assert_not_null(result)                                                \
     MU__SAFE_BLOCK(                                                               \
-        minunit_assert++; if(result != NULL) { minunit_print_progress(void); } else { \
+        minunit_assert++; if(result != NULL) { minunit_print_progress(); } else { \
             snprintf(                                                             \
                 minunit_last_message,                                             \
                 MINUNIT_MESSAGE_LEN,                                              \
@@ -478,7 +478,7 @@ void minunit_printf_warning(const char* format, ...);
 
 #define mu_assert_pointers_eq(pointer1, pointer2)                                                    \
     MU__SAFE_BLOCK(                                                                                  \
-        minunit_assert++; if(pointer1 == pointer2) { minunit_print_progress(void); } else {              \
+        minunit_assert++; if(pointer1 == pointer2) { minunit_print_progress(); } else {              \
             snprintf(                                                                                \
                 minunit_last_message,                                                                \
                 MINUNIT_MESSAGE_LEN,                                                                 \
@@ -492,7 +492,7 @@ void minunit_printf_warning(const char* format, ...);
 
 #define mu_assert_pointers_not_eq(pointer1, pointer2)                                                \
     MU__SAFE_BLOCK(                                                                                  \
-        minunit_assert++; if(pointer1 != pointer2) { minunit_print_progress(void); } else {              \
+        minunit_assert++; if(pointer1 != pointer2) { minunit_print_progress(); } else {              \
             snprintf(                                                                                \
                 minunit_last_message,                                                                \
                 MINUNIT_MESSAGE_LEN,                                                                 \
@@ -649,7 +649,7 @@ __attribute__((unused)) static double mu_timer_cpu(void) {
 
 #if defined(CLOCKS_PER_SEC)
     {
-        clock_t cl = clock(void);
+        clock_t cl = clock();
         if(cl != (clock_t)-1) return (double)cl / (double)CLOCKS_PER_SEC;
     }
 #endif

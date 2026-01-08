@@ -166,7 +166,7 @@ __STATIC_FORCEINLINE __NO_RETURN void __cmsis_start(void)
     }
   }
 
-  _start(void);
+  _start();
 }
 
 #define __PROGRAM_START           __cmsis_start
@@ -1007,7 +1007,7 @@ __STATIC_FORCEINLINE uint32_t __TZ_get_CONTROL_NS(void)
 __STATIC_FORCEINLINE void __set_CONTROL(uint32_t control)
 {
   __ASM volatile ("MSR control, %0" : : "r" (control) : "memory");
-  __ISB(void);
+  __ISB();
 }
 
 
@@ -1020,7 +1020,7 @@ __STATIC_FORCEINLINE void __set_CONTROL(uint32_t control)
 __STATIC_FORCEINLINE void __TZ_set_CONTROL_NS(uint32_t control)
 {
   __ASM volatile ("MSR control_ns, %0" : : "r" (control) : "memory");
-  __ISB(void);
+  __ISB();
 }
 #endif
 
@@ -1599,7 +1599,7 @@ __STATIC_FORCEINLINE uint32_t __get_FPSCR(void)
 // Re-enable using built-in when GCC has been fixed
 // || (__GNUC__ > 7) || (__GNUC__ == 7 && __GNUC_MINOR__ >= 2)
   /* see https://gcc.gnu.org/ml/gcc-patches/2017-04/msg00443.html */
-  return __builtin_arm_get_fpscr(void);
+  return __builtin_arm_get_fpscr();
 #else
   uint32_t result;
 

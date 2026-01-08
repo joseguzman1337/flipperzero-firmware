@@ -136,11 +136,9 @@ static const MfPlusPollerReadHandler mf_plus_poller_read_handler[MfPlusPollerSta
 static void mf_plus_poller_set_callback(
     MfPlusPoller* instance,
     NfcGenericCallback callback,
-    NfcGenericLogHistoryCallback log_callback,
     void* context) {
     furi_assert(instance);
     furi_assert(callback);
-    (void)log_callback;
 
     instance->callback = callback;
     instance->context = context;

@@ -193,14 +193,10 @@ static const SlixPollerStateHandler slix_poller_state_handler[SlixPollerStateNum
     [SlixPollerStateReady] = slix_poller_handler_ready,
 };
 
-static void slix_poller_set_callback(
-    SlixPoller* instance,
-    NfcGenericCallback callback,
-    NfcGenericLogHistoryCallback log_callback,
-    void* context) {
+static void
+    slix_poller_set_callback(SlixPoller* instance, NfcGenericCallback callback, void* context) {
     furi_assert(instance);
     furi_assert(callback);
-    (void)log_callback;
 
     instance->callback = callback;
     instance->context = context;

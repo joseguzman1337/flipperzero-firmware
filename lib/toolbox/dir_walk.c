@@ -128,7 +128,7 @@ static DirWalkResult
                         break;
                     }
 
-                    if(!storage_dir_read(dir_walk->file, &info, name, MAX_NAME_LEN)) {
+                    if(!storage_dir_read(dir_walk->file, &info, name, MAX_NAME_LEN - 1)) {
                         result = DirWalkError;
                         end = true;
                         break;

@@ -35,3 +35,15 @@
 [submodule "documentation/doxygen/doxygen-awesome-css"]
 	path = documentation/doxygen/doxygen-awesome-css
 	url = https://github.com/jothepro/doxygen-awesome-css.git
+[submodule "lib/cxxheaderparser"]
+        path = lib/cxxheaderparser
+        url = https://github.com/robotpy/cxxheaderparser.git
+[submodule "lib/littlefs"]
+        path = lib/littlefs
+        url = https://github.com/littlefs-project/littlefs.git
+[submodule "lib/uzlib"]
+        path = lib/uzlib
+        url = https://github.com/pfalcon/uzlib.git
+[submodule "scripts/flippigator/flipperzero_protobuf_py"]
+        path = scripts/flippigator/flipperzero_protobuf_py
+        url = https://github.com/flipperdevices/flipperzero_protobuf_py.git

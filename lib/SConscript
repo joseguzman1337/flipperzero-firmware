@@ -41,13 +41,10 @@ libs = env.BuildModules(
         "nanopb",
         "update_util",
         "heatshrink",
-<<<<<<< HEAD
         "ble_profile",
         "bit_lib",
         "datetime",
         "uzlib",
-=======
->>>>>>> origin/upstream-pr-2141-doom/2991-e2e-runner
     ],
 )
 

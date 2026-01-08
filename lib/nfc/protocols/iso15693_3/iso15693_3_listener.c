@@ -41,8 +41,10 @@ void iso15693_3_listener_free(Iso15693_3Listener* instance) {
 void iso15693_3_listener_set_callback(
     Iso15693_3Listener* instance,
     NfcGenericCallback callback,
+    NfcGenericLogHistoryCallback log_callback,
     void* context) {
     furi_assert(instance);
+    (void)log_callback;
 
     instance->callback = callback;
     instance->context = context;

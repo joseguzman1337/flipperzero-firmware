@@ -35,9 +35,13 @@ static void slix_listener_free(SlixListener* instance) {
     free(instance);
 }
 
-static void
-    slix_listener_set_callback(SlixListener* instance, NfcGenericCallback callback, void* context) {
+static void slix_listener_set_callback(
+    SlixListener* instance,
+    NfcGenericCallback callback,
+    NfcGenericLogHistoryCallback log_callback,
+    void* context) {
     furi_assert(instance);
+    (void)log_callback;
 
     instance->callback = callback;
     instance->context = context;

@@ -926,9 +926,11 @@ bool mf_classic_poller_detect(NfcGenericEvent event, void* context) {
 void mf_classic_poller_set_callback(
     MfClassicPoller* instance,
     NfcGenericCallback callback,
+    NfcGenericLogHistoryCallback log_callback,
     void* context) {
     furi_assert(instance);
     furi_assert(callback);
+    (void)log_callback;
 
     instance->callback = callback;
     instance->context = context;

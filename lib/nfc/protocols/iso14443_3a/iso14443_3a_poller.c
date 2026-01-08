@@ -52,9 +52,11 @@ static void iso14443_3a_poller_free_new(Iso14443_3aPoller* iso14443_3a_poller) {
 static void iso14443_3a_poller_set_callback(
     Iso14443_3aPoller* instance,
     NfcGenericCallback callback,
+    NfcGenericLogHistoryCallback log_callback,
     void* context) {
     furi_assert(instance);
     furi_assert(callback);
+    (void)log_callback;
 
     instance->callback = callback;
     instance->context = context;

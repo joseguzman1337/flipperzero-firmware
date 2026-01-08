@@ -46,10 +46,14 @@ static void felica_poller_free(FelicaPoller* instance) {
     free(instance);
 }
 
-static void
-    felica_poller_set_callback(FelicaPoller* instance, NfcGenericCallback callback, void* context) {
+static void felica_poller_set_callback(
+    FelicaPoller* instance,
+    NfcGenericCallback callback,
+    NfcGenericLogHistoryCallback log_callback,
+    void* context) {
     furi_assert(instance);
     furi_assert(callback);
+    (void)log_callback;
 
     instance->callback = callback;
     instance->context = context;

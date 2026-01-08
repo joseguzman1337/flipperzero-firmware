@@ -27,18 +27,18 @@ typedef struct {
 
 typedef uint16_t (*SerialServiceEventCallback)(SerialServiceEvent event, void* context);
 
-void serial_svc_start();
+void serial_svc_start(void);
 
 void serial_svc_set_callbacks(
     uint16_t buff_size,
     SerialServiceEventCallback callback,
     void* context);
 
-void serial_svc_notify_buffer_is_empty();
+void serial_svc_notify_buffer_is_empty(void);
 
-void serial_svc_stop();
+void serial_svc_stop(void);
 
-bool serial_svc_is_started();
+bool serial_svc_is_started(void);
 
 bool serial_svc_update_tx(uint8_t* data, uint16_t data_len);
 

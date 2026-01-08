@@ -5,8 +5,8 @@
 
 typedef struct {
     const char* name;
-    bool (*napi_mf_classic_mfkey32_nonces_check_presence)();
-    bool (*napi_mf_classic_nested_nonces_check_presence)();
+    bool (*napi_mf_classic_mfkey32_nonces_check_presence)(void);
+    bool (*napi_mf_classic_nested_nonces_check_presence)(void);
     MfClassicNonceArray* (
         *napi_mf_classic_nonce_array_alloc)(KeysDict*, bool, KeysDict*, ProgramState*);
     void (*napi_mf_classic_nonce_array_free)(MfClassicNonceArray*);

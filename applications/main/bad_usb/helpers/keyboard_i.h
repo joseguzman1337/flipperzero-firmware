@@ -55,7 +55,7 @@ struct BadUsbKeyboard {
 
 BadUsbKeyboard* bad_usb_keyboard_alloc(void* data, const struct BadUsbKeyboardVTable* vtable);
 
-BadUsbKeyboard* bad_usb_keyboard_layout_default_alloc();
+BadUsbKeyboard* bad_usb_keyboard_layout_default_alloc(void);
 BadUsbKeyboard* bad_usb_keyboard_v1_alloc_read(File* layout);
 BadUsbKeyboard* bad_usb_keyboard_v2_alloc_read(File* layout);
 

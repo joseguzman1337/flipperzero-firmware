@@ -20,7 +20,7 @@ bool furi_hal_crc_acquire(uint32_t timeout);
 
 /** Reset current calculation state and release CRC block
  */
-void furi_hal_crc_reset();
+void furi_hal_crc_reset(void);
 
 /** Process data block. Does not reset current state,
  * allowing to process arbitrary data lengths

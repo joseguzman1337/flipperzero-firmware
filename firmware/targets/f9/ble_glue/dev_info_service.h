@@ -13,11 +13,11 @@ extern "C" {
 #define DEV_INFO_SOFTWARE_REVISION_NUMBER \
     GIT_COMMIT " " GIT_BRANCH " " GIT_BRANCH_NUM " " BUILD_DATE
 
-void dev_info_svc_start();
+void dev_info_svc_start(void);
 
-void dev_info_svc_stop();
+void dev_info_svc_stop(void);
 
-bool dev_info_svc_is_started();
+bool dev_info_svc_is_started(void);
 
 #ifdef __cplusplus
 }

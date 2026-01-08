@@ -190,26 +190,26 @@ typedef struct {
 */
 __STATIC_INLINE void ARM_MPU_Enable(uint32_t MPU_Control)
 {
-  __DMB();
+  __DMB(void);
   MPU->CTRL = MPU_Control | MPU_CTRL_ENABLE_Msk;
 #ifdef SCB_SHCSR_MEMFAULTENA_Msk
   SCB->SHCSR |= SCB_SHCSR_MEMFAULTENA_Msk;
 #endif
-  __DSB();
-  __ISB();
+  __DSB(void);
+  __ISB(void);
 }
 
 /** Disable the MPU.
 */
 __STATIC_INLINE void ARM_MPU_Disable(void)
 {
-  __DMB();
+  __DMB(void);
 #ifdef SCB_SHCSR_MEMFAULTENA_Msk
   SCB->SHCSR &= ~SCB_SHCSR_MEMFAULTENA_Msk;
 #endif
   MPU->CTRL  &= ~MPU_CTRL_ENABLE_Msk;
-  __DSB();
-  __ISB();
+  __DSB(void);
+  __ISB(void);
 }
 
 /** Clear and disable the given MPU region.

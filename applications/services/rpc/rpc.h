@@ -49,14 +49,14 @@ RpcOwner rpc_session_get_owner(RpcSession* session);
 /** Open RPC session
  *
  * USAGE:
- * 1) rpc_session_open();
- * 2) rpc_session_set_context();
- * 3) rpc_session_set_send_bytes_callback();
- * 4) rpc_session_set_close_callback();
+ * 1) rpc_session_open(void);
+ * 2) rpc_session_set_context(void);
+ * 3) rpc_session_set_send_bytes_callback(void);
+ * 4) rpc_session_set_close_callback(void);
  * 5) while(1) {
- *      rpc_session_feed();
+ *      rpc_session_feed(void);
  *    }
- * 6) rpc_session_close();
+ * 6) rpc_session_close(void);
  *
  *
  * @param   rpc     instance

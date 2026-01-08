@@ -34,10 +34,10 @@ typedef struct {
 } ArchiveFile_t;
 
 static void ArchiveFile_t_init(ArchiveFile_t* obj) {
-    obj->path = furi_string_alloc();
+    obj->path = furi_string_alloc(void);
     obj->type = ArchiveFileTypeUnknown;
     obj->custom_icon_data = NULL;
-    obj->custom_name = furi_string_alloc();
+    obj->custom_name = furi_string_alloc(void);
     obj->fav = false;
     obj->is_app = false;
 }

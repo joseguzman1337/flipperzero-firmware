@@ -9,11 +9,11 @@ extern "C" {
 
 /** Start Hid Keyboard Profile
  */
-void furi_hal_bt_hid_start();
+void furi_hal_bt_hid_start(void);
 
 /** Stop Hid Keyboard Profile
  */
-void furi_hal_bt_hid_stop();
+void furi_hal_bt_hid_stop(void);
 
 /** Press keyboard button
  *
@@ -35,7 +35,7 @@ bool furi_hal_bt_hid_kb_release(uint16_t button);
  *
  * @return          true on success
  */
-bool furi_hal_bt_hid_kb_release_all();
+bool furi_hal_bt_hid_kb_release_all(void);
 
 /** Set mouse movement and send HID report
  *
@@ -60,7 +60,7 @@ bool furi_hal_bt_hid_mouse_release(uint8_t button);
  *
  * @param      button  key code
  */
-bool furi_hal_bt_hid_mouse_release_all();
+bool furi_hal_bt_hid_mouse_release_all(void);
 
 /** Set mouse wheel position and send HID report
  *
@@ -84,7 +84,7 @@ bool furi_hal_bt_hid_consumer_key_release(uint16_t button);
  *
  * @param      button  key code
  */
-bool furi_hal_bt_hid_consumer_key_release_all();
+bool furi_hal_bt_hid_consumer_key_release_all(void);
 
 #ifdef __cplusplus
 }

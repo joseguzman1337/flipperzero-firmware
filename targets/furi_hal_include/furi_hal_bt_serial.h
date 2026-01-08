@@ -18,11 +18,11 @@ typedef SerialServiceEventCallback FuriHalBtSerialCallback;
 
 /** Start Serial Profile
  */
-void furi_hal_bt_serial_start();
+void furi_hal_bt_serial_start(void);
 
 /** Stop Serial Profile
  */
-void furi_hal_bt_serial_stop();
+void furi_hal_bt_serial_stop(void);
 
 /** Set Serial service events callback
  *
@@ -43,7 +43,7 @@ void furi_hal_bt_serial_set_rpc_status(FuriHalBtSerialRpcStatus status);
 
 /** Notify that application buffer is empty
  */
-void furi_hal_bt_serial_notify_buffer_is_empty();
+void furi_hal_bt_serial_notify_buffer_is_empty(void);
 
 /** Send data through BLE
  *

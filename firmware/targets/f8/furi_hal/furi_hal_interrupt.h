@@ -54,7 +54,7 @@ typedef enum {
 } FuriHalInterruptId;
 
 /** Initialize interrupt subsystem */
-void furi_hal_interrupt_init();
+void furi_hal_interrupt_init(void);
 
 /** Set ISR and enable interrupt with default priority
  * We don't clear interrupt flags for you, do it by your self.

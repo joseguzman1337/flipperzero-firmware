@@ -4,7 +4,7 @@
 #include <toolbox/cli/cli_command.h>
 #include <toolbox/cli/cli_ansi.h>
 
-size_t nfc_cli_command_get_count();
+size_t nfc_cli_command_get_count(void);
 
 const NfcCliCommandDescriptor* nfc_cli_command_get_by_index(size_t index);
 

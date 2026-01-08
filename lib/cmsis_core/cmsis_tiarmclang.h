@@ -799,7 +799,7 @@ __STATIC_FORCEINLINE uint32_t __TZ_get_CONTROL_NS(void)
 __STATIC_FORCEINLINE void __set_CONTROL(uint32_t control)
 {
   __ASM volatile ("MSR control, %0" : : "r" (control) : "memory");
-  __ISB();
+  __ISB(void);
 }
 
 
@@ -812,7 +812,7 @@ __STATIC_FORCEINLINE void __set_CONTROL(uint32_t control)
 __STATIC_FORCEINLINE void __TZ_set_CONTROL_NS(uint32_t control)
 {
   __ASM volatile ("MSR control_ns, %0" : : "r" (control) : "memory");
-  __ISB();
+  __ISB(void);
 }
 #endif
 

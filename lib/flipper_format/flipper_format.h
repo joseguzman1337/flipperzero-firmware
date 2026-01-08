@@ -69,8 +69,8 @@
  *
  * do { uint32_t version = 1; FuriString* file_type; FuriString* string_value;
  * uint32_t uint32_value = 1; uint16_t array_size = 4; uint8_t*
- * array[array_size] = {0}; file_type = furi_string_alloc(); string_value =
- * furi_string_alloc();
+ * array[array_size] = {0}; file_type = furi_string_alloc(void); string_value =
+ * furi_string_alloc(void);
  *
  * if(!flipper_format_file_open_existing(file, EXT_PATH("flipper_format_test")))
  * break; if(!flipper_format_read_header(file, file_type, &version)) break;

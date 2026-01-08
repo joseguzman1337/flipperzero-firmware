@@ -10,7 +10,7 @@ extern "C" {
 
 typedef struct BadUsbKeyboard BadUsbKeyboard;
 
-BadUsbKeyboard* bad_usb_keyboard_alloc_default();
+BadUsbKeyboard* bad_usb_keyboard_alloc_default(void);
 BadUsbKeyboard* bad_usb_keyboard_alloc_read(File* layout_file);
 void bad_usb_keyboard_free(BadUsbKeyboard* keyboard);
 

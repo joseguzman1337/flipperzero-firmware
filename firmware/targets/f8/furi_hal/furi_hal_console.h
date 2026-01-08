@@ -9,11 +9,11 @@ extern "C" {
 
 typedef void (*FuriHalConsoleTxCallback)(const uint8_t* buffer, size_t size, void* context);
 
-void furi_hal_console_init();
+void furi_hal_console_init(void);
 
-void furi_hal_console_enable();
+void furi_hal_console_enable(void);
 
-void furi_hal_console_disable();
+void furi_hal_console_disable(void);
 
 void furi_hal_console_set_tx_callback(FuriHalConsoleTxCallback callback, void* context);
 

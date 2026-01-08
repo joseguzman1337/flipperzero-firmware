@@ -7,9 +7,9 @@ extern "C" {
 #include <stdbool.h>
 #include <stdint.h>
 
-bool ble_app_init();
+bool ble_app_init(void);
 void ble_app_get_key_storage_buff(uint8_t** addr, uint16_t* size);
-void ble_app_thread_stop();
+void ble_app_thread_stop(void);
 
 #ifdef __cplusplus
 }

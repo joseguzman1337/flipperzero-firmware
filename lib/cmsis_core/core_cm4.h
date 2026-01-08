@@ -1726,9 +1726,9 @@ __STATIC_INLINE void __NVIC_EnableIRQ(IRQn_Type IRQn)
 {
   if ((int32_t)(IRQn) >= 0)
   {
-    __COMPILER_BARRIER();
+    __COMPILER_BARRIER(void);
     NVIC->ISER[(((uint32_t)IRQn) >> 5UL)] = (uint32_t)(1UL << (((uint32_t)IRQn) & 0x1FUL));
-    __COMPILER_BARRIER();
+    __COMPILER_BARRIER(void);
   }
 }
 
@@ -1765,8 +1765,8 @@ __STATIC_INLINE void __NVIC_DisableIRQ(IRQn_Type IRQn)
   if ((int32_t)(IRQn) >= 0)
   {
     NVIC->ICER[(((uint32_t)IRQn) >> 5UL)] = (uint32_t)(1UL << (((uint32_t)IRQn) & 0x1FUL));
-    __DSB();
-    __ISB();
+    __DSB(void);
+    __ISB(void);
   }
 }
 
@@ -1978,16 +1978,16 @@ __STATIC_INLINE uint32_t __NVIC_GetVector(IRQn_Type IRQn)
  */
 __NO_RETURN __STATIC_INLINE void __NVIC_SystemReset(void)
 {
-  __DSB();                                                          /* Ensure all outstanding memory accesses included
+  __DSB(void);                                                          /* Ensure all outstanding memory accesses included
                                                                        buffered write are completed before reset */
   SCB->AIRCR  = (uint32_t)((0x5FAUL << SCB_AIRCR_VECTKEY_Pos)    |
                            (SCB->AIRCR & SCB_AIRCR_PRIGROUP_Msk) |
                             SCB_AIRCR_SYSRESETREQ_Msk    );         /* Keep priority group unchanged */
-  __DSB();                                                          /* Ensure completion of memory access */
+  __DSB(void);                                                          /* Ensure completion of memory access */
 
   for(;;)                                                           /* wait until reset */
   {
-    __NOP();
+    __NOP(void);
   }
 }
 
@@ -2109,7 +2109,7 @@ __STATIC_INLINE uint32_t ITM_SendChar (uint32_t ch)
   {
     while (ITM->PORT[0U].u32 == 0UL)
     {
-      __NOP();
+      __NOP(void);
     }
     ITM->PORT[0U].u8 = (uint8_t)ch;
   }

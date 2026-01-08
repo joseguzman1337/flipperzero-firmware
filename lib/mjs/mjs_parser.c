@@ -287,7 +287,7 @@ static mjs_err_t parse_array_literal(struct pstate* p) {
     return res;
 }
 
-static enum mjs_err parse_literal(struct pstate* p, const struct tok* t) {
+static enum mjs_err parse_literal(struct pstate* p, const struct tok* t, int effective_prev_op) {
     struct mbuf* bcode_gen = &p->mjs->bcode_gen;
     enum mjs_err res = MJS_OK;
     int tok = t->tok;
@@ -308,12 +308,13 @@ static enum mjs_err parse_literal(struct pstate* p, const struct tok* t) {
     case TOK_IDENT: {
         int prev_tok = p->prev_tok;
         int next_tok = ptest(p);
+        int is_prop_access = (next_tok == TOK_DOT || next_tok == TOK_OPEN_BRACKET);
         emit_byte(p, OP_PUSH_STR);
         emit_str(p, t->ptr, t->len);
         emit_byte(p, (uint8_t)(prev_tok == TOK_DOT ? OP_SWAP : OP_FIND_SCOPE));
-        if(!findtok(s_assign_ops, next_tok) && !findtok(s_postfix_ops, next_tok) &&
-           /* TODO(dfrank): fix: it doesn't work for prefix ops */
-           !findtok(s_postfix_ops, prev_tok)) {
+        if(is_prop_access ||
+           (!findtok(s_assign_ops, next_tok) && !findtok(s_postfix_ops, next_tok) &&
+            !findtok(s_postfix_ops, effective_prev_op))) {
             emit_byte(p, OP_GET);
         }
         break;
@@ -365,17 +366,15 @@ static enum mjs_err parse_literal(struct pstate* p, const struct tok* t) {
 static mjs_err_t parse_call_dot_mem(struct pstate* p, int prev_op) {
     int ops[] = {TOK_DOT, TOK_OPEN_PAREN, TOK_OPEN_BRACKET, TOK_EOF};
     mjs_err_t res = MJS_OK;
-    if((res = parse_literal(p, &p->tok)) != MJS_OK) return res;
+    if((res = parse_literal(p, &p->tok, prev_op)) != MJS_OK) return res;
     while(findtok(ops, p->tok.tok) != TOK_EOF) {
         if(p->tok.tok == TOK_OPEN_BRACKET) {
-            int prev_tok = p->prev_tok;
             EXPECT(p, TOK_OPEN_BRACKET);
             if((res = parse_expr(p)) != MJS_OK) return res;
             emit_byte(p, OP_SWAP);
             EXPECT(p, TOK_CLOSE_BRACKET);
             if(!findtok(s_assign_ops, p->tok.tok) && !findtok(s_postfix_ops, p->tok.tok) &&
-               /* TODO(dfrank): fix: it doesn't work for prefix ops */
-               !findtok(s_postfix_ops, prev_tok)) {
+               !findtok(s_postfix_ops, prev_op)) {
                 emit_byte(p, OP_GET);
             }
         } else if(p->tok.tok == TOK_OPEN_PAREN) {
@@ -389,7 +388,7 @@ static mjs_err_t parse_call_dot_mem(struct pstate* p, int prev_op) {
             EXPECT(p, TOK_CLOSE_PAREN);
         } else if(p->tok.tok == TOK_DOT) {
             EXPECT(p, TOK_DOT);
-            if((res = parse_call_dot_mem(p, TOK_DOT)) != MJS_OK) return res;
+            if((res = parse_call_dot_mem(p, prev_op)) != MJS_OK) return res;
         }
     }
     (void)prev_op;
@@ -415,9 +414,9 @@ static mjs_err_t parse_unary(struct pstate* p, int prev_op) {
         pnext1(p);
     }
     if(findtok(s_unary_ops, p->tok.tok) != TOK_EOF) {
-        res = parse_unary(p, prev_op);
+        res = parse_unary(p, op == TOK_EOF ? prev_op : op);
     } else {
-        res = parse_postfix(p, prev_op);
+        res = parse_postfix(p, op == TOK_EOF ? prev_op : op);
     }
     if(res != MJS_OK) return res;
     if(op != TOK_EOF) {

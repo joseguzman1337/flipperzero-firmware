@@ -1,11 +1,15 @@
 #pragma once
 
+#include <stdint.h>
+#include <stddef.h>
+#include <stdbool.h>
+
+#include <nfc/protocols/nfc_device_base.h>
 #include <lib/nfc/protocols/iso14443_4a/iso14443_4a.h>
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
+// Forward declarations for external types used only by pointer or value.
+typedef struct FuriString FuriString;
+typedef struct FlipperFormat FlipperFormat;
 #define MF_PLUS_UID_SIZE_MAX (7)
 #define MF_PLUS_BATCH_SIZE   (5)
 
@@ -110,6 +114,3 @@ bool mf_plus_set_uid(MfPlusData* data, const uint8_t* uid, size_t uid_len);
 
 Iso14443_4aData* mf_plus_get_base_data(const MfPlusData* data);
 
-#ifdef __cplusplus
-}
-#endif

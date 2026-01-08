@@ -781,8 +781,10 @@ const MfUltralightData* mf_ultralight_listener_get_data(MfUltralightListener* in
 void mf_ultralight_listener_set_callback(
     MfUltralightListener* instance,
     NfcGenericCallback callback,
+    NfcGenericLogHistoryCallback log_callback,
     void* context) {
     furi_assert(instance);
+    (void)log_callback;
 
     instance->callback = callback;
     instance->context = context;

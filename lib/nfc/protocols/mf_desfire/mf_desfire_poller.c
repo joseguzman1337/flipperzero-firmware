@@ -204,9 +204,11 @@ static const MfDesfirePollerReadHandler mf_desfire_poller_read_handler[MfDesfire
 static void mf_desfire_poller_set_callback(
     MfDesfirePoller* instance,
     NfcGenericCallback callback,
+    NfcGenericLogHistoryCallback log_callback,
     void* context) {
     furi_assert(instance);
     furi_assert(callback);
+    (void)log_callback;
 
     instance->callback = callback;
     instance->context = context;

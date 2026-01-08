@@ -1,6 +1,12 @@
 #pragma once
 
+#include <stdbool.h>
+
 #include "mf_plus.h"
+
+// Forward declarations for types only used via pointers here.
+typedef struct BitBuffer BitBuffer;
+typedef struct FlipperFormat FlipperFormat;
 
 #define MF_PLUS_FFF_PICC_PREFIX "PICC"
 

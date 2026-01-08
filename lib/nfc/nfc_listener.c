@@ -55,7 +55,10 @@ static void nfc_listener_list_alloc(NfcListener* instance) {
         data_tmp = nfc_device_get_data_ptr(instance->nfc_dev, iter->child->protocol);
         iter->child->listener = iter->child->listener_api->alloc(iter->listener, data_tmp);
         iter->listener_api->set_callback(
-            iter->listener, iter->child->listener_api->run, iter->child->listener);
+            iter->listener,
+            iter->child->listener_api->run,
+            NULL,
+            iter->child->listener);
 
         iter = iter->child;
     } while(true);
@@ -119,7 +122,7 @@ void nfc_listener_start(NfcListener* instance, NfcGenericCallback callback, void
     furi_check(instance);
 
     NfcListenerListElement* tail_element = instance->list.tail;
-    tail_element->listener_api->set_callback(tail_element->listener, callback, context);
+    tail_element->listener_api->set_callback(tail_element->listener, callback, NULL, context);
     nfc_start(instance->nfc, nfc_listener_start_callback, instance);
 }
 

@@ -2,6 +2,11 @@
 
 #include <lib/nfc/protocols/iso14443_3a/iso14443_3a.h>
 #include <mbedtls/include/mbedtls/des.h>
+#include <nfc/protocols/nfc_device_base.h>
+
+// Forward declarations for external types used only via pointer.
+typedef struct FuriString FuriString;
+typedef struct FlipperFormat FlipperFormat;
 
 #ifdef __cplusplus
 extern "C" {

@@ -16,64 +16,8 @@
  */
 #pragma once
 
-#include "nfc_protocol.h"
-#include <nfc/nfc.h>
+// Upstream wrapper: delegate NFC generic event definitions to the enhanced
+// Momentum implementation under lib/nfc.
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#include <lib/nfc/protocols/nfc_generic_event.h>
 
-/**
- * @brief Generic Nfc instance type.
- *
- * Must be cast to a concrete type before use.
- * Depending on the context, a pointer of this type
- * may point to an object of the following types:
- * - Nfc type,
- * - Concrete poller type,
- * - Concrete listener type.
- */
-typedef void NfcGenericInstance;
-
-/**
- * @brief Generic Nfc event data type.
- *
- * Must be cast to a concrete type before use.
- * Usually, it will be the protocol-specific event type.
- */
-typedef void NfcGenericEventData;
-
-/**
- * @brief Generic Nfc event type.
- *
- * A generic Nfc event contains a protocol identifier, can be used to determine
- * the remaing fields' type.
- *
- * If the value of the protocol field is NfcProtocolInvalid, then it means that
- * the event was emitted from an Nfc instance, otherwise it originated from
- * a concrete poller or listener instance.
- *
- * The event_data field is protocol-specific and should be cast to the appropriate type before use.
- */
-typedef struct {
-    NfcProtocol protocol; /**< Protocol identifier of the instance that produced the event. */
-    NfcGenericInstance*
-        instance; /**< Pointer to the protocol-specific instance that produced the event. */
-    NfcGenericEventData* event_data; /**< Pointer to the protocol-specific event. */
-} NfcGenericEvent;
-
-/**
- * @brief Generic Nfc event callback type.
- *
- * A function of this type must be passed as the callback parameter upon start
- * of a poller, listener or Nfc instance.
- *
- * @param [in] event Nfc generic event, passed by value, complete with protocol type and data.
- * @param [in,out] context pointer to the user-specific context (set when starting a poller/listener instance).
- * @returns the command which the event producer must execute.
- */
-typedef NfcCommand (*NfcGenericCallback)(NfcGenericEvent event, void* context);
-
-#ifdef __cplusplus
-}
-#endif

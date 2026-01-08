@@ -11,6 +11,9 @@
 
 #include <flipper_format.h>
 
+// Forward declaration for string type used in verify callbacks.
+typedef struct FuriString FuriString;
+
 #ifdef __cplusplus
 extern "C" {
 #endif

@@ -672,8 +672,10 @@ void mf_classic_listener_free(MfClassicListener* instance) {
 void mf_classic_listener_set_callback(
     MfClassicListener* instance,
     NfcGenericCallback callback,
+    NfcGenericLogHistoryCallback log_callback,
     void* context) {
     furi_assert(instance);
+    (void)log_callback;
 
     instance->callback = callback;
     instance->context = context;

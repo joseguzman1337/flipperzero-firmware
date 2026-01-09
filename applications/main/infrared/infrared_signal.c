@@ -139,6 +139,8 @@ static inline bool infrared_signal_read_raw(InfraredSignal* signal, FlipperForma
     }
 
     uint32_t* timings = malloc(sizeof(uint32_t) * timings_size);
+    if(!timings) return false;
+
     success = flipper_format_read_uint32(ff, "data", timings, timings_size);
 
     if(success) {
@@ -171,14 +173,16 @@ static bool infrared_signal_read_body(InfraredSignal* signal, FlipperFormat* ff)
 
 InfraredSignal* infrared_signal_alloc() {
     InfraredSignal* signal = malloc(sizeof(InfraredSignal));
-
-    signal->is_raw = false;
-    signal->payload.message.protocol = InfraredProtocolUnknown;
+    if(signal) {
+        signal->is_raw = false;
+        signal->payload.message.protocol = InfraredProtocolUnknown;
+    }
 
     return signal;
 }
 
 void infrared_signal_free(InfraredSignal* signal) {
+    if(!signal) return;
     infrared_signal_clear_timings(signal);
     free(signal);
 }
@@ -218,7 +222,11 @@ void infrared_signal_set_raw_signal(
     signal->payload.raw.duty_cycle = duty_cycle;
 
     signal->payload.raw.timings = malloc(timings_size * sizeof(uint32_t));
-    memcpy(signal->payload.raw.timings, timings, timings_size * sizeof(uint32_t));
+    if(signal->payload.raw.timings) {
+        memcpy(signal->payload.raw.timings, timings, timings_size * sizeof(uint32_t));
+    } else {
+        signal->payload.raw.timings_size = 0;
+    }
 }
 
 const InfraredRawSignal* infrared_signal_get_raw_signal(const InfraredSignal* signal) {

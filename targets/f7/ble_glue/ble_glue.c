@@ -37,6 +37,7 @@ static uint8_t ble_spare_event_buff[sizeof(TL_PacketHeader_t) + TL_EVT_HDR_SIZE 
 
 typedef struct {
     FuriMutex* shci_mtx;
+    FuriMutex* status_mtx;
     FuriTimer* hardfault_check_timer;
     BleGlueStatus status;
     BleGlueKeyStorageChangedCallback callback;
@@ -87,6 +88,7 @@ void ble_glue_init(void) {
     TL_Init();
 
     ble_glue->shci_mtx = furi_mutex_alloc(FuriMutexTypeNormal);
+    ble_glue->status_mtx = furi_mutex_alloc(FuriMutexTypeNormal);
     // Take mutex, SHCI will release it in most unusual way later
     furi_check(furi_mutex_acquire(ble_glue->shci_mtx, FuriWaitForever) == FuriStatusOk);
 
@@ -118,7 +120,10 @@ const BleGlueC2Info* ble_glue_get_c2_info(void) {
 }
 
 BleGlueStatus ble_glue_get_c2_status(void) {
-    return ble_glue->status;
+    furi_mutex_acquire(ble_glue->status_mtx, FuriWaitForever);
+    BleGlueStatus status = ble_glue->status;
+    furi_mutex_release(ble_glue->status_mtx);
+    return status;
 }
 
 static const char* ble_glue_get_reltype_str(const uint8_t reltype) {
@@ -207,12 +212,16 @@ bool ble_glue_wait_for_c2_start(int32_t timeout_ms) {
     FuriHalCortexTimer timer = furi_hal_cortex_timer_get(timeout_ms * 1000);
     do {
         furi_delay_tick(1);
+        furi_mutex_acquire(ble_glue->status_mtx, FuriWaitForever);
         started = ble_glue->status == BleGlueStatusC2Started;
+        furi_mutex_release(ble_glue->status_mtx);
     } while(!started && !furi_hal_cortex_timer_is_expired(timer));
 
     if(!started) {
         FURI_LOG_E(TAG, "C2 startup failed");
+        furi_mutex_acquire(ble_glue->status_mtx, FuriWaitForever);
         ble_glue->status = BleGlueStatusBroken;
+        furi_mutex_release(ble_glue->status_mtx);
         return false;
     }
 
@@ -228,19 +237,26 @@ bool ble_glue_wait_for_c2_start(int32_t timeout_ms) {
 bool ble_glue_start(void) {
     furi_check(ble_glue);
 
+    furi_mutex_acquire(ble_glue->status_mtx, FuriWaitForever);
     if(ble_glue->status != BleGlueStatusC2Started) {
+        furi_mutex_release(ble_glue->status_mtx);
         return false;
     }
+    furi_mutex_release(ble_glue->status_mtx);
 
     if(!ble_app_init()) {
         FURI_LOG_E(TAG, "Radio stack startup failed");
+        furi_mutex_acquire(ble_glue->status_mtx, FuriWaitForever);
         ble_glue->status = BleGlueStatusRadioStackMissing;
+        furi_mutex_release(ble_glue->status_mtx);
         ble_app_deinit();
         return false;
     }
 
     FURI_LOG_I(TAG, "Radio stack started");
+    furi_mutex_acquire(ble_glue->status_mtx, FuriWaitForever);
     ble_glue->status = BleGlueStatusRadioStackRunning;
+    furi_mutex_release(ble_glue->status_mtx);
     return true;
 }
 
@@ -251,6 +267,8 @@ void ble_glue_stop(void) {
     // Free resources
     furi_mutex_free(ble_glue->shci_mtx);
     ble_glue->shci_mtx = NULL;
+    furi_mutex_free(ble_glue->status_mtx);
+    ble_glue->status_mtx = NULL;
     furi_timer_free(ble_glue->hardfault_check_timer);
     ble_glue->hardfault_check_timer = NULL;
 
@@ -264,7 +282,10 @@ bool ble_glue_is_alive(void) {
         return false;
     }
 
-    return ble_glue->status >= BleGlueStatusC2Started;
+    furi_mutex_acquire(ble_glue->status_mtx, FuriWaitForever);
+    bool is_alive = ble_glue->status >= BleGlueStatusC2Started;
+    furi_mutex_release(ble_glue->status_mtx);
+    return is_alive;
 }
 
 bool ble_glue_is_radio_stack_ready(void) {
@@ -272,7 +293,10 @@ bool ble_glue_is_radio_stack_ready(void) {
         return false;
     }
 
-    return ble_glue->status == BleGlueStatusRadioStackRunning;
+    furi_mutex_acquire(ble_glue->status_mtx, FuriWaitForever);
+    bool is_ready = ble_glue->status == BleGlueStatusRadioStackRunning;
+    furi_mutex_release(ble_glue->status_mtx);
+    return is_ready;
 }
 
 BleGlueCommandResult ble_glue_force_c2_mode(BleGlueC2Mode desired_mode) {
@@ -354,7 +378,9 @@ static void ble_sys_user_event_callback(void* pPayload) {
             ble_glue->c2_info.mode = BleGlueC2ModeFUS;
         }
 
+        furi_mutex_acquire(ble_glue->status_mtx, FuriWaitForever);
         ble_glue->status = BleGlueStatusC2Started;
+        furi_mutex_release(ble_glue->status_mtx);
     } else if(p_sys_event->subevtcode == SHCI_SUB_EVT_ERROR_NOTIF) {
         FURI_LOG_E(TAG, "Error during initialization");
     } else if(p_sys_event->subevtcode == SHCI_SUB_EVT_BLE_NVM_RAM_UPDATE) {

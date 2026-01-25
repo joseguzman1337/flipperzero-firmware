@@ -6,6 +6,7 @@
 #include <furi_hal_serial_control.h>
 #include <furi_hal_rtc.h>
 #include <furi_hal_debug.h>
+#include <furi_hal_usb.h>
 
 #include <stm32wbxx_ll_rcc.h>
 #include <stm32wbxx_ll_pwr.h>
@@ -186,6 +187,8 @@ static inline void furi_hal_power_suspend_aux_periphs(void) {
 static inline void furi_hal_power_resume_aux_periphs(void) {
     // Re-enable USART
     furi_hal_serial_control_resume();
+    // Re-enable USB
+    furi_hal_usb_reinit();
 }
 
 static inline void furi_hal_power_deep_sleep(void) {

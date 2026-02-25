@@ -1,0 +1,40 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(gh repo view:*)",
+      "Bash(gh api:*)",
+      "Bash(gh pr list:*)",
+      "Bash(for pr in 357 354 353 352 351 349 348 347 346 345 344 343 342 340 339 338 337 336 335 332 331 330 329 328 327 326 325 324 323 322 311 301 269 266 261 256 254 251)",
+      "Bash(do)",
+      "Bash(gh pr comment:*)",
+      "Bash(done)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(gh pr edit:*)",
+      "Bash(column -t -s '|':*)",
+      "Bash(echo:*)",
+      "Bash(do echo \"Updating PR #$pr...\")",
+      "Bash(gh pr view:*)",
+      "Bash(gh workflow run:*)",
+      "Bash(gh run list:*)",
+      "Bash(gh pr review:*)",
+      "Bash(for pr in 357 354 353 352 351 349 348 347 346 345 344 343 342 340 336 335 332 331 330 329 328 326 325 324 323 322 311 301 269 266 261 256 254 251)",
+      "Bash(do gh pr comment $pr --body \"🔄 **AI A2A: Automated Update in Progress**\n\nThe AI Collaborative System is automatically updating this PR with the latest dev branch and attempting to resolve any conflicts.\n\n**Process:**\n1. ✅ Merging latest dev branch  \n2. 🔄 Auto-resolving conflicts\n3. ⏳ Preparing for review and merge\n\n🤖 @claude + @codex + @gemini-code-assist + @google-labs-jules + @chatgpt-codex-connector\n\nYou will be notified when the process completes.\")",
+      "Bash(gh pr merge:*)",
+      "Bash(chmod:*)",
+      "Bash(bash:*)",
+      "Bash(codeql database create:*)",
+      "Bash(cppcheck:*)",
+      "Bash(cat:*)",
+      "Bash(semgrep:*)",
+      "Bash(tee:*)",
+      "Bash(python3:*)",
+      "Bash(for file in applications/debug/direct_draw/direct_draw.c applications/debug/display_test/display_test.c applications/debug/display_test/view_display_test.c applications/debug/file_browser_test/file_browser_app.c applications/debug/lfrfid_debug/lfrfid_debug.c applications/debug/lfrfid_debug/views/lfrfid_debug_view_tune.c applications/debug/locale_test/locale_test.c applications/debug/rpc_debug_app/rpc_debug_app.c applications/debug/uart_echo/uart_echo.c)",
+      "Bash(do grep -A3 \"malloc\\(sizeof\" \"$file\")",
+      "Bash(grep:*)",
+      "Bash(git reset:*)",
+      "Bash(git commit -m \"$\\(cat <<''EOF''\nFix memory safety vulnerabilities across codebase\n\n- Add null pointer checks after malloc/realloc calls in 19 debug applications\n- Fix memory leak on realloc failure in mfkey.c using temporary pointer pattern\n- All fixes use furi_check\\(\\) for proper allocation failure handling\n\n🤖 Generated with [Claude Code]\\(https://claude.com/claude-code\\)\n\nCo-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>\nEOF\n\\)\")"
+    ]
+  }
+}
